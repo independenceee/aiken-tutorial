@@ -5,35 +5,35 @@
 Chứng chỉ trên chuỗi chứng thực một số hoạt động. Xuất bản chứng chỉ/kích hoạt các loại quy tắc khác nhau; hầu hết thời gian, họ yêu cầu chữ ký từ/các khóa cụ thể.
 
 ```aiken
-CredentialRegistration { 
-    delegator: StakeCredential 
+CredentialRegistration {
+    delegator: StakeCredential
 }
 ```
 
 ```aiken
-CredentialDeregistration { 
-    delegator: StakeCredential 
+CredentialDeregistration {
+    delegator: StakeCredential
 }
 ```
 
 ```aiken
-CredentialDelegation { 
-    delegator: StakeCredential, 
-    delegatee: PoolId 
+CredentialDelegation {
+    delegator: StakeCredential,
+    delegatee: PoolId
 }
 ```
 
 ```aiken
-PoolRegistration { 
-    pool_id: PoolId, 
-    vrf: Hash<Blake2b_224, VerificationKey> 
+PoolRegistration {
+    pool_id: PoolId,
+    vrf: Hash<Blake2b_224, VerificationKey>
 }
 ```
 
-```aiken 
-PoolDeregistration { 
-    pool_id: PoolId, 
-    epoch: Int 
+```aiken
+PoolDeregistration {
+    pool_id: PoolId,
+    epoch: Int
 }
 ```
 
@@ -44,8 +44,6 @@ Governance
 ```aiken
 TreasuryMovement
 ```
-
-
 
 ## Credential
 
@@ -76,8 +74,8 @@ ScriptCredential(Hash<Blake2b_224, Script>)
 
 `PaymentCredential` thể hiện các điều kiện chi tiêu liên quan đến một số đầu ra. Kể từ đây,
 
-- `VerificationKeyCredential` nắm bắt một đầu ra bị khóa bởi cặp khóa chung/riêng;
-- `ScriptCredential` ghi lại đầu ra bị khóa bởi tập lệnh gốc hoặc tập lệnh Plutus.
+-   `VerificationKeyCredential` nắm bắt một đầu ra bị khóa bởi cặp khóa chung/riêng;
+-   `ScriptCredential` ghi lại đầu ra bị khóa bởi tập lệnh gốc hoặc tập lệnh Plutus.
 
 ```aiken
 PaymentCredential = Credential
@@ -91,7 +89,7 @@ Mã định danh nhóm cổ phần duy nhất, dưới dạng hàm băm của kh
 PoolId = Hash<Blake2b_224, VerificationKey>
 ```
 
-### 5. Referenced<a>
+### 5. Referenced\<a>
 
 Đại diện cho một loại đối tượng có thể được biểu diễn nội tuyến (bằng hàm băm) hoặc thông qua một tham chiếu (tức là một con trỏ tới một vị trí trên chuỗi).
 
@@ -100,10 +98,10 @@ PoolId = Hash<Blake2b_224, VerificationKey>
 ```aiken
 Inline(a)
 
-Pointer { 
-    slot_number: Int, 
-    transaction_index: Int, 
-    certificate_index: Int 
+Pointer {
+    slot_number: Int,
+    transaction_index: Int,
+    certificate_index: Int
 }
 ```
 

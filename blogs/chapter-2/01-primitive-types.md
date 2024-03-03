@@ -14,7 +14,7 @@ Aiken có 6 kiểu nguyên thủy được xây dựng bằng ngôn ngữ và c�
 Ngôn ngữ này cũng bao gồm 2 khối xây dựng cơ bản để liên kết các loại với nhau:
 
 1. `List`
-2. `Tuples`.
+2. `Tuples`
 
 Đừng lo lắng, chúng ta sẽ xem phần sau trong hướng dẫn này cách tạo các loại tùy chỉnh của riêng bạn.
 

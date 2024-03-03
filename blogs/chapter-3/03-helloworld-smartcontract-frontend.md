@@ -1,11 +1,11 @@
 # Helloworld Smartcontract Frontend
 
-Hiện nay, các bạn có thể viết một hợp đồng thông minh khá là có nhiều chức năng nhưng chúng ta không thể cho mọi người tương tác với chúng bằng commandline interface(CLI). Như vậy hãy tìm hiểu sâu hơn nữa bằng cách đưa nó đưa nó lên giao diện frontend
+Hiện nay, các bạn có thể viết một hợp đồng thông minh khá là có nhiều chức năng nhưng chúng ta không thể cho mọi người tương tác với chúng bằng commandline interface(CLI). Như vậy hãy tìm hiểu sâu hơn nữa bằng cách đưa nó đưa nó lên giao diện frontend.
 
 ## Nội dung bài học
 
 1. Cài đặt một dự án frontend (nextjs)
-2. Cách lấy file plutus.json và đọc validator được biên dịch trong khi biên dịch hợp đồng thông minh
+2. Cách lấy file `plutus.json` và đọc `validator` được biên dịch trong khi biên dịch hợp đồng thông minh
 3. Định nghĩa Datum và Redeemer ứng với hợp đồng thông minh
 4. Tạo một giao diện cơ bản
 5. Thực hiện kết nối ví
@@ -21,7 +21,7 @@ node --version
 > v18.17.0
 ```
 
-NodeJs nên sử dụng từ version 16 trở nên. đồng thời với Nodejs là npm và npx. Được rồi để tạo dự án chúng ta cần sử dụng
+NodeJs nên sử dụng ưu tiên từ version 16 trở nên. đồng thời với Nodejs là npm và npx. Được rồi để tạo dự án chúng ta cần sử dụng
 
 ```sh
 npx create-next-app@latest helloworld-frontend
@@ -29,45 +29,17 @@ cd helloworld-frontend
 npm run dev
 ```
 
-<<<<<<< HEAD
 Dự án được chạy trên PORT 3000 như vậy dự án được cài đặt thành công. Trong dự án này còn có hai thư viện quan trong khác cần phải được cài đặt đó là `lucid-cardano` và `cbor-x`. Hai thư viện này chịu trách nhiệm chính trong việc tương tác với hợp đồng thông minh. Khi đã cài đặt thành công hay bắt đầu một bài học thú vị hơn.
-=======
-Dự án được chạy trên PORT 3000 như vậy dự án được cài đặt thành công. Trong dự án này còn có hai  thư viện quan trong khác cần phải được cài đặt đó là `lucid-cardano` và `cbor-x`. Hai thư viện này chịu trách nhiệm chính trong việc tương tác với hợp đồng thông minh
->>>>>>> parent of 014ca49 (develop)
 
 ```sh
 npm install lucid-cardano cbor-x
 ```
 
-### 2. Cách lấy file plutus.json và đọc validator được biên dịch trong khi biên dịch hợp đồng thông minh
+### 2. Cách lấy file `plutus.json` và đọc `validator` được biên dịch trong khi biên dịch hợp đồng thông minh
 
-Khi `aiken build` thì chúng ta cũng đã biên địch được hợp đồng và từ đó file `plutus.json` được tạo. Tiếp đến thực hiện việc copy file và đưa và dự án frontend bằng cách tạo thư mục `libs` trong `src`
+Khi `aiken build` thì chúng ta cũng đã biên địch được hợp đồng và từ đó file `plutus.json` được tạo. Tiếp đến thực hiện việc copy file và đưa và dự án frontend bằng cách tạo thư mục `libs` trong `src`.
 
 giờ đây chỉ cần viết một hàm đọc `validator`
-
-```ts
-import { Data } from "lucid-cardano";
-
-const HelloWorldDatumSchema = Data.Object({
-    owner: Data.Bytes(),
-});
-
-type HelloWorldDatum = Data.Static<typeof HelloWorldDatumSchema>;
-export const HelloWorldDatum =
-    HelloWorldDatumSchema as unknown as HelloWorldDatum;
-```
-
-```ts
-import { Data } from "lucid-cardano";
-
-const HelloWorldRedeemerSchema = Data.Object({
-    msg: Data.Bytes(),
-});
-
-type HelloWorldRedeemer = Data.Static<typeof HelloWorldRedeemerSchema>;
-export const HelloWorldRedeemer =
-    HelloWorldRedeemerSchema as unknown as HelloWorldRedeemer;
-```
 
 ```ts
 import { encode } from "cbor-x";
@@ -98,7 +70,6 @@ const readValidator = function (): SpendingValidator {
 export default readValidator;
 ```
 
-<<<<<<< HEAD
 Trong đây, Hàm đọc `validator` thực chất thực hiện đọc trình xác thực từ bản thiết kế (`plutus.json`) mà chúng ta đã tạo trước đó. Chúng tôi cũng cần chuyển đổi nó sang định dạng mà `Lucid` có thể hiểu được. Điều này được thực hiện bằng cách tuần tự hóa trình xác nhận và sau đó chuyển đổi nó thành chuỗi văn bản thập lục phân.
 
 ### 3. Định nghĩa Datum và Redeemer ứng với hợp đồng thông minh
@@ -133,7 +104,7 @@ export const HelloWorldRedeemer =
 
 ### 4. Tạo một giao diện cơ bản
 
-Trong hướng dẫn này sẽ giúp tạo một giao diện cơ bản bằng sử dụng tailwindcss để thực hiện render ra validator từ `read-validator.ts` đã tạo
+Trong hướng dẫn này sẽ giúp tạo một giao diện cơ bản bằng sử dụng `tailwindcss` để thực hiện render ra validator từ `read-validator.ts` đã tạo
 
 ```tsx
 import React from "react";
@@ -154,8 +125,6 @@ export default function Home() {
                         {validators.script}
                     </div>
                 </div>
-
-                <HelloWorld />
             </div>
         </main>
     );
@@ -168,7 +137,7 @@ Giao diện được hiển thị như sau:
 
 ### 4. Thực hiện kết nối ví
 
-Thực hiện tạo folder context trong thư mục src sau đó viết các chức năng connect wallet và disconnect wallet thông qua Lucid và Api của blockfrost
+Thực hiện tạo folder `contexts` trong thư mục `src` sau đó viết các chức năng connect wallet và disconnect wallet thông qua Lucid và Api của blockfrost
 
 ```tsx
 "use client";
@@ -227,7 +196,7 @@ export default WalletProvider;
 
 Bây giờ, chúng ta có thể hướng tới vòi Cardano để nhận một số tiền trên mạng xem trước tới địa chỉ mới được tạo của chúng tôi (bên trong me.addr).
 
-![plot](../assets/generics/faucet.png)
+![plot](../assets/images/generics/faucet.png)
 
 Đảm bảo chọn "Preview Testnet" làm mạng. Thực hiên copy địa chỉ mà đã sinh ra từ trước và paste vào để nhận một số đồng tiền test. Sử dụng `CardanoScan` chúng ta có thể theo dõi vòi gửi một số ADA theo cách của chúng ta. Quá trình này sẽ khá nhanh (vài giây). Bây giờ chúng ta đã có một số tiền, chúng ta có thể khóa chúng trong hợp đồng mới tạo của mình. Chúng tôi sẽ sử dụng `Lucid` để xây dựng và gửi giao dịch của chúng tôi thông qua `Block Frost`. Đây chỉ là một ví dụ về khả năng thiết lập bằng các công cụ mà chúng tôi yêu thích. Để biết thêm công cụ, hãy nhớ xem Cổng thông tin dành cho nhà phát triển Cardano! Đầu tiên, chúng tôi thiết lập Lucid với `Block Frost` làm nhà cung cấp. Điều này sẽ cho phép chúng tôi để `Lucid` xử lý việc xây dựng giao dịch cho chúng tôi, bao gồm cả việc quản lý các thay đổi. Nó cũng cung cấp cho chúng tôi một cách trực tiếp để gửi giao dịch sau này.
 
@@ -237,7 +206,7 @@ Lưu ý rằng dòng được đánh dấu ở trên sẽ tìm kiếm một bi�
 export BLOCKFROST_PROJECT_ID=preprody7qLCi4kIiAUEFRlJvmZ2PTi6jreF7gI
 ```
 
-![plot](../assets/generics/blockfrost.png)
+![plot](../assets/images/generics/blockfrost.png)
 
 Bây giờ hãy tạo một folder `components` sau đó thực hiện hiết `HelloWorld.ts` Đây chính là nơi để thực hiện tương tác trực tiếp với họp đồng thông minh thông qua giao diện.
 
@@ -304,8 +273,6 @@ Khi nếu nối ví thành công tiếp theo cần thực hiện một vài thao
 
 Đối với giá trị cho mảng byte đó, chúng tôi cung cấp bản tóm tắt băm của khóa chung của chúng tôi (từ ví của Lucid khi connect). Điều này sẽ cần thiết để mở khóa tiền.
 
-=======
->>>>>>> parent of 014ca49 (develop)
 ```ts
 import {
     Lucid,

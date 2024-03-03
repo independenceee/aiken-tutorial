@@ -1,18 +1,23 @@
 # Helloworld SmartContract
 
-Khi bạn đã nắm vững các kiến thức cơ bản về Aiken. Còn chờ gì nữa hãy bắt đầu với bài học bằng cách viết một hợp đồng thông minh đầu tiên Hello World đơn giản. 
+Khi bạn đã nắm vững các kiến thức cơ bản về Aiken. Còn chờ gì nữa hãy bắt đầu với bài học bằng cách viết một hợp đồng thông minh đầu tiên Hello World đơn giản.
 
 ### Nội dung bài học
 
 1. Khởi tạo và cài đặt dự án Aiken Hello world.
 2. Viết trình xác nhận aiken cơ bản
-3. Chạy thử nghiệm aiken với một vài các bài kiểm tra
+3. Thêm dấu vết cho Hợp đồng thông minh
+4. Chạy thử nghiệm aiken với một vài các bài kiểm tra.
+5. Xây dựng ra `plutus.json` và địa chỉ của hợp đồng
 
 ### Điều kiện tiên quyết
 
-Giả sử bạn đã hoàn thành hướng dẫn Aiken `Hello, World` và đã đọc tài liệu dành cho nhà phát triển Cardano. Cần có sự quen thuộc với mã thông báo gốc, ví, địa chỉ và cơ sở hạ tầng ngoài chuỗi (ví dụ: chỉ mục chuỗi). Tất cả các ví dụ bên trong là `Deno` + `TypeScript` + `Lucid` + `Aiken`. Môi trường của bạn phải được cấu hình để hỗ trợ điều đó. Bạn có thể tìm thấy mã hỗ trợ hướng dẫn này trên kho lưu trữ chính của Aiken. Khi gặp một cú pháp hoặc khái niệm xa lạ, đừng ngần ngại tham khảo chuyến tham quan ngôn ngữ để biết thêm chi tiết và ví dụ bổ sung.
+1. Hiểu cơ bản các cách hoạt động của hợp đồng `hello world` đọc các tài liệu do nhà phát triển cardano
+2. Cần có sự quen thuộc với mã thông báo gốc, ví, địa chỉ và cơ sở hạ tầng ngoài chuỗi (ví dụ: chỉ mục chuỗi).
+3. `Deno` + `TypeScript` + `Lucid` + `Aiken`. Môi trường của bạn phải được cấu hình để hỗ trợ điều đó. Bạn có thể tìm thấy mã hỗ trợ hướng dẫn này trên kho lưu trữ chính của Aiken.
+4. Khi gặp một cú pháp hoặc khái niệm xa lạ, đừng ngần ngại tham khảo chuyến tham quan ngôn ngữ để biết thêm chi tiết và ví dụ bổ sung.
 
-### 1. Cài đặt dự án
+### 1. Khởi tạo và cài đặt dự án Aiken Hello world.
 
 Chúng tôi sẽ sử dụng Aiken để viết tập lệnh vì vậy hãy cài đặt dòng lệnh hoặc nếu không, hãy xem hướng dẫn cài đặt. Đầu tiên, hãy tạo một dự án Aiken mới:
 
@@ -23,7 +28,7 @@ cd hello-world
 
 Lệnh này tạo ra một dự án Aiken. Đặc biệt, nó tạo ra một `lib` và `validators` các thư mục trong đó bạn có thể đặt các tập tin nguồn Aiken.
 
-```
+```sh
 ./hello-world
 │
 ├── README.md
@@ -55,7 +60,7 @@ source = "github"
 
 Bây giờ, khi chạy `aiken check`, chúng ta sẽ thấy các phần phụ thuộc đang được tải xuống. Điều đó sẽ không mất nhiều thời gian.
 
-```
+```sh
 ❯ aiken check
     Resolving versions
   Downloading packages
@@ -68,7 +73,7 @@ Summary
 
 ### 2. Viết trình xác nhận aiken cơ bản
 
-Như vậy chúng ta đã cài đặt thành công môi trường cho dự án bây giờ hay bắt đầu viết từng dòng code aiken để hoàn thành một hợp đồng thông minh hoàn chỉnh như đã mong muốn
+Như vậy chúng ta đã cài đặt thành công môi trường cho dự án bây giờ hay bắt đầu viết từng dòng code aiken để hoàn thành một hợp đồng thông minh hoàn chỉnh như đã mong muốn.
 
 ```aiken
 use aiken/hash.{Blake2b_224, Hash}
@@ -101,7 +106,7 @@ Trình xác nhận đầu tiên của chúng tôi còn thô sơ nhưng có rất
 
 1. Hợp đồng thông minh tìm kiếm hàm băm khóa xác minh (owner) trong `datum` và thông báo (msg) trong `redeemer`. Hãy nhớ rằng, trong mô hình `eUTxO`, mốc thời gian được đặt khi khóa tiền trong hợp đồng và do đó có thể được coi là cấu hình. Tại đây, chúng tôi sẽ chỉ ra chủ sở hữu hợp đồng và yêu cầu chữ ký của họ để mở khóa tiền rất giống với việc nó đã hoạt động trên một địa chỉ không có chữ ký thông thường.
 
-2.  không có "Xin chào, Thế giới!" không có câu "Xin chào, Thế giới!" hợp đồng nhỏ của chúng tôi cũng yêu cầu chính thông báo này, dưới dạng mảng byte được mã hóa UTF-8, được chuyển làm `redeemer` (tức là khi chi tiêu từ hợp đồng).
+2. không có "Xin chào, Thế giới!" không có câu "Xin chào, Thế giới!" hợp đồng nhỏ của chúng tôi cũng yêu cầu chính thông báo này, dưới dạng mảng byte được mã hóa UTF-8, được chuyển làm `redeemer` (tức là khi chi tiêu từ hợp đồng).
 
 Bây giờ là lúc xây dựng hợp đồng đầu tiên của chúng ta!
 
@@ -115,10 +120,9 @@ Lệnh này tạo bản thiết kế CIP-0057 `Plutus` như `plutus.json` ở th
 
 Hãy cùng xem trình xác nhận hoạt động!
 
-Thêm dấu vết
-Theo một cách nào đó, trình xác thực không gì khác hơn là các vị từ . Vị ngữ là một hàm trả về một boolean. Nó cho biết hoạt động có được phép hay không. Ở đây, chúng tôi đang viết một spendtrình xác thực để kiểm soát những người được phép chi tiêu số tiền bị khóa bởi nó. Trình xác nhận việc khắc phục sự cố có thể nhanh chóng trở nên khó khăn vì kết quả thực sự duy nhất mà họ đưa ra là có hoặc không . Để giải quyết vấn đề đó, bạn có thể thêm dấu vết vào trình xác nhận. Dấu vết là các lệnh đặc biệt yêu cầu sổ cái—hoặc bất kỳ ai đang thực thi trình xác thực—thu thập thông báo khi gặp phải. Khi thất bại, nó sẽ đưa ra các thông báo gặp phải, từ đó đưa ra dấu vết về quá trình thực hiện chương trình.
+### 3. Thêm dấu vết cho Hợp đồng thông minh
 
-Vì vậy, hãy thêm một vài dấu vết.
+Theo một cách nào đó, trình xác thực không gì khác hơn là các vị từ . Vị ngữ là một hàm trả về một `boolean`. Nó cho biết hoạt động có được phép hay không. Ở đây, chúng tôi đang viết một spend trình xác thực để kiểm soát những người được phép chi tiêu số tiền bị khóa bởi nó. Trình xác nhận việc khắc phục sự cố có thể nhanh chóng trở nên khó khăn vì kết quả thực sự duy nhất mà họ đưa ra là có hoặc không . Để giải quyết vấn đề đó, bạn có thể thêm dấu vết vào trình xác nhận. Dấu vết là các lệnh đặc biệt yêu cầu sổ cái hoặc bất kỳ ai đang thực thi `validator` thu thập thông báo khi gặp phải. Khi thất bại, nó sẽ đưa ra các thông báo gặp phải, từ đó đưa ra dấu vết về quá trình thực hiện chương trình.
 
 ```aiken
 use aiken/hash.{Blake2b_224, Hash}
@@ -152,16 +156,15 @@ validator {
 
 Ở đây chúng tôi đã thực hiện hai thay đổi:
 
-Chúng tôi đã thêm thông báo thủ công bằng cách sử dụng `trace` từ khóa. Tin nhắn là tin nhắn được chuyển đi với tư cách là người chuộc lỗi. Với điều này, chúng ta có thể kiểm tra xem giá trị mà trình xác thực nhìn thấy có phải là giá trị được mong đợi hay không.
+1. Chúng tôi đã thêm thông báo thủ công bằng cách sử dụng `trace` từ khóa. Tin nhắn là tin nhắn được chuyển đi với tư cách là người chuộc lỗi. Với điều này, chúng ta có thể kiểm tra xem giá trị mà trình xác thực nhìn thấy có phải là giá trị được mong đợi hay không.
 
-Hãy chú ý cách chúng tôi thêm dấu chấm hỏi `?` vào cuối mỗi biểu thức `must_say_hello` và `must_be_signed`. Đây là cái mà chúng tôi gọi là `trace-if-false` toán tử và khá tiện lợi để gỡ lỗi mọi thứ. Toán tử này sẽ theo dõi biểu thức mà nó được gắn vào chỉ khi nó ước tính là `False`. Điều này khuyến khích một cách tiếp cận trong đó các trình xác thực được xây dựng dưới dạng kết hợp hoặc tách rời các yêu cầu. Khi thực thi không thành công, tất cả các yêu cầu không hợp lệ sẽ để lại dấu vết!
+2. Hãy chú ý cách chúng tôi thêm dấu chấm hỏi `?` vào cuối mỗi biểu thức `must_say_hello` và `must_be_signed`. Đây là cái mà chúng tôi gọi là `trace-if-false` toán tử và khá tiện lợi để gỡ lỗi mọi thứ. Toán tử này sẽ theo dõi biểu thức mà nó được gắn vào chỉ khi nó ước tính là `False`. Điều này khuyến khích một cách tiếp cận trong đó các trình xác thực được xây dựng dưới dạng kết hợp hoặc tách rời các yêu cầu. Khi thực thi không thành công, tất cả các yêu cầu không hợp lệ sẽ để lại dấu vết!
 
 Để xem được những dấu vết đó, chúng ta cần viết một bài kiểm tra ngắn.
 
 ### 3. Chạy thử nghiệm aiken với một vài các bài kiểm tra
 
-Aiken có hỗ trợ tích hợp các bài kiểm tra! Như bạn sẽ thấy ngay sau đây, các bài kiểm tra cũng có thể đóng vai trò là điểm chuẩn vì chúng hiển thị bộ nhớ chính xác và các đơn vị thực thi các bước cần thiết để chạy chúng. Họ cũng thu thập dấu vết cho chúng tôi. Hãy viết một bài kiểm tra đơn giản để chạy trình xác nhận của chúng tôi. Kiểm tra là các hàm không có đối số trả về boolean. Tuy nhiên, không giống như các hàm, chúng được biểu thị bằng từ khóa test. Chúng tôi sẽ cần một mốc thời gian, một người chuộc lỗi và bối cảnh tập lệnh cũng như một số nội dung nhập khác:
-
+Aiken có hỗ trợ tích hợp các bài kiểm tra! Như bạn sẽ thấy ngay sau đây, các bài kiểm tra cũng có thể đóng vai trò là điểm chuẩn vì chúng hiển thị bộ nhớ chính xác và các đơn vị thực thi các bước cần thiết để chạy chúng. Họ cũng thu thập dấu vết cho chúng tôi. Hãy viết một bài kiểm tra đơn giản để chạy trình xác nhận của chúng tôi. Kiểm tra là các hàm không có đối số trả về boolean. Tuy nhiên, không giống như các hàm, chúng được biểu thị bằng từ khóa test. Chúng tôi sẽ cần một mốc thời gian, `redeemer` và `script context` cũng như một số nội dung nhập khác:
 
 ```aiken
 use aiken/transaction.{OutputReference, ScriptContext, Spend, TransactionId}
@@ -180,7 +183,7 @@ hello_world(datum, redeemer, context)
 
 ```
 
-Ở đây chúng ta có một bài kiểm tra. Một bài kiểm tra thất bại, nhưng chúng ta sẽ vượt qua, đừng lo lắng. Nhưng trước tiên, hãy thực hiện nó. Đơn giản chỉ cần chạy aiken check:
+Ở đây chúng ta có một bài kiểm tra. Một bài kiểm tra thất bại, nhưng chúng ta sẽ vượt qua, đừng lo lắng. Nhưng trước tiên, hãy thực hiện nó. Đơn giản chỉ cần chạy `aiken check`:
 
 ```sh
 ❯ aiken check
@@ -234,11 +237,11 @@ test hello_world_example() {
     purpose: Spend(placeholder_utxo),
     transaction: transaction.placeholder()
                   |> fn(transaction) {
-    Transaction { 
-      ..transaction, 
-      extra_signatories: [datum.owner] 
+    Transaction {
+      ..transaction,
+      extra_signatories: [datum.owner]
     }
-  }   
+  }
 }
 hello_world(datum, redeemer, context)
 }
@@ -246,7 +249,6 @@ hello_world(datum, redeemer, context)
 ```
 
 Cái này cần phải dùng mẹo. Lưu ý rằng tại thời điểm này, chúng tôi không cung cấp bất kỳ chữ ký nào. Điều này là do chúng tôi không thực hiện bất kỳ xác nhận giai đoạn 1 nào của sổ cái. Tuy nhiên, trước khi thực hiện hợp đồng thông minh, sổ cái sẽ xác minh rằng nội dung giao dịch là hợp lệ. Đặc biệt, nó sẽ xác minh rằng bất kỳ chữ ký nào extra_signatoriescũng có chữ ký hợp lệ tương ứng trong giao dịch. Ở đây, chúng ta chỉ cần sử dụng khóa xác minh giữ chỗ của mình!
-
 
 ```sh
 ❯ aiken check
