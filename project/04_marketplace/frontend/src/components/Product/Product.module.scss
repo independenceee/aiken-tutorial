@@ -1,0 +1,51 @@
+.wrapper {
+    background: var(--eerie-black-1);
+    padding: 18px;
+    border: 1px solid var(--onyx-2);
+    border-radius: 8px
+}
+
+.banner {
+    position: relative;
+    height: 210px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 25px;
+}
+
+.banner-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.title {
+    margin-bottom: 15px;
+    color: #fff;
+    font-size: var(--fs-5);
+    font-weight: var(--fw-700);
+}
+
+
+.footer {
+    margin-top: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--fs-8);
+    color: #fff;
+}
+
+
+.price {
+    color: #fff;
+    font-size: 20px;
+}
+
+.button {
+    background: var(--golden-puppy);
+    color: var(--black);
+    padding: 10px 30px;
+    border-radius: 4px;
+}
+
