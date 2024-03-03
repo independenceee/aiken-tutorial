@@ -50,7 +50,6 @@ const SmartcontextProvider = function ({ children }: Props) {
     }, [lucid]);
 
     const submitTokenName = async () => {
-        console.log("Submit token");
         const utxos = await lucid?.wallet.getUtxos()!;
 
         const validators = readValidators();
