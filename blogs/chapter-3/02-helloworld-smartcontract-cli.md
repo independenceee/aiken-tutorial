@@ -4,8 +4,9 @@ Nội dung trong hướng dẫn này bao gồm
 
 1. Nhận tiền thử nghiệm từ `Vòi Cardano`.
 2. Tương tác với `validator` trên mạng `Preview`.
-3. Sử dụng deno để tương tác với hợp đồng bằng `CMD`.
-4. Sử dụng Cardano Scan để kiểm tra giao dịch.
+3. Đọc file `plutus.json` thực hiện viết chứa năng đọc `validator`
+4. Sử dụng deno để tương tác với hợp đồng bằng `CMD`.
+5. Sử dụng Cardano Scan để kiểm tra giao dịch.
 
 ### Điều kiện tiên quyết
 
@@ -37,18 +38,15 @@ deno run --allow-net --allow-write generate-credentials.ts
 
 Bây giờ, chúng ta có thể hướng tới vòi Cardano để nhận một số tiền trên mạng xem trước tới địa chỉ mới được tạo của chúng tôi (bên trong me.addr).
 
+![plot](../assets/images/generics/faucet.png)
+
 Đảm bảo chọn "Preview Testnet" làm mạng.
 
-Sử dụng `CardanoScan` chúng ta có thể theo dõi vòi gửi một số ADA theo cách của chúng ta. Quá trình này sẽ khá nhanh (vài giây).
+Sử dụng `CardanoScan` chúng ta có thể theo dõi vòi gửi một số ADA theo cách của chúng ta. Quá trình này sẽ khá nhanh (vài giây). Bây giờ chúng ta đã có một số tiền, chúng ta có thể khóa chúng trong hợp đồng mới tạo của mình. Chúng tôi sẽ sử dụng `Lucid` để xây dựng và gửi giao dịch của chúng tôi thông qua `Block Frost`. Đây chỉ là một ví dụ về khả năng thiết lập bằng các công cụ mà chúng tôi yêu thích. Để biết thêm công cụ, hãy nhớ xem Cổng thông tin dành cho nhà phát triển Cardano!
 
-Sử dụng hợp đồng
+### 2. Tương tác với `validator` trên mạng `Preview`.
 
-Bây giờ chúng ta đã có một số tiền, chúng ta có thể khóa chúng trong hợp đồng mới tạo của mình. Chúng tôi sẽ sử dụng `Lucid` để xây dựng và gửi giao dịch của chúng tôi thông qua `Block Frost`.
-
-Đây chỉ là một ví dụ về khả năng thiết lập bằng các công cụ mà chúng tôi yêu thích. Để biết thêm công cụ, hãy nhớ xem Cổng thông tin dành cho nhà phát triển Cardano!
-
-Cài đặt
-Đầu tiên, chúng tôi thiết lập Lucid với `Block Frost` làm nhà cung cấp. Điều này sẽ cho phép chúng tôi để Lucid xử lý việc xây dựng giao dịch cho chúng tôi, bao gồm cả việc quản lý các thay đổi. Nó cũng cung cấp cho chúng tôi một cách trực tiếp để gửi giao dịch sau này.
+Đầu tiên, chúng tôi thiết lập Lucid với `Block Frost` làm nhà cung cấp. Điều này sẽ cho phép chúng tôi để `Lucid` xử lý việc xây dựng giao dịch cho chúng tôi, bao gồm cả việc quản lý các thay đổi. Nó cũng cung cấp cho chúng tôi một cách trực tiếp để gửi giao dịch sau này.
 
 Tạo một tệp có tên hello-world-lock.tstrong thư mục gốc của dự án của bạn và thêm đoạn mã sau:
 
@@ -82,7 +80,11 @@ Lưu ý rằng dòng được đánh dấu ở trên sẽ tìm kiếm một bi�
 export BLOCKFROST_PROJECT_ID=preview...
 ```
 
+![plot](../assets/images/generics/blockfrost.png)
+
 Thay thế `preview..`. bằng id dự án thực tế của bạn.
+
+### 3. Đọc file `plutus.json` thực hiện viết chứa năng đọc `validator`
 
 Tiếp theo, chúng ta sẽ cần đọc trình xác thực từ bản thiết kế (plutus.json) mà chúng ta đã tạo trước đó. Chúng tôi cũng cần chuyển đổi nó sang định dạng mà Lucid có thể hiểu được. Điều này được thực hiện bằng cách tuần tự hóa trình xác nhận và sau đó chuyển đổi nó thành chuỗi văn bản thập lục phân như dưới đây:
 
@@ -91,23 +93,26 @@ lucid.selectWalletFromPrivateKey(await Deno.readTextFile("./me.sk"));
 
 async function readValidator(): Promise<SpendingValidator> {
     const validator = JSON.parse(await Deno.readTextFile("plutus.json"))
-        .validators[0];
+        .validators[0]; // Đọc validator từ plutus.json
     return {
         type: "PlutusV2",
-        script: toHex(cbor.encode(fromHex(validator.compiledCode))),
+        script: toHex(cbor.encode(fromHex(validator.compiledCode))), // sử dụng cbor-x để encode validator vừa tạo
     };
 }
 
 const validator = await readValidator();
 ```
 
-### Khóa tiền vào hợp đồng
+### 4. Sử dụng deno để tương tác với hợp đồng bằng `CMD`.
+
+##### 1. Khóa tiền vào hợp đồng
 
 Bây giờ chúng ta có thể đọc trình xác thực của mình, chúng ta có thể thực hiện giao dịch đầu tiên để khóa tiền vào hợp đồng. Số liệu phải khớp với biểu diễn mà trình xác thực mong đợi (và như được chỉ định trong bản thiết kế), vì vậy đây là hàm tạo với một trường duy nhất là một mảng byte.
 
-Đối với giá trị cho mảng byte đó, chúng tôi cung cấp bản tóm tắt băm của khóa chung của chúng tôi (từ ví được tạo bằng me.sk). Điều này sẽ cần thiết để mở khóa tiền.
+Đối với giá trị cho mảng byte đó, chúng tôi cung cấp bản tóm tắt băm của khóa chung của chúng tôi (từ ví được tạo bằng `me.sk`). Điều này sẽ cần thiết để mở khóa tiền.
 
-```ts hello-world-lock.ts
+```ts
+// Tạo ra publickey hash từ địa chỉ trong khi kết nối với lucid
 const publicKeyHash = lucid.utils.getAddressDetails(
     await lucid.wallet.address()
 ).paymentCredential?.hash;
@@ -127,15 +132,13 @@ async function lock(
     lovelace: bigint,
     { into, owner }: { into: SpendingValidator; owner: string }
 ): Promise<TxHash> {
-    const contractAddress = lucid.utils.validatorToAddress(into);
+    const contractAddress = lucid.utils.validatorToAddress(into); // Đọc địa chỉ của hợp đồng
 
     const tx = await lucid
         .newTx()
-        .payToContract(contractAddress, { inline: owner }, { lovelace })
+        .payToContract(contractAddress, { inline: owner }, { lovelace }) // Gửi một số tiền và truyền datum vào hợp đồng
         .complete();
-
     const signedTx = await tx.sign().complete();
-
     return signedTx.submit();
 }
 ```
@@ -196,7 +199,7 @@ d8799f581c10073fd2997d2f7dc6dadcf24966bd06b01930e5210e5de7aebf792dff
 }
 ```
 
-### Mở khóa tiền từ hợp đồng
+##### 2. Mở khóa tiền từ hợp đồng
 
 Cuối cùng, bước cuối cùng: bây giờ chúng tôi muốn chi tiêu UTxO bị khóa bởi hello-worldhợp đồng của chúng tôi.
 
@@ -233,6 +236,7 @@ lucid.selectWalletFromPrivateKey(await Deno.readTextFile("./me.sk"));
 
 const validator = await readValidator();
 
+// Dọc validator từ hợp đồng thông minh
 async function readValidator(): Promise<SpendingValidator> {
     const validator = JSON.parse(await Deno.readTextFile("plutus.json"))
         .validators[0];
@@ -273,15 +277,15 @@ async function unlock(
     const [utxo] = await lucid.utxosByOutRef([ref]);
 
     const tx = await lucid
-        .newTx()
-        .collectFrom([utxo], using)
-        .addSigner(await lucid.wallet.address())
-        .attachSpendingValidator(from)
+        .newTx() // Tạo một giao dịch
+        .collectFrom([utxo], using) // Truyền UTXO[] và redeemer
+        .addSigner(await lucid.wallet.address()) // Kí với địa chỉ
+        .attachSpendingValidator(from) // gắn validator vào để thực hiện giao dịch
         .complete();
 
     const signedTx = await tx.sign().complete();
-
-    return signedTx.submit();
+    const txHash = signedTx.submit();
+    return txHash;
 }
 ```
 
@@ -302,3 +306,5 @@ Nếu mọi thứ hoạt động như kế hoạch, bạn sẽ thấy kết qu�
 Chúng tôi có thể kiểm tra giao dịch đổi thưởng của mình trên `CardanoScan` và thấy rằng nó đã thực hiện thành công hợp đồng Hello World của chúng tôi.
 
 ![plot](../assets/images/helloworld/un-lock-cardano-scan.png)
+
+Hy vọng điều này mang lại cho bạn ý tưởng về những gì bạn có thể xây dựng trên Cardano. Ví dụ này cũng sẽ minh họa cách hầu hết mã trong dapp của bạn thậm chí không phải là trình xác thực. Khi thiết kế các ứng dụng tận dụng Cardano, tốt hơn hết bạn nên suy nghĩ về loại giao dịch nào bạn sẽ cần xây dựng và sau đó viết trình xác thực để thực thi chúng. Một tài liệu tham khảo đầy đủ về ví dụ này có thể được tìm thấy ở đây.

@@ -234,7 +234,7 @@ return (
 }
 ```
 
-Biên tập viên của bạn có thể sẽ phàn nàn và nói rằng điều đó Oneshotkhông chấp nhận `validators` chỗ dựa. Chúng tôi sẽ khắc phục điều đó trong giây lát. Đã đến lúc chúng ta bắt đầu bữa tiệc thực sự và chúng ta đã đến phần hấp dẫn rồi. Tại hòn đảo này, chúng tôi sẽ nắm bắt một số thông tin đầu vào của người dùng, áp dụng một số thông số cho trình xác thực thô của chúng tôi và thực hiện một số giao dịch. Để giữ mọi thứ đơn giản, chúng ta sẽ giả định là vĩnh viễnđược thiết lập trong trình duyệt của bạn. Một điều khác mà chúng tôi sẽ làm để giữ mọi thứ đơn giản là gửi thẻ quà tặng cho chính chúng tôi khi đúc. Bằng cách này, chúng tôi có thể kiểm tra việc đổi thẻ quà tặng mà không cần phải gửi cho người khác hoặc sử dụng ví thứ hai. Chúng ta nên cung cấp cho `Oneshot` các đạo cụ của một loại và nắm bắt loại đó token_nameđể chúng ta có thể sử dụng nó để áp dụng một số thông số cho trình xác thực thô. Lucid cũng yêu cầu khởi tạo, vì vậy hãy chuẩn bị sẵn một số bản mẫu sẵn có.
+Biên tập viên của bạn có thể sẽ phàn nàn và nói rằng điều đó Oneshotkhông chấp nhận `validators` chỗ dựa. Chúng tôi sẽ khắc phục điều đó trong giây lát. Đã đến lúc chúng ta bắt đầu bữa tiệc thực sự và chúng ta đã đến phần hấp dẫn rồi. Tại hòn đảo này, chúng tôi sẽ nắm bắt một số thông tin đầu vào của người dùng, áp dụng một số thông số cho trình xác thực thô của chúng tôi và thực hiện một số giao dịch. Để giữ mọi thứ đơn giản, chúng ta sẽ giả định là vĩnh viễn được thiết lập trong trình duyệt của bạn. Một điều khác mà chúng tôi sẽ làm để giữ mọi thứ đơn giản là gửi thẻ quà tặng cho chính chúng tôi khi đúc. Bằng cách này, chúng tôi có thể kiểm tra việc đổi thẻ quà tặng mà không cần phải gửi cho người khác hoặc sử dụng ví thứ hai. Chúng ta nên cung cấp cho `Oneshot` các đạo cụ của một loại và nắm bắt loại đó token_nameđể chúng ta có thể sử dụng nó để áp dụng một số thông số cho trình xác thực thô. Lucid cũng yêu cầu khởi tạo, vì vậy hãy chuẩn bị sẵn một số bản mẫu sẵn có.
 
 ```tsx
 import { useEffect, useState } from "preact/hooks";
@@ -323,7 +323,7 @@ export default function Oneshot({ validators }: OneshotProps) {
 }
 ```
 
-Chúng tôi sẽ sử dụng `token_name` để áp dụng một số thông số cho trình xác thực thô. Chúng ta có thể tạo một người trợ giúp để utils.tslàm việc này cho chúng ta.
+Chúng tôi sẽ sử dụng `token_name` để áp dụng một số thông số cho trình xác thực thô. Chúng ta có thể tạo một người trợ giúp để `utils.ts` làm việc này cho chúng ta.
 
 ```ts
 import {
@@ -654,7 +654,12 @@ return (
 
 ```
 
-Bây giờ chúng ta đã hoàn thành ví dụ và có một nguyên mẫu nhỏ thú vị.
+Thực hiện Un lock thì
 
-Phần kết luận
+![plot](../assets/images/giftcard/un-lock.png)
+
+Bây giờ chúng ta đã hoàn thành ví dụ và có một nguyên mẫu nhỏ thú vị. Hãy thực hiện giao dịch và kiểm tra chúng trên cardano scan
+
+![plot](../assets/images/giftcard/un-lock-cardano-scan.png)
+
 Hy vọng điều này mang lại cho bạn ý tưởng về những gì bạn có thể xây dựng trên Cardano. Ví dụ này cũng sẽ minh họa cách hầu hết mã trong dapp của bạn thậm chí không phải là trình xác thực. Khi thiết kế các ứng dụng tận dụng Cardano, tốt hơn hết bạn nên suy nghĩ về loại giao dịch nào bạn sẽ cần xây dựng và sau đó viết trình xác thực để thực thi chúng. Một tài liệu tham khảo đầy đủ về ví dụ này có thể được tìm thấy ở đây.

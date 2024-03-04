@@ -27,9 +27,9 @@ Transaction {
 Mã định danh giao dịch duy nhất, dưới dạng hàm băm của nội dung giao dịch. Lưu ý rằng id giao dịch không phải là hàm băm trực tiếp của mã `Transaction` hiển thị trên chuỗi. Đúng hơn, chúng tương ứng với các bản tóm tắt băm của nội dung giao dịch khi chúng được tuần tự hóa trên mạng.
 
 ```aiken
-TransactionId { 
-    hash: Hash<Blake2b_256, 
-    Transaction> 
+TransactionId {
+    hash: Hash<Blake2b_256,
+    Transaction>
 }
 ```
 

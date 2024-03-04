@@ -1,27 +1,27 @@
 # Helloworld Smartcontract Frontend
 
-Hiện nay, các bạn có thể viết một hợp đồng thông minh khá là có nhiều chức năng nhưng chúng ta không thể cho mọi người tương tác với chúng bằng commandline interface(CLI). Như vậy hãy tìm hiểu sâu hơn nữa bằng cách đưa nó đưa nó lên giao diện frontend.
+Hiện nay, các bạn có thể viết một hợp đồng thông minh khá là có nhiều chức năng nhưng chúng ta không thể cho mọi người tương tác với chúng bằng commandline interface(CLI). Như vậy hãy tìm hiểu sâu hơn nữa bằng cách đưa nó đưa nó lên giao diện `frontend`.
 
 ## Nội dung bài học
 
-1. Cài đặt một dự án frontend (nextjs)
+1. Cài đặt một dự án frontend (`nextjs`)
 2. Cách lấy file `plutus.json` và đọc `validator` được biên dịch trong khi biên dịch hợp đồng thông minh
-3. Định nghĩa Datum và Redeemer ứng với hợp đồng thông minh
+3. Định nghĩa `Datum` và `Redeemer` ứng với hợp đồng thông minh
 4. Tạo một giao diện cơ bản
-5. Thực hiện kết nối ví
-6. Viết các hàm Lock và Un Lock để tương tác với hợp đồng
+5. Thực hiện kết nối ví (Nami)
+6. Viết các hàm `Lock` và `UnLock` để tương tác với hợp đồng
 7. Tương tác giao diện với hợp đồng thông minh
 
-### 1. Cài đặt dự án
+### 1. Cài đặt dự án frontend - nextjs
 
-Trong dự án này chúng ta sẻ sử dụng Nextjs làm công cụ để xây dựng ra các tính năng tương tác với hợp đồng thông minh `hello world` để có thể sử dụng được Nextjs thì điểu kiên tiên quyết phải có là Nodejs bằng cách kiểm tra
+Trong dự án này chúng ta sẻ sử dụng `Nextjs` làm công cụ để xây dựng ra các tính năng tương tác với hợp đồng thông minh `hello world` để có thể sử dụng được `Nextjs` thì điểu kiên tiên quyết phải có là `Nodejs` bằng cách kiểm tra
 
 ```sh
 node --version
 > v18.17.0
 ```
 
-NodeJs nên sử dụng ưu tiên từ version 16 trở nên. đồng thời với Nodejs là npm và npx. Được rồi để tạo dự án chúng ta cần sử dụng
+`NodeJs` nên sử dụng ưu tiên từ `version 16` trở nên. đồng thời với `Nodejs` là `npm` và `npx`. Được rồi để tạo dự án chúng ta cần sử dụng.
 
 ```sh
 npx create-next-app@latest helloworld-frontend
@@ -37,7 +37,7 @@ npm install lucid-cardano cbor-x
 
 ### 2. Cách lấy file `plutus.json` và đọc `validator` được biên dịch trong khi biên dịch hợp đồng thông minh
 
-Khi `aiken build` thì chúng ta cũng đã biên địch được hợp đồng và từ đó file `plutus.json` được tạo. Tiếp đến thực hiện việc copy file và đưa và dự án frontend bằng cách tạo thư mục `libs` trong `src`.
+Khi `aiken build` thì chúng ta cũng đã biên địch được hợp đồng và từ đó file `plutus.json` được tạo. Tiếp đến thực hiện việc copy file và đưa và dự án `frontend` bằng cách tạo thư mục `libs` trong `src`.
 
 giờ đây chỉ cần viết một hàm đọc `validator`
 
@@ -47,20 +47,24 @@ import { SpendingValidator, fromHex, toHex } from "lucid-cardano";
 import helloWorld from "~/libs/helloworld.json";
 
 const readValidator = function (): SpendingValidator {
+    // Tìm validator trong hợp đồng thông minh Helloworld
     const helloWorldValidator = helloWorld.validators.find(function (
         validator
     ) {
         return validator.title === "contract.hello_world";
     });
 
+    // Kiểm tra sự tồn tại của validator
     if (!helloWorldValidator) {
         throw new Error("Hello world validator not found.");
     }
 
+    // Endcode validator từ hợp đồng bằng cbor-x để lucid có thể hiểu và tương tác với chúng
     const helloWorldScript: string = toHex(
         encode(fromHex(helloWorldValidator.compiledCode))
     );
 
+    // Trả về định dạng của validator để tương tác với hợp đồng
     return {
         type: "PlutusV2",
         script: helloWorldScript,
@@ -74,27 +78,25 @@ Trong đây, Hàm đọc `validator` thực chất thực hiện đọc trình x
 
 ### 3. Định nghĩa Datum và Redeemer ứng với hợp đồng thông minh
 
-Thực hiện tạo folder constants trong thư mục src sau đó thực hiện tạo các file datum.ts và redeemer.ts với mục đích xây dựng ra các điều kiện đầu vào cho hợp đồng thông minh. Định nghĩa các Datum ứng với các giá trị mà chúng ta đã định nghĩa Datum trong hợp đồng và khi đưa vào Lucid nó có thể hiểu được. Định nghĩa một Datum Owner có kiểu dữ liệu là ByteArray map với kiểu String trong hợp đồng và thực hiện export đê sử dụng cho các điều kiên giao dịch. Datum là một phần thông tin có thể được liên kết với UTXO và được sử dụng để mang thông tin trạng thái tập lệnh như chủ sở hữu của nó hoặc chi tiết thời gian
+Thực hiện tạo folder `constants` trong thư mục `src` sau đó thực hiện tạo các file `datum.ts` và `redeemer.ts` với mục đích xây dựng ra các điều kiện đầu vào cho hợp đồng thông minh. Định nghĩa các `Datum` ứng với các giá trị mà chúng ta đã định nghĩa `Datum` trong hợp đồng và khi đưa vào Lucid nó có thể hiểu được. Định nghĩa một `Datum` `Owner` có kiểu dữ liệu là `ByteArray` map với kiểu `String` trong hợp đồng và thực hiện `export` để sử dụng cho các điều kiên giao dịch. `Datum` là một phần thông tin có thể được liên kết với `UTXO` và được sử dụng để mang thông tin trạng thái tập lệnh như chủ sở hữu của nó hoặc chi tiết thời gian
 
 ```ts
 import { Data } from "lucid-cardano";
-
 const HelloWorldDatumSchema = Data.Object({
-    owner: Data.Bytes(),
+    owner: Data.Bytes(), // Owner có dạng string map với bytearray
 });
-
 type HelloWorldDatum = Data.Static<typeof HelloWorldDatumSchema>;
 export const HelloWorldDatum =
     HelloWorldDatumSchema as unknown as HelloWorldDatum;
 ```
 
-Tương tụ với Datum , Redeemer được định nghĩa là giống như một chiếc chìa khóa giúp mở khóa các utxos bị khóa trong tập lệnh. Với dữ liệu chính xác và giá trị quy đổi, utxo sau đó có thể được mở khóa để chi tiêu trong đây message `Hello, World!` được sử dụng để thực hiện để mở khóa hợp đồng thông minh.
+Tương tự với `Datum` , `Redeemer` được định nghĩa là giống như một chiếc chìa khóa giúp mở khóa các utxos bị khóa trong tập lệnh. Với dữ liệu chính xác và giá trị quy đổi, utxo sau đó có thể được mở khóa để chi tiêu trong đây message `Hello, World!` được sử dụng để thực hiện để mở khóa hợp đồng thông minh.
 
 ```ts
 import { Data } from "lucid-cardano";
 
 const HelloWorldRedeemerSchema = Data.Object({
-    msg: Data.Bytes(),
+    msg: Data.Bytes(), // msg "Hello, World!"
 });
 
 type HelloWorldRedeemer = Data.Static<typeof HelloWorldRedeemerSchema>;
@@ -104,14 +106,14 @@ export const HelloWorldRedeemer =
 
 ### 4. Tạo một giao diện cơ bản
 
-Trong hướng dẫn này sẽ giúp tạo một giao diện cơ bản bằng sử dụng `tailwindcss` để thực hiện render ra validator từ `read-validator.ts` đã tạo
+Trong hướng dẫn này sẽ giúp tạo một giao diện cơ bản bằng sử dụng `tailwindcss` để thực hiện render ra `validator` từ `read-validator.ts` đã tạo
 
 ```tsx
 import React from "react";
 import readValidator from "~/utils/read-validators";
 import HelloWorld from "~/components/HelloWorld";
 export default function Home() {
-    const validators = readValidator();
+    const validators = readValidator(); // Đọc validator từ hợp đồng
     return (
         <main>
             <div className="max-w-2xl mx-auto mt-20 mb-10">
@@ -122,7 +124,7 @@ export default function Home() {
 
                     <h3 className="mt-4 mb-2">Hello world</h3>
                     <div className="bg-gray-200 p-2 rounded overflow-x-scroll">
-                        {validators.script}
+                        {validators.script} {/*Render validator*/}
                     </div>
                 </div>
             </div>
@@ -135,7 +137,7 @@ Giao diện được hiển thị như sau:
 
 ![plot](../assets/images/helloworld/init-frontend.png)
 
-### 4. Thực hiện kết nối ví
+### 5. Thực hiện kết nối ví
 
 Thực hiện tạo folder `contexts` trong thư mục `src` sau đó viết các chức năng connect wallet và disconnect wallet thông qua Lucid và Api của blockfrost
 
@@ -155,6 +157,7 @@ type Props = {
 const WalletProvider = function ({ children }: Props) {
     const { setLucid } = useContext<LucidContextType>(LucidContext);
 
+    // Chức năng thực hiện connect ví
     const connect = async function () {
         try {
             const lucid: Lucid = await Lucid.new(
@@ -164,6 +167,8 @@ const WalletProvider = function ({ children }: Props) {
                 ),
                 "Preprod"
             );
+
+            // chọn ví Nami để tương tác với hợp đồng thông minh thông thông qua lucid và api blockfrost
             lucid.selectWallet(await window.cardano.nami.enable());
             setLucid(lucid);
         } catch (error) {
@@ -265,7 +270,7 @@ const HelloWorld = function ({}: Props) {
 export default HelloWorld;
 ```
 
-Trước tiên hay thực hiện các chức năng kết nối ví. Trong đây mình sẽ sử dụng Nami là ví chính để thực hiện tương tác với cardano.
+Trước tiên hay thực hiện các chức năng kết nối ví. Trong đây mình sẽ sử dụng `Nami` là ví chính để thực hiện tương tác với cardano.
 
 ### 5. Thực hiện Lock tài sản vào hợp đồng thông minh
 
@@ -294,10 +299,12 @@ const lockHelloWorld = async function ({
     lucid,
     lovelace,
 }: Props): Promise<TxHash> {
+    // Đọc địa chỉ payment hash
     const ownerPublicKeyHash = lucid.utils.getAddressDetails(
         await lucid.wallet.address()
     ).paymentCredential?.hash!;
 
+    // Định nghĩa datum do payment hash
     const datum = Data.to(
         {
             owner: ownerPublicKeyHash,
@@ -305,9 +312,11 @@ const lockHelloWorld = async function ({
         HelloWorldDatum
     );
 
+    // Đọc validator và render địa chỉ của hợp đồng
     const validator: Script = readValidator();
     const contractAddress = lucid.utils.validatorToAddress(validator);
 
+    // Soạn giao dịch và thực hiện kí
     const tx: TxComplete = await lucid
         .newTx()
         .payToContract(

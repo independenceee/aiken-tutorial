@@ -4,7 +4,7 @@
 
 ### 1. add function
 
-- Thêm số lượng (dương hoặc âm) của một mã thông báo vào một giá trị. Điều này hiệu quả hơn so `merge` với một tài sản duy nhất.
+-   Thêm số lượng (dương hoặc âm) của một mã thông báo vào một giá trị. Điều này hiệu quả hơn so `merge` với một tài sản duy nhất.
 
 ```aiken
 add(
@@ -44,7 +44,6 @@ Xây dựng a `Value` từ mã định danh tài sản (tức là `PolicyId`+ `A
 from_asset(policy_id: PolicyId, asset_name: AssetName, quantity: Int) -> Value
 ```
 
-
 ### 5. from_lovelace function
 
 Xây dựng một `Value` từ một số lượng đáng yêu.
@@ -61,7 +60,6 @@ Chuyển đổi 1 `MintedValue` thành 1 `Value`.
 ```aiken
 from_minted_value(self: MintedValue) -> Value
 ```
-
 
 ### 7. lovelace_of function
 
@@ -95,7 +93,7 @@ v1
 
 ### 10. policies(self: Value) -> List<PolicyId>
 
-- Danh sách tất cả các chính sách mã thông báo trong Giá trị đó với mã thông báo khác 0.
+-   Danh sách tất cả các chính sách mã thông báo trong Giá trị đó với mã thông báo khác 0.
 
 ```aiken
 policies(self: Value) -> List<PolicyId>
