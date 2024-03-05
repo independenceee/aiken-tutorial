@@ -1,8 +1,6 @@
 # Troubleshooting
 
-Lập trình trên `On-Chain` có thể hơi tẻ nhạt và có nhiều điểm tương đồng với lập trình nhúng. Do môi trường thực thi quá hạn chế nên các chương trình phải được tối ưu hóa và thường có rất ít chỗ cho việc khắc phục lỗi.
-
-Aiken cố gắng hết sức để cung cấp cho các nhà phát triển các công cụ bổ sung và khả năng sửa lỗi. Hãy cùng khám phá chúng.
+Lập trình trên `On-Chain` có thể hơi tẻ nhạt và có nhiều điểm tương đồng với lập trình nhúng. Do môi trường thực thi quá hạn chế nên các chương trình phải được tối ưu hóa và thường có rất ít chỗ cho việc khắc phục lỗi. Aiken cố gắng hết sức để cung cấp cho các nhà phát triển các công cụ bổ sung và khả năng sửa lỗi. Hãy cùng khám phá chúng.
 
 ### Traces
 
@@ -22,7 +20,7 @@ fn is_odd(n: Int) -> Bool {
 }
 ```
 
-Ban đầu có thể hơi khó nắm bắt các dấu vết vì Plutus -- và do đó là Aiken -- là một công cụ thực thi chức năng thuần túy. Do đó không có câu lệnh nào trong một chương trình được biên dịch. Chỉ có biểu thức . Dấu vết sẽ được thu thập nếu nó được máy ảo đánh giá. Có hai cách phổ biến để ghi lại dấu vết trong Aiken: khi chạy thử nghiệm qua `aiken check` hoặc khi mô phỏng giao dịch bằng `aiken tx simulate`. Trong cả hai trường hợp, dấu vết thu được trong quá trình đánh giá sẽ được in trên màn hình.
+Ban đầu có thể hơi khó nắm bắt các dấu vết vì `Plutus` và do đó là `Aiken` là một công cụ thực thi chức năng thuần túy. Do đó không có câu lệnh nào trong một chương trình được biên dịch. Chỉ có biểu thức . Dấu vết sẽ được thu thập nếu nó được máy ảo đánh giá. Có hai cách phổ biến để ghi lại dấu vết trong Aiken: khi chạy thử nghiệm qua `aiken check` hoặc khi mô phỏng giao dịch bằng `aiken tx simulate`. Trong cả hai trường hợp, dấu vết thu được trong quá trình đánh giá sẽ được in trên màn hình.
 
 Ví dụ: trong chương trình sau:
 

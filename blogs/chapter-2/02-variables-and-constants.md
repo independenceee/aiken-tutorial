@@ -60,7 +60,7 @@ Việc liên kết không được phép trong mô-đun Aiken cấp cao nhất. 
 const YEAR = 2024
 ```
 
-Giống như tất cả các giá trị trong Aiken, `constants` là không thay đổi. Chúng không thể được sử dụng làm trạng thái có thể thay đổi toàn cầu. Khi một hằng số được tham chiếu, giá trị của nó được trình biên dịch nội tuyến để chúng có thể được sử dụng ở bất kỳ nơi nào mà bạn đã viết một hằng số để bắt đầu (ví dụ: các bộ bảo vệ biểu thức khi nào, mệnh đề if ...). Chúng ta sẽ xem một số ví dụ về điều đó khi xử lý các luồng điều khiển.
+Giống như tất cả các giá trị. Trong Aiken `constant` là không thay đổi. Chúng không thể được sử dụng làm trạng thái có thể thay đổi toàn toàn cục. Khi một hằng số được tham chiếu, giá trị của nó được trình biên dịch nội tuyến để chúng có thể được sử dụng ở bất kỳ nơi nào mà bạn đã viết một hằng số để bắt đầu (ví dụ: các bộ bảo vệ biểu thức khi nào, mệnh đề if ...). Chúng ta sẽ xem một số ví dụ về điều đó khi xử lý các luồng điều khiển.
 
 `Lưu ý rằng bạn chỉ có thể khai báo hằng mô-đun cho các loại Aiken sau:`Int`, `ByteArray`và`String`.
 `

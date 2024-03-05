@@ -125,7 +125,7 @@ Các quy tắc cú pháp cho số nguyên bằng chữ cũng áp dụng cho mả
 
 #### Là một chuỗi byte
 
-Thứ hai, dưới dạng chuỗi byte được mã hóa UTF-8. Đây thường là cách các chuỗi văn bản phổ biến được thể hiện dưới mui xe. Trong Aiken, chỉ cần sử dụng dấu ngoặc kép cho điều đó:
+Thứ hai, dưới dạng chuỗi byte được mã hóa UTF-8. Đây thường là cách các chuỗi văn bản phổ biến được thể hiện. Trong Aiken, chỉ cần sử dụng dấu ngoặc kép cho điều đó:
 
 ```ak
 "foo" == #[0x66, 0x6f, 0x6f] == #[102, 111, 111]
@@ -133,9 +133,9 @@ Thứ hai, dưới dạng chuỗi byte được mã hóa UTF-8. Đây thường 
 
 #### Dưới dạng chuỗi byte được mã hóa hex
 
-Bởi vì việc thao tác các chuỗi byte được mã hóa base 16 trong bối cảnh blockchain (ví dụ: id giao dịch, id chính sách, v.v.) là khá phổ biến Aiken cũng hỗ trợ cú pháp tốc ký để khai báo bytearrays dưới dạng chuỗi thập lục phân.
+Bởi vì việc thao tác các chuỗi byte được mã hóa `base 16` trong bối cảnh blockchain (ví dụ: transaction hash, policy id, v.v.) là khá phổ biến Aiken cũng hỗ trợ cú pháp tốc ký để khai báo `ByteArray` dưới dạng chuỗi thập lục phân.
 
-Phía sau, Aiken giải mã chuỗi được mã hóa cho bạn và chỉ lưu trữ các byte thô dưới dạng ByteArray. Điều này đạt được bằng cách thêm tiền tố vào chuỗi byte có dấu ngoặc kép bằng #, như sau:
+Phía sau, Aiken giải mã chuỗi được mã hóa cho bạn và chỉ lưu trữ các byte thô dưới dạng `ByteArray`. Điều này đạt được bằng cách thêm tiền tố vào chuỗi byte có dấu ngoặc kép bằng `#` như sau:
 
 ```ak
 #"666f6f" == #[0x66, 0x6f, 0x6f] == #[102, 111, 111] == "foo"
@@ -149,7 +149,7 @@ Lưu ý điều này khác với:
 
 #### Tuples
 
-Tuples có thể hữu ích cho việc nhóm các giá trị. Mỗi phần tử trong một bộ có thể có một kiểu khác nhau.
+Tuples có thể hữu ích cho việc nhóm các giá trị. Mỗi phần tử trong một bộ có thể có một kiểu khác nhau. Được giới hạn bởi cặp ngoặc (), tất cả những gì nằm trong đó là những phần tử của Tuple. Các phần tử của Tuple được phân cách nhau ra bởi dấu phẩy (,). Tuple có khả năng chứa mọi giá trị.
 
 ```ak
 (10, "hello") // Có kiểu dữ liệu là (Int, ByteArray)
@@ -230,4 +230,4 @@ Dưới chuỗi văn bản mui xe là UTF-8 nhị phân được mã hóa và c�
 @"🌘 프로그래밍 과정을 처음부터 전문가까지 Aiken Tutorial 🌒"
 ```
 
-Hãy cẩn thận, trường hợp sử dụng `String` cực kỳ hạn chế trong Aiken và mã trên chuỗi. Chúng chỉ được sử dụng để theo dõi , hơi giống các nhãn được gắn vào các đường dẫn thực thi cụ thể của chương trình của bạn. Ví dụ: bạn không thể tìm thấy chúng trong giao diện được trình xác thực của bạn hiển thị. Vì vậy, hầu hết thời gian, bạn có thể sử dụng  `ByteArray` thay thế và chỉ dùng đến `String` để gỡ lỗi.
+Hãy cẩn thận, trường hợp sử dụng `String` cực kỳ hạn chế trong Aiken và mã trên chuỗi. Chúng chỉ được sử dụng để theo dõi , hơi giống các nhãn được gắn vào các đường dẫn thực thi cụ thể của chương trình của bạn. Ví dụ: bạn không thể tìm thấy chúng trong giao diện được trình xác thực của bạn hiển thị. Vì vậy, hầu hết thời gian, bạn có thể sử dụng `ByteArray` thay thế và chỉ dùng đến `String` để gỡ lỗi.

@@ -14,14 +14,14 @@ Với phần dễ dàng này, chúng ta có thể bắt đầu xây dựng giao 
 
 ### 1. Cài đặt một dự án frontend (nextjs)
 
-Trong dự án này chúng ta sẻ sử dụng Nextjs làm công cụ để xây dựng ra các tính năng tương tác với hợp đồng thông minh `hello world` để có thể sử dụng được Nextjs thì điểu kiên tiên quyết phải có là Nodejs bằng cách kiểm tra
+Trong dự án này chúng ta sẻ sử dụng `Nextjs` làm công cụ để xây dựng ra các tính năng tương tác với hợp đồng thông minh `hello world` để có thể sử dụng được `Nextjs` thì điểu kiên tiên quyết phải có là `Nodejs` bằng cách kiểm tra
 
 ```sh
 node --version
 > v18.17.0
 ```
 
-NodeJs nên sử dụng ưu tiên từ version 16 trở nên. đồng thời với Nodejs là npm và npx. Được rồi để tạo dự án chúng ta cần sử dụng
+`NodeJs` nên sử dụng ưu tiên từ version 16 trở nên. đồng thời với `Nodejs` là `npm` và `npx`. Được rồi để tạo dự án chúng ta cần sử dụng
 
 ```sh
 npx create-next-app@latest giftcard-frontend

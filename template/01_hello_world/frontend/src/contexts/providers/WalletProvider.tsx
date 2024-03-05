@@ -14,27 +14,11 @@ const WalletProvider = function ({ children }: Props) {
     const { setLucid } = useContext<LucidContextType>(LucidContext);
 
     const connect = async function () {
-        try {
-            const lucid: Lucid = await Lucid.new(
-                new Blockfrost(
-                    process.env.BLOCKFROST_PROPROD_RPC_URL as string,
-                    process.env.BLOCKFROST_PROPROD_API as string
-                ),
-                "Preprod"
-            );
-            lucid.selectWallet(await window.cardano.nami.enable());
-            setLucid(lucid);
-        } catch (error) {
-            console.log(error);
-        }
+        // TODO: Connect wallet
     };
 
     const disconnect = async function () {
-        try {
-            setLucid(null!);
-        } catch (error) {
-            console.log(error);
-        }
+        // TODO: Disconnect wallet
     };
 
     return (

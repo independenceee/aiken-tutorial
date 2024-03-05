@@ -1,6 +1,5 @@
 # Functions
 
-
 ### Cách báo Hàm
 
 Các hàm được đặt tên trong Aiken được xác định bằng từ khóa `fn`. Các hàm có thể có các đối số (được gõ) và luôn có kiểu trả về. Bởi vì trong Aiken, hầu hết mọi thứ đều là biểu thức, các hàm không có từ khóa trả về rõ ràng . Thay vào đó, họ ngầm trả lại bất cứ thứ gì họ đánh giá.
@@ -9,7 +8,7 @@ Các hàm được đặt tên trong Aiken được xác định bằng từ kh�
 fn add(x: Int, y: Int) -> Int {
   x + y
 }
- 
+
 fn multiply(x: Int, y: Int) -> Int {
   x * y
 }
@@ -29,11 +28,11 @@ Hàm là các giá trị hạng nhất và do đó có thể được gán cho c
 fn twice(f: fn(t) -> t, x: t) -> t {
   f(f(x))
 }
- 
+
 fn add_one(x: Int) -> Int {
   x + 1
 }
- 
+
 fn add_two(x: Int) -> Int {
   twice(add_one, x)
 }
@@ -46,7 +45,7 @@ fn add_two(x: Int) -> Int {
 ```aiken
 fn run() {
   let add = fn(x, y) { x + y }
- 
+
   add(1, 2)
 }
 ```
@@ -69,9 +68,9 @@ Khi gọi hàm, có thể sử dụng các nhãn đã xác định để truyề
 
 ```ak
 replace(self: "A,B,C", pattern: ",", replacement: " ")
- 
+
 replace(pattern: ",", replacement: " ", self: "A,B,C")
- 
+
 replace("A,B,C", pattern: ",", replacement: " ")
 ```
 
@@ -98,14 +97,14 @@ validator {
   fn foo(redeemer: Data, script_context: Data) {
     ..
   }
- 
+
   fn bar(datum: Data, redeemer: Data, script_context: Data) {
     ..
   }
 }
 ```
 
-Các chức năng có trong một `validator` khối phải tuân theo các quy tắc sau:
+Các chức năng có trong một khối `validator` phải tuân các quy tắc sau:
 
 1. `validator` phải có chính xác 2 hoặc 3 đối số.
 2. `validator` phải được đặt tên
@@ -123,7 +122,7 @@ validator(utxo_ref: ByteArray) {
 }
 ```
 
-### Pipe Operator 
+### Pipe Operator
 
 Aiken cung cấp cú pháp để chuyển kết quả của một hàm tới các đối số của hàm khác, toán tử ống dẫn (`|>`). Chức năng này tương tự như toán tử tương tự trong Elixir hoặc F#.
 
@@ -152,10 +151,10 @@ Có một cú pháp tốc ký để tạo các hàm ẩn danh lấy một đối
 fn add(x, y) {
   x + y
 }
- 
+
 fn run() {
   let add_one = add(1, _)
- 
+
   add_one(2)
 }
 
@@ -167,7 +166,7 @@ Cú pháp chụp hàm thường được sử dụng với toán tử ống đ�
 fn add(x: Int , y: Int ) -> Int {
   x + y
 }
- 
+
 fn run() {
   // Đoạn add(add(add(1, 3), 6), 9)
   1
@@ -216,7 +215,7 @@ fn multi_result(x: a, y: b, condition: Bool) -> Result<a, b> {
 }
 ```
 
-Biến loại có thể được đặt tên bất kỳ và có thể chứa dấu gạch dưới (_), nhưng tên phải viết thường. Giống như các chú thích loại khác, chúng hoàn toàn không bắt buộc nhưng việc sử dụng chúng có thể giúp bạn hiểu mã dễ dàng hơn.
+Biến loại có thể được đặt tên bất kỳ và có thể chứa dấu gạch dưới (\_), nhưng tên phải viết thường. Giống như các chú thích loại khác, chúng hoàn toàn không bắt buộc nhưng việc sử dụng chúng có thể giúp bạn hiểu mã dễ dàng hơn.
 
 ### Type annotations
 
@@ -226,7 +225,7 @@ Các đối số của hàm thường được chú thích theo kiểu của ch�
 fn identity(x: some_type) -> some_type {
   x
 }
- 
+
 fn inferred_identity(x) {
   x
 }

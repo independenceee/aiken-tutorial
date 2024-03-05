@@ -1,26 +1,23 @@
 # Modules
 
-Các chương trình Aiken được tạo thành từ các nhóm chức năng và loại được gọi là mô-đun. Mỗi mô-đun có không gian tên riêng và có thể xuất các loại cũng như giá trị để các mô-đun khác trong chương trình sử dụng.
+Các chương trình Aiken được tạo thành từ các nhóm chức năng và loại được gọi là `modules`. Mỗi `module` có không gian tên riêng và có thể xuất các loại cũng như giá trị để các `module` khác trong chương trình sử dụng.
 
 ```aiken
-fn count_down() {
-  "3... 2... 1..."
+fn f1(){
+  "Aiken"
 }
- 
-fn blast_off() {
-  "BOOM!"
+
+fn f2(){
+  "C2VN"
 }
- 
-pub fn set_sail() {
-  [
-    count_down(),
-    blast_off(),
-  ]
+
+pub fn f1_f2_list(){
+  [f1(), f2()]
 }
 
 ```
 
-Ở đây chúng ta có thể thấy một mô-đun có tên straw_hats/sunny, tên được xác định bởi tên tệp lib/straw_hats/sunny.ak. Thông thường, tất cả các mô-đun cho một dự án sẽ nằm trong một thư mục có tên của dự án, chẳng hạn như straw_hatstrong ví dụ này.
+Ở đây chúng ta có thể thấy một `module` có tên straw_hats/sunny, tên được xác định bởi tên tệp lib/straw_hats/sunny.ak. Thông thường, tất cả các mô-đun cho một dự án sẽ nằm trong một thư mục có tên của dự án, chẳng hạn như straw_hatstrong ví dụ này.
 
 Từ `pub` khóa làm cho loại này có thể sử dụng được từ các mô-đun khác.
 
@@ -34,9 +31,9 @@ Nhập khẩu
 ```aiken
 
 // inside module src/straw_hats/laugh_tale.ak
- 
+
 use straw_hats/sunny
- 
+
 pub fn find_the_one_piece() {
   sunny.set_sail()
 }
@@ -64,7 +61,7 @@ Các giá trị và loại cũng có thể được nhập theo cách không đ�
 
 ```aiken
 use animal/dog.{Dog, stroke}
- 
+
 pub fn foo() {
   let puppy = Dog { name: "Zeus" }
   stroke(puppy)
@@ -90,11 +87,11 @@ Ví dụ: chúng ta có thể tạo một Counter kiểu chứa int có thể t�
 pub opaque type Counter {
   Counter(value: Int)
 }
- 
+
 pub fn new() {
   Counter(0)
 }
- 
+
 pub fn increment(counter: Counter) {
   Counter(counter.value + 1)
 }
@@ -108,13 +105,13 @@ Có hai mô-đun được tích hợp vào ngôn ngữ, mô-đun đầu tiên l�
 
 ```ak
 use aiken
- 
+
 /// Định nghĩa này ghi đè cục bộ loại `Option`
 /// và hàm tạo `Some`.
 pub type Option {
   Some
 }
- 
+
 /// The original `Option` and `Some` can still be used
 pub fn go() -> aiken.Option<Int> {
   aiken.Some(1)
@@ -129,7 +126,7 @@ Mô-đun thứ hai đi kèm với ngôn ngữ này dùng để hiển thị các
 
 ```aiken
 use aiken/builtin
- 
+
 fn eq(a, b) {
     builtin.equals_integer(a, b)
 }

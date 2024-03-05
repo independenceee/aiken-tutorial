@@ -113,7 +113,7 @@ const Oneshot = function ({ validators }: Props) {
                         </button>
 
                         {lockTxHash && (
-                            <div>
+                            <>
                                 <h3 className="mt-4 mb-2">ADA Locked</h3>
                                 <Link
                                     className="mb-2"
@@ -131,7 +131,7 @@ const Oneshot = function ({ validators }: Props) {
                                         ? "Waiting for Tx..."
                                         : "Redeem Gift Card (Unlocks ADA)"}
                                 </button>
-                            </div>
+                            </>
                         )}
                         {unlockTxHash && (
                             <>
