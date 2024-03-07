@@ -1,54 +1,52 @@
 # Hello world - Lucid - CLI
 
-Nội dung trong hướng dẫn này bao gồm
+## Nội dung trong hướng dẫn này bao gồm:
 
-1. Nhận tiền thử nghiệm từ `Vòi Cardano`.
+1. Nhận tiền thử nghiệm từ `Cardano Faucet`.
 2. Tương tác với `validator` trên mạng `Preview`.
-3. Đọc file `plutus.json` thực hiện viết chứa năng đọc `validator`
+3. Đọc file `plutus.json` thực hiện viết chứa năng đọc `validator`.
 4. Sử dụng deno để tương tác với hợp đồng bằng `CMD`.
-5. Sử dụng Cardano Scan để kiểm tra giao dịch.
+5. Sử dụng `Cardano Scan` để kiểm tra giao dịch.
 
-### Điều kiện tiên quyết
+## Điều kiện tiên quyết
 
-Chúng tôi cho rằng bạn đã theo dõi `Hello, World!` Vì vậy, hãy thực hiện `các bước đầu tiên` , Aiken đã cài đặt một bản sẵn sàng để sử dụng. Chúng tôi cũng sẽ sử dụng `Lucid`, vì vậy hãy đảm bảo rằng bạn đã chuẩn bị sẵn môi trường phát triển cho một số `TypeScript`. Đối với TypeScript và phần còn lại của hướng dẫn này, chúng tôi khuyên bạn nên cài đặt deno.
+Như vậy cho rằng bạn đã thoe dõi hợp đồng thông minh `Hello world`. Vì vậy, hãy thực hiện viết hợp đồng đầu tiên, Aiken đã cài đặt một bản sẵn sàng để sử dụng. Chúng tôi cũng sẽ sử dụng `Lucid`, vì vậy hãy đảm bảo rằng bạn đã chuẩn bị sẵn môi trường phát triển như `TypeScript`. Với `Typescript` khá là quan trọng trong hướng dẫn này trong quá trình tương tác với hợp đồng thông minh. Vì vậy trong hướng dẫn này chúng ta sẽ sử dụng `deno` là môi trường để thực thi.
 
-### 1. Nhận tiền thử nghiệm từ `Vòi Cardano`.
+### 1. Nhận tiền thử nghiệm từ `Cardano Faucet`.
 
-Đối với hướng dẫn này, chúng tôi sẽ sử dụng trình xác thực mà chúng tôi đã xây dựng ở `Các bước đầu tiên` . Tuy nhiên, trước khi tiếp tục, chúng ta sẽ cần một số tiền và cặp khóa công khai/riêng tư để giữ chúng. Chúng tôi có thể tạo khóa riêng và địa chỉ bằng Lucid. Hãy viết code đầu tiên của chúng tôi là `generate-credentials.ts`:
+Đối với hướng dẫn này, chúng ta sẽ sử dụng trình xác thực mà chúng ta đã xây dựng ở Các bước đầu tiên. Tuy nhiên, trước khi tiếp tục, chúng ta sẽ cần một số tiền và `public key` và `private key` để giữ chúng. Chúng ta có thể tạo khóa riêng và địa chỉ bằng `Lucid`. Như vậy, hãy viết đoạn mã đầu tiên để thực hiện làm việc trên `generate-credentials.ts`:
 
 ```ts
 import { Lucid } from "https://deno.land/x/lucid@0.8.3/mod.ts";
 
-const lucid = await Lucid.new(undefined, "Preview");
-
-const privateKey = lucid.utils.generatePrivateKey();
-await Deno.writeTextFile("me.sk", privateKey);
-
+const lucid = await Lucid.new(undefined, "Preview"); // khởi tạo lucid
+const privateKey = lucid.utils.generatePrivateKey(); // Thực hiện sinh private key
+await Deno.writeTextFile("me.sk", privateKey); // render private key vào file me.sk
 const address = await lucid
     .selectWalletFromPrivateKey(privateKey)
     .wallet.address();
-await Deno.writeTextFile("me.addr", address);
+await Deno.writeTextFile("me.addr", address); // render address
 ```
 
-Bạn có thể chạy các hướng dẫn trên bằng Deno thông qua:
+Bạn có thể chạy các hướng dẫn trên bằng `Deno` thông qua:
 
 ```sh
 deno run --allow-net --allow-write generate-credentials.ts
 ```
 
-Bây giờ, chúng ta có thể hướng tới vòi Cardano để nhận một số tiền trên mạng xem trước tới địa chỉ mới được tạo của chúng tôi (bên trong me.addr).
+Bây giờ, chúng ta có thể hướng tới `Cardano Faucet` để nhận một số tiền trên mạng testnet `Preprod` tới địa chỉ mới được tạo của chúng tôi `me.addr`.
 
 ![plot](../assets/images/generics/faucet.png)
 
-Đảm bảo chọn "Preview Testnet" làm mạng.
+Đảm bảo chọn `Preprod Testnet` làm mạng.
 
-Sử dụng `CardanoScan` chúng ta có thể theo dõi vòi gửi một số ADA theo cách của chúng ta. Quá trình này sẽ khá nhanh (vài giây). Bây giờ chúng ta đã có một số tiền, chúng ta có thể khóa chúng trong hợp đồng mới tạo của mình. Chúng tôi sẽ sử dụng `Lucid` để xây dựng và gửi giao dịch của chúng tôi thông qua `Block Frost`. Đây chỉ là một ví dụ về khả năng thiết lập bằng các công cụ mà chúng tôi yêu thích. Để biết thêm công cụ, hãy nhớ xem Cổng thông tin dành cho nhà phát triển Cardano!
+Sử dụng `CardanoScan` chúng ta có thể theo dõi việc gửi một số ADA vào ví của chúng ta vừa tạo. Quá trình này sẽ khá nhanh và sẽ mất vài giây. Bây giờ chúng ta đã có một số tiền ADA test, chúng ta có thể khóa chúng trong hợp đồng mới tạo của chúng ta. Chúng ta sẽ sử dụng `Lucid` để xây dựng và gửi giao dịch của chúng tôi thông qua `Block Frost`. Đây chỉ là một ví dụ về khả năng thiết lập bằng các công cụ mà chúng ta yêu thích. Để biết thêm công cụ, hãy nhớ xem cổng thông tin dành cho nhà phát triển Cardano!
 
-### 2. Tương tác với `validator` trên mạng `Preview`.
+### 2. Tương tác với `validator` trên mạng `Preprod`.
 
-Đầu tiên, chúng tôi thiết lập Lucid với `Block Frost` làm nhà cung cấp. Điều này sẽ cho phép chúng tôi để `Lucid` xử lý việc xây dựng giao dịch cho chúng tôi, bao gồm cả việc quản lý các thay đổi. Nó cũng cung cấp cho chúng tôi một cách trực tiếp để gửi giao dịch sau này.
+Đầu tiên, chúng ta thiết lập `Lucid` với `Block Frost` làm nhà cung cấp. Điều này sẽ cho phép chúng ta để `Lucid` xử lý việc xây dựng giao dịch cho chúng ta, bao gồm cả việc quản lý các thay đổi. Nó cũng cung cấp cho chúng ta một cách trực tiếp để gửi giao dịch sau này.
 
-Tạo một tệp có tên hello-world-lock.tstrong thư mục gốc của dự án của bạn và thêm đoạn mã sau:
+Tạo một tệp có tên `hello-world-lock.ts` trong thư mục gốc của dự án của bạn và thêm đoạn mã sau:
 
 ```ts
 import {
@@ -65,6 +63,7 @@ import {
 } from "https://deno.land/x/lucid@0.8.3/mod.ts";
 import * as cbor from "https://deno.land/x/cbor@v1.4.1/index.js";
 
+// Khởi tạo Lucid sử dụng API của BLOCKFROST
 const lucid = await Lucid.new(
     new Blockfrost(
         "https://cardano-preview.blockfrost.io/api/v0",
@@ -77,7 +76,7 @@ const lucid = await Lucid.new(
 Lưu ý rằng dòng được đánh dấu ở trên sẽ tìm kiếm một biến môi trường có tên `BLOCKFROST_PROJECT_ID` mà giá trị của nó phải được đặt thành id dự án `Block Frost` của bạn. Bạn có thể xác định một biến môi trường mới trong thiết bị đầu cuối của mình bằng cách chạy (trong cùng phiên bạn cũng đang thực thi tập lệnh!):
 
 ```sh
-export BLOCKFROST_PROJECT_ID=preview...
+export BLOCKFROST_PROJECT_ID=preprod...
 ```
 
 ![plot](../assets/images/generics/blockfrost.png)
@@ -103,11 +102,11 @@ async function readValidator(): Promise<SpendingValidator> {
 const validator = await readValidator();
 ```
 
-### 4. Sử dụng deno để tương tác với hợp đồng bằng `CMD`.
+### 4. Sử dụng deno để tương tác với hợp đồng bằng `Command Line Interface`.
 
 ##### 1. Khóa tiền vào hợp đồng
 
-Bây giờ chúng ta có thể đọc trình xác thực của mình, chúng ta có thể thực hiện giao dịch đầu tiên để khóa tiền vào hợp đồng. Số liệu phải khớp với biểu diễn mà trình xác thực mong đợi (và như được chỉ định trong bản thiết kế), vì vậy đây là hàm tạo với một trường duy nhất là một mảng byte.
+Bây giờ chúng ta có thể đọc trình xác thực của hợp đồng, chúng ta có thể thực hiện giao dịch đầu tiên để khóa tiền vào hợp đồng. Số liệu phải khớp với biểu diễn mà trình xác thực mong đợi (và như được chỉ định trong bản thiết kế), vì vậy đây là hàm tạo với một trường duy nhất là một mảng byte.
 
 Đối với giá trị cho mảng byte đó, chúng tôi cung cấp bản tóm tắt băm của khóa chung của chúng tôi (từ ví được tạo bằng `me.sk`). Điều này sẽ cần thiết để mở khóa tiền.
 
@@ -151,11 +150,7 @@ deno run --allow-net --allow-read --allow-env hello-world-lock.ts
 
 Đoạn mã trên yêu cầu bạn:
 
-có một `BLOCKFROST_PROJECT_ID` bộ biến môi trường. Bạn có thể nhận được một cái bằng cách đăng ký tài khoản `Block Frost`.
-
-đặt tập tin `hello-world-lock.t`csở thư mục gốc của `hello-world` thư mục của bạn.
-
-Ở giai đoạn này, thư mục của bạn sẽ trông gần như thế này:
+phải có `BLOCKFROST_PROJECT_ID` làm biến môi trường. Bạn có thể nhận được một cái bằng cách đăng ký tài khoản `Block Frost`. Đặt tập tin `hello-world-lock.ts` ở thư mục gốc của `hello-world` thư mục của bạn. Ở giai đoạn này, thư mục của bạn sẽ trông gần như thế này:
 
 ```sh
 ./hello-world
@@ -181,7 +176,7 @@ Nếu mọi việc suôn sẻ, bạn sẽ thấy một cái gì đó như thế 
     Datum: d8799f581c10073fd2997d2f7dc6dadcf24966bd06b01930e5210e5de7aebf792dff
 ```
 
-Bây giờ là thời điểm thích hợp để tạm dừng và xem CardanoScan. Dưới đây là ví dụ về giao dịch Hello Worldmà chúng tôi đã tạo bằng hướng dẫn này.
+Bây giờ là thời điểm thích hợp để tạm dừng và xem `CardanoScan`. Dưới đây là ví dụ về giao dịch `Hello World` mà chúng tôi đã tạo bằng hướng dẫn này.
 
 ![plot](../assets/images/helloworld/lock-cardano-scan.png)
 

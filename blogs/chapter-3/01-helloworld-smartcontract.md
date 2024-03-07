@@ -1,8 +1,8 @@
 # Helloworld SmartContract
 
-Khi bạn đã nắm vững các kiến thức cơ bản về Aiken. Còn chờ gì nữa hãy bắt đầu với bài học bằng cách viết một hợp đồng thông minh đầu tiên Hello World đơn giản. Trong hướng dẫn này chúng ta sẽ thực hiện viết hợp đồng mà ở đó người dùng có thể gửi tiền vào và chúng ta có thể rút tùy ỳ với việc thêm string `Hello, World!` để thực hiện lấy tài sản.
+Khi bạn đã nắm vững các kiến thức cơ bản về Aiken. Còn chờ gì nữa hãy bắt đầu với bài học bằng cách viết một hợp đồng thông minh đầu tiên đơn giản `Hello World`. Trong hướng dẫn này chúng ta sẽ thực hiện viết hợp đồng mà ở đó người dùng có thể gửi tiền vào và chúng ta có thể rút tùy ỳ với việc thêm chuỗi `Hello, World!` để thực hiện lấy tài sản.
 
-### Nội dung bài học
+## Nội dung bài học
 
 1. Khởi tạo và cài đặt dự án Aiken Hello world.
 2. Viết trình xác nhận aiken cơ bản.
@@ -10,7 +10,7 @@ Khi bạn đã nắm vững các kiến thức cơ bản về Aiken. Còn chờ 
 4. Chạy thử nghiệm aiken với một vài các bài kiểm tra.
 5. Xây dựng ra `plutus.json` và địa chỉ của hợp đồng.
 
-### Điều kiện tiên quyết
+## Điều kiện tiên quyết
 
 1. Hiểu cơ bản các cách hoạt động của hợp đồng `hello world` đọc các tài liệu do nhà phát triển cardano
 2. Cần có sự quen thuộc với mã thông báo gốc, ví, địa chỉ và cơ sở hạ tầng ngoài chuỗi (ví dụ: chỉ mục chuỗi).

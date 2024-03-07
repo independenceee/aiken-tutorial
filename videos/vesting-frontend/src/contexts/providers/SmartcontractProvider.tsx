@@ -1,17 +1,8 @@
 "use client";
 
-import React, { ReactNode, useContext, useState } from "react";
-
-import {
-    Data,
-    Lucid,
-    TxComplete,
-    TxHash,
-    TxSigned,
-    UTxO,
-    fromText,
-} from "lucid-cardano";
-import SmartContractContext from "~/contexts/components/SmartContractContext";
+import React, { ReactNode, useState } from "react";
+import SmartcontractContext from "../components/SmartcontractContext";
+import { Data, Lucid } from "lucid-cardano";
 import { VestingDatum } from "~/constants/datum";
 import readValidator from "~/utils/read-validator";
 import { redeemer } from "~/constants/redeemer";
@@ -20,21 +11,21 @@ type Props = {
     children: ReactNode;
 };
 
-const SmartContractProvider = function ({ children }: Props) {
-    const [tADA, setTADA] = useState<string>("");
+const SmartcontractProvider = function ({ children }: Props) {
+    const [tAda, setTAda] = useState<string>("");
     const [lockUntil, setLockUntil] = useState<string>("");
     const [lockTxHash, setLockTxHash] = useState<string>("");
-    const [waitingLockTx, setWaitingLockTx] = useState<boolean>(false);
     const [unlockTxHash, setUnlockTxHash] = useState<string>("");
-    const [waitingUnlockTx, setWaitingUnlockTx] = useState<boolean>(false);
+    const [waitingLockTx, setWaitingLockTx] = useState<boolean>(false);
+    const [waitingUnLockTx, setWaitingUnLockTx] = useState<boolean>(false);
 
     const lockVesting = async function ({ lucid }: { lucid: Lucid }) {
         try {
             setWaitingLockTx(true);
+
             const ownerPublicKeyHash: string = lucid.utils.getAddressDetails(
                 await lucid.wallet.address()
             ).paymentCredential?.hash as string;
-
             const beneficiaryPublicKeyHash: string =
                 lucid.utils.getAddressDetails(await lucid.wallet.address())
                     .paymentCredential?.hash as string;
@@ -49,20 +40,21 @@ const SmartContractProvider = function ({ children }: Props) {
             );
 
             const validator = readValidator();
-            const contractAddress: string =
-                lucid.utils.validatorToAddress(validator);
-            const tx: TxComplete = await lucid
+
+            const contractAddress = lucid.utils.validatorToAddress(validator);
+
+            const tx = await lucid
                 .newTx()
                 .payToContract(
                     contractAddress,
                     { inline: datum },
-                    { lovelace: BigInt(Number(tADA) * 1000000) }
+                    { lovelace: BigInt(Number(tAda) * 1000000) }
                 )
                 .complete();
 
-            const signedTx: TxSigned = await tx.sign().complete();
-            const txHash: TxHash = await signedTx.submit();
-            lucid.awaitTx(txHash);
+            const signedTx = await tx.sign().complete();
+            const txHash = await signedTx.submit();
+
             setLockTxHash(txHash);
         } catch (error) {
             console.log(error);
@@ -83,14 +75,14 @@ const SmartContractProvider = function ({ children }: Props) {
             const laterTime = new Date(
                 currentTime + 2 * 60 * 60 * 1000
             ).getTime();
-            const utxos: UTxO[] = scriptUtxos.filter(function (utxo) {
+            const utxos = scriptUtxos.filter(function (utxo) {
                 let datum = Data.from(utxo.datum!, VestingDatum);
                 return (
                     datum.beneficiary === beneficiaryPublicKeyHash &&
                     datum.lock_until <= currentTime
                 );
             });
-            const tx: TxComplete = await lucid
+            const tx = await lucid
                 .newTx()
                 .collectFrom(utxos, redeemer)
                 .attachSpendingValidator(validator)
@@ -98,36 +90,36 @@ const SmartContractProvider = function ({ children }: Props) {
                 .validFrom(currentTime)
                 .validTo(laterTime)
                 .complete();
-            const signedTx: TxSigned = await tx.sign().complete();
+            const signedTx = await tx.sign().complete();
 
-            const txHash: TxHash = await signedTx.submit();
+            const txHash = await signedTx.submit();
             await lucid.awaitTx(txHash);
             setUnlockTxHash(txHash);
         } catch (error) {
             console.log(error);
         } finally {
-            setWaitingUnlockTx(false);
+            setWaitingUnLockTx(false);
         }
     };
 
     return (
-        <SmartContractContext.Provider
+        <SmartcontractContext.Provider
             value={{
-                tADA,
-                setTADA,
-                lockUntil,
-                setLockUntil,
+                tAda,
                 lockTxHash,
-                unlockTxHash,
-                waitingLockTx,
-                waitingUnlockTx,
+                lockUntil,
                 lockVesting,
+                setLockUntil,
+                setTAda,
+                unlockTxHash,
                 unLockVesting,
+                waitingLockTx,
+                waitingUnLockTx,
             }}
         >
             {children}
-        </SmartContractContext.Provider>
+        </SmartcontractContext.Provider>
     );
 };
 
-export default SmartContractProvider;
+export default SmartcontractProvider;
