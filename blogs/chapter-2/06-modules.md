@@ -1,6 +1,6 @@
 # Modules
 
-Các chương trình Aiken được tạo thành từ các nhóm chức năng và loại được gọi là `modules`. Mỗi `module` có không gian tên riêng và có thể xuất các loại cũng như giá trị để các `module` khác trong chương trình sử dụng.
+Trong Aiken, các chương trình được tạo thành từ các nhóm chức năng và loại được gọi là modules. Mỗi module có không gian tên riêng và có thể xuất các loại cũng như giá trị để các module khác trong chương trình sử dụng.
 
 ```aiken
 fn f1(){
@@ -14,46 +14,43 @@ fn f2(){
 pub fn f1_f2_list(){
   [f1(), f2()]
 }
-
 ```
 
-Ở đây chúng ta có thể thấy một `module` có tên straw_hats/sunny, tên được xác định bởi tên tệp lib/straw_hats/sunny.ak. Thông thường, tất cả các mô-đun cho một dự án sẽ nằm trong một thư mục có tên của dự án, chẳng hạn như straw_hatstrong ví dụ này.
+Ở đây, chúng ta có một module có tên straw_hats/sunny, tên được xác định bởi tên tệp lib/straw_hats/sunny.ak. Thông thường, tất cả các mô-đun cho một dự án sẽ nằm trong một thư mục có tên của dự án, chẳng hạn như straw_hats trong ví dụ này.
 
-Từ `pub` khóa làm cho loại này có thể sử dụng được từ các mô-đun khác.
+Từ khóa pub khiến cho loại này có thể sử dụng được từ các module khác.
 
-Đối với các hàm count_downvà blast_offchúng tôi đã bỏ qua pub từ khóa nên các hàm này là các hàm mô-đun riêng . Chúng chỉ có thể được gọi bởi các chức năng khác trong cùng một mô-đun.
+Đối với các hàm count_down và blast_off, chúng tôi đã bỏ qua từ khóa pub, vì vậy các hàm này là các hàm riêng của module. Chúng chỉ có thể được gọi bởi các chức năng khác trong cùng một module.
 
-Tất cả các hàm, bí danh loại và hằng số đều có thể được xuất từ ​​một mô-đun bằng `pub` từ khóa.
+Tất cả các hàm, biểu thức loại và hằng số đều có thể được xuất từ một module bằng từ khóa pub.
 
-Nhập khẩu
-Để sử dụng các hàm hoặc loại từ một mô-đun khác, chúng ta cần nhập chúng bằng `use` từ khóa.
+# Import (use)
+
+Để sử dụng các hàm hoặc loại từ một module khác, chúng ta cần nhập chúng bằng từ khóa use.
 
 ```aiken
-
-// inside module src/straw_hats/laugh_tale.ak
-
+// Bên trong `module` src/straw_hats/laugh_tale.ak
 use straw_hats/sunny
 
 pub fn find_the_one_piece() {
   sunny.set_sail()
 }
-
 ```
 
-Định nghĩa `use` `straw_hats/sunny` tạo ra một biến mới có tên sunny và giá trị của mô-đun sunny.
+Định nghĩa use straw_hats/sunny tạo ra một biến mới có tên sunny và giá trị của module sunny.
 
-Trong `find_the_one_piece` hàm, chúng ta gọi `set_sail` hàm công khai của mô-đun đã nhập bằng cách sử dụng toán tử `.` . Nếu chúng tôi cố gắng gọi `count_down` nó sẽ dẫn đến lỗi thời gian biên dịch vì chức năng này là riêng tư đối với mô-đun sunny.
+Trong hàm find_the_one_piece, chúng ta gọi hàm set_sail công khai của module đã nhập bằng cách sử dụng toán tử `.`. Nếu chúng ta cố gắng gọi count_down nó sẽ dẫn đến lỗi thời gian biên dịch vì hàm này là riêng tư đối với module sunny.
 
 ### Named import
 
-Cũng có thể đặt tên tùy chỉnh cho mô-đun khi nhập mô-đun bằng từ khóa `as`.
+Bạn đã hiểu đúng! Khi có nhiều module có cùng tên mặc định được nhập vào cùng một chương trình, việc sử dụng từ khóa as để đặt tên tùy chỉnh cho mỗi module là rất hữu ích để phân biệt chúng.
 
 ```aiken
 use unix/dog
 use animal/dog as kitty
 ```
 
-Điều này có thể hữu ích để phân biệt giữa nhiều mô-đun có cùng tên mặc định khi được nhập.
+`unix/dog` và `animal/dog` có thể là hai module khác nhau trong cùng một chương trình. Việc đặt tên tùy chỉnh kitty cho `animal/dog` giúp tránh sự nhầm lẫn và làm cho mã của bạn dễ đọc hơn. Bây giờ bạn có thể sử dụng kitty để truy cập các phần tử trong module `animal/dog`.
 
 ### Unqualified import
 

@@ -1,24 +1,34 @@
 # Troubleshooting
 
-Lập trình trên `On-Chain` có thể hơi tẻ nhạt và có nhiều điểm tương đồng với lập trình nhúng. Do môi trường thực thi quá hạn chế nên các chương trình phải được tối ưu hóa và thường có rất ít chỗ cho việc khắc phục lỗi. Aiken cố gắng hết sức để cung cấp cho các nhà phát triển các công cụ bổ sung và khả năng sửa lỗi. Hãy cùng khám phá chúng.
+Lập trình trên On-Chain có thể có nhiều điểm tương đồng với lập trình nhúng trong thực tế vì cả hai đều hoạt động trong một môi trường thực thi hạn chế và cần phải tối ưu hóa để hoạt động hiệu quả. Môi trường thực thi trên chuỗi blockchain thường có các hạn chế về tài nguyên, bao gồm bộ nhớ và thời gian thực thi, do đó các chương trình trên chuỗi cần được tối ưu hóa để tiết kiệm tài nguyên và đảm bảo hoạt động ổn định.
+
+Aiken cố gắng cung cấp cho các nhà phát triển các công cụ bổ sung và khả năng sửa lỗi để hỗ trợ quá trình phát triển và triển khai các ứng dụng trên chuỗi. Các tính năng và công cụ này có thể bao gồm:
+
+1. Các công cụ phát triển tích hợp để phân tích mã, gỡ lỗi và kiểm tra mã trước khi triển khai lên chuỗi.
+
+2. Các thư viện chuẩn để thực hiện các chức năng phổ biến và giảm bớt công việc lập trình lặp đi lặp lại.
+
+3. Các hướng dẫn và tài liệu phong phú để hỗ trợ các nhà phát triển hiểu rõ hơn về cách phát triển ứng dụng trên chuỗi và xử lý các vấn đề phát sinh.
+
+Như vậy, `Aiken` cố gắng cung cấp một môi trường phát triển tổng thể và tối ưu để giúp các nhà phát triển xây dựng và triển khai các ứng dụng `blockchain` một cách hiệu quả và ổn định trên chuỗi.
 
 ### Traces
 
-Đồng minh đầu tiên của bạn trong cuộc hành trình này là `traces`. Hãy coi dấu vết như một thông điệp tường trình, được máy ảo ghi lại vào thời điểm cụ thể. Bạn có thể thêm dấu vết vào biểu thức cấp cao nhất trong Aiken bằng từ khóa `trace`.
-
-Ví dụ:
+Trong Aiken, dấu vết (traces) được coi như một loại thông điệp tường trình, là các thông tin ghi lại vào thời điểm cụ thể trong quá trình thực thi của chương trình. Bạn có thể thêm dấu vết vào biểu thức cấp cao nhất trong Aiken bằng từ khóa trace. Dưới đây là một ví dụ minh họa về cách sử dụng dấu vết trong Aiken:
 
 ```aiken
 fn is_even(n: Int) -> Bool {
   trace "is_even"
   n % 2 == 0
 }
- 
+
 fn is_odd(n: Int) -> Bool {
   trace "is_odd"
   n % 2 != 0
 }
 ```
+
+Trong ví dụ này, khi hàm is_even hoặc is_odd được gọi, một dấu vết được ghi lại với thông điệp tương ứng "is_even" hoặc "is_odd". Để thu thập dấu vết, bạn có thể chạy thử nghiệm thông qua `aiken check` hoặc mô phỏng giao dịch bằng aiken tx simulate. Trong cả hai trường hợp, các dấu vết thu được trong quá trình thực thi sẽ được hiển thị trên màn hình.
 
 Ban đầu có thể hơi khó nắm bắt các dấu vết vì `Plutus` và do đó là `Aiken` là một công cụ thực thi chức năng thuần túy. Do đó không có câu lệnh nào trong một chương trình được biên dịch. Chỉ có biểu thức . Dấu vết sẽ được thu thập nếu nó được máy ảo đánh giá. Có hai cách phổ biến để ghi lại dấu vết trong Aiken: khi chạy thử nghiệm qua `aiken check` hoặc khi mô phỏng giao dịch bằng `aiken tx simulate`. Trong cả hai trường hợp, dấu vết thu được trong quá trình đánh giá sẽ được in trên màn hình.
 
@@ -29,29 +39,35 @@ let n = 10
 is_even(n) || is_odd(n)
 ```
 
-Chỉ dấu vết `is_even` sẽ được ghi lại, vì `is_odd` trên thực tế nó không bao giờ được đánh giá (không cần thiết vì phía bên trái đã trả về `True`).
-
-
+Chỉ dấu vết của is_even sẽ được ghi lại, vì is_odd không được đánh giá (không cần thiết vì phía bên trái của toán tử || đã trả về True).
 
 ##### Lưu ý rằng dấu vết là:
 
-* Bị xóa theo mặc định khi xây dựng dự án của bạn bằng `aiken build`. Chúng có thể được bảo quản bằng cách sử dụng `--keep-traces`;
-* Được giữ theo mặc định khi kiểm tra dự án của bạn bằng `aiken check`. Chúng có thể bị loại bỏ bằng cách sử dụng `--no-traces`.
-  
-Điều này là do việc theo dõi làm cho mã được biên dịch lớn hơn và có thể bổ sung thêm chi phí thường không mong muốn đối với các trình xác thực sẵn sàng sản xuất cuối cùng. Tuy nhiên, chúng rất hữu ích cho việc phát triển và khi thử nghiệm. Do đó, dòng lệnh hướng đến những trường hợp sử dụng đó. Xin lưu ý rằng mặc dù việc bật hoặc tắt dấu vết không làm thay đổi ngữ nghĩa chương trình của bạn, nhưng nó sẽ thay đổi một cách hiệu quả giá trị băm và do đó các địa chỉ liên quan của nó.
+Lưu ý rằng dấu vết trong Aiken có những đặc điểm sau:
+
+-   Mặc định sẽ bị xóa khi bạn xây dựng dự án bằng lệnh aiken build. Bạn có thể giữ chúng bằng cách sử dụng tùy chọn --keep-traces.
+-   Mặc định sẽ được giữ lại khi bạn kiểm tra dự án bằng lệnh aiken check. Bạn có thể loại bỏ chúng bằng cách sử dụng tùy chọn --no-traces.
+
+Lý do cho điều này là việc theo dõi dấu vết làm tăng kích thước của mã được biên dịch và có thể tăng thêm chi phí tính toán không mong muốn đối với các trình xác thực sẵn sàng cho sản xuất cuối cùng. Tuy nhiên, chúng rất hữu ích cho quá trình phát triển và thử nghiệm. Do đó, các tùy chọn dòng lệnh này hướng đến những trường hợp sử dụng đó. Xin lưu ý rằng việc bật hoặc tắt dấu vết không ảnh hưởng đến ý nghĩa chương trình của bạn, nhưng nó sẽ thay đổi một cách hiệu quả giá trị băm và do đó các địa chỉ liên quan.
 
 ### ? operator
 
-Các chương trình trên chuỗi về cơ bản không có gì khác hơn là các biến vị ngữ. Nói cách khác, chúng là các hàm trả về `True` hoặc `False`. Do đó, thực tế phổ biến là cấu trúc các chương trình trên chuỗi dưới dạng các kết hợp và phân tách của các biểu thức boolean.
+Các chương trình trên chuỗi trong Aiken thường được biểu diễn dưới dạng các biểu thức boolean, có thể trả về True hoặc False. Trong thực tế, chúng là các biểu thức logic được xử lý để đưa ra quyết định.
 
-Tuy nhiên, điều này có thể hơi khó giải thích vì booleans "blind". Nghĩa là, bạn sẽ mất thông tin về ngữ cảnh ban đầu khi đánh giá các biểu thức boolean phức tạp.
+Tuy nhiên, điều quan trọng cần lưu ý là các biểu thức boolean trong các chương trình trên chuỗi thường không có thông tin về ngữ cảnh ban đầu. Điều này có nghĩa là khi đánh giá các biểu thức boolean phức tạp, bạn có thể mất đi sự hiểu biết về ngữ cảnh mà các biểu thức đó được sử dụng.
 
-Lấy ví dụ biểu thức đơn giản sau:
+Ví dụ, nếu bạn có một biểu thức boolean phức tạp như sau:
+
+```aiken
+(is_even(n) && is_prime(n)) || is_odd(n)
+```
+
+Bạn không thể biết chính xác ngữ cảnh nào đã gây ra việc biểu thức này trở thành `True` hoặc `False` mà không có thông tin bổ sung về giá trị cụ thể của `n` và các hàm `is_even`, `is_prime`, và `is_odd`.
 
 ```aiken
 let must_be_after = True
 let must_spend_token = False
- 
+
 must_be_after && must_spend_token
 ```
 
@@ -107,41 +123,39 @@ Ngoài ra, hầu hết các công cụ và thư viện xử lý CBOR đều giú
 
 Đây là một bảng tóm tắt nhỏ để giúp bạn giải mã chẩn đoán CBOR:
 
-| Kiểu | Ví dụ |
-| :--| :------------------------ | 
-|Int| 1, -14,42| 
-|List| [], [1, 2, 3],[_ 1, 2, 3] |
-|ByteArray|h'FF00',h'666f6f'| 
-|Map|{}, { 1: h'FF', 2: 14 },{_ 1: "AA" }|
-|Tag|42(1), 10(h'ABCD'),1280([1, 2])|	
-	
+| Kiểu      | Ví dụ                                 |
+| :-------- | :------------------------------------ |
+| Int       | 1, -14,42                             |
+| List      | [], [1, 2, 3],[_ 1, 2, 3]             |
+| ByteArray | h'FF00',h'666f6f'                     |
+| Map       | {}, { 1: h'FF', 2: 14 },{\_ 1: "AA" } |
+| Tag       | 42(1), 10(h'ABCD'),1280([1, 2])       |
+
 Mặc dù hầu hết đều khá minh bạch nhưng trường hợp sử dụng `Tag` có thể không gây ấn tượng với nhiều người một cách rõ ràng. Trên thực tế, `Tag` được sử dụng để mã hóa các loại tùy chỉnh trên chuỗi, bắt đầu từ thẻ `121` cho hàm tạo đầu tiên của loại dữ liệu, 122cho loại tiếp theo, v.v. Những gì được gắn thẻ tương ứng với các trường của hàm tạo, dưới dạng danh sách các đối tượng.
 
 Hãy xem thêm một số ví dụ về chẩn đoán từ các giá trị Aiken thực.
 
-
 ```aiken
 use aiken/cbor
- 
- 
+
 // Một Int trở thành int CBOR
 cbor.diagnostic(42) == @"42"
- 
+
 // Một ByteArray trở thành chuỗi byte CBOR
 cbor.diagnostic("foo") == @"h'666F6F'"
- 
+
 // Danh sách trở thành mảng CBOR
 cbor.diagnostic([1, 2, 3]) == @"[_ 1, 2, 3]"
- 
+
 // Tuple trở thành mảng CBOR
 cbor.diagnostic((1, 2)) == @"[_ 1, 2]"
- 
+
 // Danh sách 2 bộ dữ liệu trở thành bản đồ CBOR
 cbor.diagnostic([(1, #"ff")]) == @"{ 1: h'FF' }"
- 
+
 // 'Some' là hàm tạo đầu tiên của Tùy chọn → được gắn thẻ là 121
 cbor.diagnostic(Some(42)) == @"121([_ 42])"
- 
+
 // 'Không' là hàm tạo thứ hai của Tùy chọn → được gắn thẻ là 122
 cbor.diagnostic(None) == @"122([])"
 ```
@@ -159,11 +173,11 @@ Cuối cùng, bạn sẽ cần xây dựng các giá trị tương thích để 
 
 ```aiken
 use aiken/cbor
- 
+
 test my_datum_1() {
   let datum = MyDatum { foo: 42, bar: "Hello, World!" }
   cbor.diagnostic(datum) == @"121([42, h'48656c6c6f2c20576f726c6421'])"
 }
 ```
 
-Bạn có thể biến chẩn đoán này thành CBOR thô bằng cách sử dụng các công cụ như [cbor.me](https://cbor.me/?diag=121(%5B42,%20h%2748656c6c6f2c20576f726c6421%27%5D)).
+Bạn có thể biến chẩn đoán này thành CBOR thô bằng cách sử dụng các công cụ như [cbor.me](<https://cbor.me/?diag=121(%5B42,%20h%2748656c6c6f2c20576f726c6421%27%5D)>).
