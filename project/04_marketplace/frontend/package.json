@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "cbor-x": "^1.5.8",
     "classnames": "^2.5.1",
+    "lucid-cardano": "^0.10.7",
     "next": "14.1.0",
     "react": "^18",
     "react-dom": "^18"
@@ -21,9 +23,7 @@
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
-    "postcss": "^8",
     "sass": "^1.71.1",
-    "tailwindcss": "^3.3.0",
     "typescript": "^5"
   }
 }

@@ -13,7 +13,7 @@ Trong Aiken, `Bool` là một kiểu dữ liệu đại diện cho các giá tr�
 Aiken cung cấp một số toán tử phổ biến để thực hiện các phép toán với các giá trị boolean, và chúng thường rất quen thuộc với những người đã làm quen với lập trình
 
 1. Toán tử `AND` (&&): Trả về `True` nếu cả hai biểu thức đều đúng, ngược lại trả về `False`.
-2. Toán tử `OR` (||): Trả về `True` nếu ít nhất một trong hai biểu thức là `True`, ngược lại trả về `False`.
+2. Toán tử `OR` (\|\|): Trả về `True` nếu ít nhất một trong hai biểu thức là `True`, ngược lại trả về `False`.
 3. Toán tử NOT (!): Trả về `True` nếu biểu thức là sai, và ngược lại.
 
 ```aiken
@@ -273,7 +273,7 @@ Aiken!"
 3. Chuỗi văn bản có thể chứa ký tự unicode:
 
 ```aiken
-@"🌘 프로그래밍 과정을 처음부터 전문가까지 Aiken Tutorial 🌒"
+@"🌘 Aiken Tutorial 🌒"
 ```
 
 Tuy nhiên, trong Aiken, trường hợp sử dụng String là rất hạn chế và được sử dụng chỉ để theo dõi, tương tự như việc gắn nhãn vào các đường dẫn thực thi cụ thể của chương trình. Thông thường, bạn sẽ không gặp chuỗi văn bản được hiển thị trong giao diện người dùng của ứng dụng của bạn. Thay vào đó, để giao tiếp với dữ liệu nhị phân hoặc dữ liệu không cần xử lý ngôn ngữ tự nhiên, bạn có thể sử dụng ByteArray. Trong trường hợp cần thiết, bạn có thể sử dụng String cho mục đích gỡ lỗi hoặc kiểm tra.

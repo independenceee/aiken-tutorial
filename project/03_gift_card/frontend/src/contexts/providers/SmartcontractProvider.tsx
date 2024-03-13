@@ -12,7 +12,6 @@ type Props = {
 
 const SmartcontextProvider = function ({ children }: Props) {
     const [lucid, setLucid] = useState<Lucid | null>(null);
-    const [blockfrostAPIKey, setBlockfrostAPIKey] = useState<string>("");
     const [tokenName, setTokenName] = useState<string>("");
     const [parameterizedContracts, setParameterizedContracts] =
         useState<AppliedValidators | null>(null);
@@ -24,16 +23,11 @@ const SmartcontextProvider = function ({ children }: Props) {
     );
     const [waitingUnlockTx, setWaitingUnlockTx] = useState<boolean>(false);
 
-    const handleChange = function (event: ChangeEvent<HTMLInputElement>) {
-        event.preventDefault();
-        setBlockfrostAPIKey(event.target.value as string);
-    };
-
-    const setupLucid = async function () {
+    const connectWallet = async function () {
         const lucid = await Lucid.new(
             new Blockfrost(
                 "https://cardano-preprod.blockfrost.io/api/v0",
-                blockfrostAPIKey
+                "preprody7qLCi4kIiAUEFRlJvmZ2PTi6jreF7gI"
             ),
             "Preprod"
         );
@@ -151,13 +145,12 @@ const SmartcontextProvider = function ({ children }: Props) {
                 setGiftADA,
                 tokenName,
                 setTokenName,
-                setBlockfrostAPIKey,
                 redeemGiftCard,
                 createGiftCard,
                 lucid,
-                setupLucid,
                 submitTokenName,
                 parameterizedContracts,
+                connectWallet,
             }}
         >
             {children}

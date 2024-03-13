@@ -27,7 +27,6 @@ const readValidators = function (): Validators {
     }
 
     const redeemScript: string  = toHex(encode(fromHex(redeemValidator.compiledCode)))
-    // const giftCardScript: string = toHex(encode(fromHex(giftCardValidator.compiledCode)))
 
     return {
         redeem: {

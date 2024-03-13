@@ -1,6 +1,6 @@
 # Helloworld SmartContract
 
-Khi bạn đã nắm vững các kiến thức cơ bản về Aiken. Còn chờ gì nữa hãy bắt đầu với bài học bằng cách viết một hợp đồng thông minh đầu tiên đơn giản `Hello World`. Trong hướng dẫn này chúng ta sẽ thực hiện viết hợp đồng mà ở đó người dùng có thể gửi tiền vào và chúng ta có thể rút tùy ỳ với việc thêm chuỗi `Hello, World!` để thực hiện lấy tài sản.
+Sau khi bạn đã hiểu rõ về các khái niệm cơ bản của Aiken, không còn lý do gì để chần chừ. Hãy bắt đầu học bằng cách viết một hợp đồng thông minh đầu tiên, một phiên bản đơn giản của "Hello World". Trong hướng dẫn này, chúng ta sẽ viết một hợp đồng mà người dùng có thể gửi tiền vào và chúng ta có thể rút tiền bất kỳ lúc nào, đồng thời kèm theo chuỗi "Hello, World!" như một phần của việc lấy tài sản.
 
 ## Nội dung bài học
 
@@ -12,21 +12,21 @@ Khi bạn đã nắm vững các kiến thức cơ bản về Aiken. Còn chờ 
 
 ## Điều kiện tiên quyết
 
-1. Hiểu cơ bản các cách hoạt động của hợp đồng `hello world` đọc các tài liệu do nhà phát triển cardano
-2. Cần có sự quen thuộc với mã thông báo gốc, ví, địa chỉ và cơ sở hạ tầng ngoài chuỗi (ví dụ: chỉ mục chuỗi).
-3. `Deno` + `TypeScript` + `Lucid` + `Aiken`. Môi trường của bạn phải được cấu hình để hỗ trợ điều đó. Bạn có thể tìm thấy mã hỗ trợ hướng dẫn này trên kho lưu trữ chính của Aiken.
-4. Khi gặp một cú pháp hoặc khái niệm xa lạ, đừng ngần ngại tham khảo chuyến tham quan ngôn ngữ để biết thêm chi tiết và ví dụ bổ sung.
+1. Hiểu cơ bản về cách hoạt động của hợp đồng Hello World bằng cách đọc các tài liệu từ nhà phát triển Cardano.
+2. Cần phải hiểu về mã thông báo gốc, ví, địa chỉ và cơ sở hạ tầng ngoài chuỗi (ví dụ: chỉ mục chuỗi).
+3. Đảm bảo môi trường của bạn được cấu hình để hỗ trợ Deno + TypeScript + Lucid + Aiken. Bạn có thể tìm mã hỗ trợ cho hướng dẫn này trên kho lưu trữ chính của Aiken.
+4. Khi gặp phải một cú pháp hoặc khái niệm xa lạ, đừng ngần ngại tham khảo hướng dẫn ngôn ngữ để biết thêm chi tiết và ví dụ bổ sung.
 
 ### 1. Khởi tạo và cài đặt dự án Aiken Hello world.
 
-Chúng ta sẽ sử dụng Aiken để viết tập lệnh vì vậy hãy cài đặt dòng lệnh hoặc nếu không, hãy xem hướng dẫn cài đặt. Đầu tiên, hãy tạo một dự án Aiken mới:
+Chúng ta sẽ sử dụng Aiken để viết tập lệnh, vì vậy hãy cài đặt dòng lệnh hoặc nếu không, hãy xem hướng dẫn cài đặt. Đầu tiên, hãy tạo một dự án Aiken mới:
 
 ```sh
 aiken new independence/hello-world
 cd hello-world
 ```
 
-Lệnh này tạo ra một dự án Aiken. Đặc biệt, nó tạo ra một `lib` và `validators` các thư mục trong đó bạn có thể đặt các tập tin nguồn Aiken.
+Lệnh này tạo ra một dự án Aiken mới. Đặc biệt, nó tạo ra các thư mục lib và validators trong đó bạn có thể đặt các tập tin nguồn Aiken.
 
 ```sh
 ./hello-world
@@ -38,7 +38,7 @@ Lệnh này tạo ra một dự án Aiken. Đặc biệt, nó tạo ra một `li
 └── validators
 ```
 
-Chúng ta sẽ sử dụng thư viện tiêu chuẩn để viết trình xác nhận của chúng ta. May mắn thay, aiken `new` đã tự động thêm thư viện tiêu chuẩn vào `aiken.toml` cho chúng ta. Nó sẽ trông đại khái như thế:
+Chúng ta sẽ sử dụng thư viện tiêu chuẩn để viết trình xác nhận của chúng ta. May mắn thay, lệnh aiken new đã tự động thêm thư viện tiêu chuẩn vào aiken.toml cho chúng ta. Nó sẽ trông đại khái như sau:
 
 ```aiken.toml
 aiken.toml
@@ -58,7 +58,7 @@ version = "main"
 source = "github"
 ```
 
-Bây giờ, khi chạy `aiken check`, chúng ta sẽ thấy các phần phụ thuộc đang được tải xuống. Điều đó sẽ không mất nhiều thời gian.
+Bây giờ, khi chạy aiken check, chúng ta sẽ thấy các phần phụ thuộc đang được tải xuống. Điều đó sẽ không mất nhiều thời gian.
 
 ```sh
 ❯ aiken check
@@ -116,9 +116,7 @@ aiken build
 
 Lệnh này tạo bản thiết kế `CIP-0057` `Plutus` như `plutus.json` ở thư mục gốc của dự án của bạn. Kế hoạch chi tiết này mô tả hợp đồng trực tuyến của bạn và giao diện nhị phân của nó. Đặc biệt, nó chứa mã trên chuỗi được tạo sẽ được thực thi bởi sổ cái và hàm băm của (các) trình xác thực của bạn có thể được sử dụng để tạo địa chỉ. Với `aiken address` được sử dụng để tạo địa chỉ
 
-Định dạng này không phụ thuộc vào khung và nhằm tạo điều kiện thuận lợi cho khả năng tương tác giữa các công cụ. Bản thiết kế được tích hợp hoàn toàn vào Aiken, có thể tự động tạo bản thiết kế dựa trên định nghĩa và nhận xét về loại của bạn.
-
-Hãy cùng xem trình xác nhận hoạt động!
+Định dạng này không phụ thuộc vào khung và nhằm tạo điều kiện thuận lợi cho khả năng tương tác giữa các công cụ. Bản thiết kế được tích hợp hoàn toàn vào Aiken, có thể tự động tạo bản thiết kế dựa trên định nghĩa và nhận xét về loại của bạn. Hãy cùng xem trình xác nhận hoạt động.
 
 ### 3. Thêm dấu vết cho Hợp đồng thông minh
 
@@ -158,9 +156,7 @@ validator {
 
 1. Chúng ta đã thêm thông báo thủ công bằng cách sử dụng `trace` từ khóa. Tin nhắn là tin nhắn được chuyển đi với tư cách là người chuộc lỗi. Với điều này, chúng ta có thể kiểm tra xem giá trị mà trình xác thực nhìn thấy có phải là giá trị được mong đợi hay không.
 
-2. Hãy chú ý cách chúng ta thêm dấu chấm hỏi `?` vào cuối mỗi biểu thức `must_say_hello` và `must_be_signed`. Đây là cái mà chúng ta gọi là toán tử `trace-if-false` và khá tiện lợi để gỡ lỗi mọi thứ. Toán tử này sẽ theo dõi biểu thức mà nó được gắn vào chỉ khi nó ước tính là `False`. Điều này khuyến khích một cách tiếp cận trong đó các trình xác thực được xây dựng dưới dạng kết hợp hoặc tách rời các yêu cầu. Khi thực thi không thành công, tất cả các yêu cầu không hợp lệ sẽ để lại dấu vết!
-
-Để xem được những dấu vết đó, chúng ta cần viết một bài kiểm tra ngắn.
+2. Hãy chú ý cách chúng ta thêm dấu chấm hỏi `?` vào cuối mỗi biểu thức `must_say_hello` và `must_be_signed`. Đây là cái mà chúng ta gọi là toán tử `trace-if-false` và khá tiện lợi để gỡ lỗi mọi thứ. Toán tử này sẽ theo dõi biểu thức mà nó được gắn vào chỉ khi nó ước tính là `False`. Điều này khuyến khích một cách tiếp cận trong đó các trình xác thực được xây dựng dưới dạng kết hợp hoặc tách rời các yêu cầu. Khi thực thi không thành công, tất cả các yêu cầu không hợp lệ sẽ để lại dấu vết! Để xem được những dấu vết đó, chúng ta cần viết một bài kiểm tra ngắn.
 
 ### 4. Chạy thử nghiệm aiken với một vài các bài kiểm tra
 

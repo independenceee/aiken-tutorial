@@ -1,12 +1,27 @@
 # Vesting Smartcontract Giftcard - Part 2
 
-Với phần dễ dàng này, chúng ta có thể bắt đầu xây dựng giao diện người dùng để tương tác với các hợp đồng thông minh của mình trong trình duyệt. `Deno Fresh` là một dự án thú vị để xây dựng các ứng dụng web trong `Deno`.
+Bây giờ chúng ta có thể bắt đầu xây dựng giao diện người dùng để tương tác với các hợp đồng thông minh của mình trong trình duyệt. Deno Fresh là một dự án thú vị để xây dựng các ứng dụng web trong Deno. Đây là một lựa chọn tuyệt vời để tạo ra các ứng dụng web hiện đại mà không cần phải sử dụng Node.js hoặc các công nghệ khác. Bạn có thể bắt đầu bằng cách tạo một dự án mới với Deno Fresh và sau đó bắt đầu phát triển giao diện người dùng của bạn từ đó. Điều này bao gồm việc xây dựng các trang web tương tác, kết nối với các hợp đồng thông minh của bạn và hiển thị dữ liệu một cách đáng tin cậy cho người dùng. Hãy tiếp tục nỗ lực và chúc bạn thành công trong việc xây dựng giao diện người dùng cho các hợp đồng thông minh của mình!
 
 ### Nội dung bài học
 
-1. Tạo một dự án (Sử dụng deno làm công cụ chính)
-2. Xây dựng giao diện tương tác với gift card
+1. Tạo một dự án (Sử dụng Deno làm công cụ chính)
+
+-   Khởi tạo một dự án mới với Deno Fresh
+-   Cấu hình cơ bản cho dự án Deno
+
+2. Xây dựng giao diện tương tác với `gift card`
+
+-   Thiết kế giao diện người dùng cho ứng dụng gift card
+-   Tạo các trang và thành phần UI cần thiết bằng HTML, CSS và Typescript
+-   Đảm bảo giao diện người dùng thân thiện và dễ sử dụng
+
 3. Viết các chức năng tương tác với hợp đồng
+
+-   Sử dụng Typescript để kết nối và tương tác với các hợp đồng thông minh trên blockchain
+-   Xây dựng các chức năng cho phép người dùng gửi và rút tiền từ hợp đồng
+-   Xử lý các sự kiện và giao tiếp với hợp đồng thông minh một cách an toàn và hiệu quả
+
+Hãy tiếp tục theo dõi các bước trong nội dung bài học này để xây dựng một ứng dụng tương tác hoàn chỉnh với hợp đồng thông minh trên blockchain sử dụng Deno.
 
 ### 1. Tạo một dự án (Sử dụng deno làm công cụ chính)
 
@@ -16,7 +31,7 @@ Hãy tạo một dự án mới Deno trong cùng thư mục với dự án Aiken
 deno run -A -r https://fresh.deno.dev .
 ```
 
-Chúng tôi cần sự rõ ràng và có lẽ chúng tôi nên thêm bí danh để hàng nhập vào trông đẹp hơn. Hãy chỉnh sửa `import_map.json`
+Đối với sự rõ ràng, chúng ta nên thêm một bí danh để hàng nhập vào trông đẹp hơn. Hãy chỉnh sửa import_map.json như sau:
 
 ```json
 {
@@ -35,13 +50,17 @@ Chúng tôi cần sự rõ ràng và có lẽ chúng tôi nên thêm bí danh đ
 }
 ```
 
-Chúng ta có thể xóa một số thứ đi kèm với mẫu khởi đầu mà chúng ta không cần. Hãy thêm một số thành phần có thể tái sử dụng vào dự án của chúng ta.
+Bằng cách này, chúng ta đã thêm bí danh cho các module và hàng nhập vào, làm cho mã của chúng ta trở nên rõ ràng và dễ đọc hơn. Tiếp theo, bạn có thể tiếp tục xây dựng ứng dụng của mình trong Deno với CSS Tailwind.
+
+Dưới đây là cách xóa một số thành phần không cần thiết từ dự án mẫu và thêm một thành phần nút có thể tái sử dụng:
 
 ```sh
 rm islands/Counter.tsx
 rm -rf routes/api
 rm routes/\[name\].tsx
 ```
+
+Sau đó, bạn có thể thêm mã sau vào dự án của mình, để tạo một thành phần nút có thể tái sử dụng:
 
 ```ts
 import { JSX } from "preact";
@@ -58,7 +77,8 @@ export function Button(props: JSX.HTMLAttributes<HTMLButtonElement>) {
 }
 ```
 
-Bạn chỉ có thể thay thế thành phần Nút hiện có bằng mã ở trên
+Mã trên định nghĩa một thành phần Button dựa trên thẻ <button> trong HTML, với các thuộc tính được chuyển vào qua props. Nó cũng kiểm tra xem liệu ứng dụng đang chạy trên trình duyệt hay không (IS_BROWSER), và nếu không, nút sẽ bị vô hiệu hóa.
+Sau khi thêm mã này vào dự án Deno của bạn, bạn sẽ có một thành phần nút có thể tái sử dụng và một thành phần input mới như sau:
 
 ```ts
 import { ComponentChild, JSX } from "preact";
@@ -86,11 +106,13 @@ export function Input({
 }
 ```
 
+Thành phần Input này cho phép bạn tạo ra các ô nhập dữ liệu trong ứng dụng của mình. Nó bao gồm một nhãn và một ô nhập dữ liệu với các lớp CSS Tailwind được áp dụng để tạo ra giao diện người dùng thân thiện và dễ sử dụng. Bạn có thể sử dụng Input trong ứng dụng của mình bằng cách gọi nó và truyền các thuộc tính cần thiết, giống như bạn đã làm với Button.
+
 ### 2. Xây dựng giao diện tương tác với gift card
 
 Mọi thứ chúng tôi sẽ thực hiện với trình xác thực và giao dịch sẽ diễn ra hoàn toàn ở phía khách hàng. Điều này có nghĩa là chúng ta chỉ có thể yêu cầu tuyến đường của mình hiển thị một islandthành phần duy nhất và sau đó chúng ta có thể viết tất cả mã của mình trên hòn đảo này trong hầu hết các phần.
 
-Hãy tạo một tệp mới `islands/Oneshot.tsx` và thêm đoạn mã sau.
+Dưới đây là cách tạo một tệp mới islands/Oneshot.tsx và thêm đoạn mã:
 
 ```tsx
 export default function Oneshot() {
@@ -98,7 +120,7 @@ export default function Oneshot() {
 }
 ```
 
-Bây giờ bên trong `routes/index.tsx` chúng ta có thể nhập hòn đảo mới của mình và hiển thị nó.
+Sau đó, bên trong routes/index.tsx, chúng ta có thể nhập hòn đảo mới của mình và hiển thị nó:
 
 ```ts
 import { Head } from "$fresh/runtime.ts";
@@ -136,7 +158,9 @@ export default function Home() {
 }
 ```
 
-Bạn có thể thay thế mọi thứ có trong `routes/index.tsx` đoạn mã trên. Chúng tôi đã để lại một số `TODO` mã trong mã để nhắc nhở chúng tôi hiển thị trình xác thực. Chúng tôi sẽ hiển thị mã aiken đã biên dịch dưới dạng chuỗi được mã hóa hex. Không có nhiều lý do để làm điều này, thật tuyệt khi thấy điều đó. Tiếp theo chúng ta nên tải `plutus.json` và lấy mã `aiken` đã biên dịch. Hãy tạo một tệp có tên `utils.ts` và thêm đoạn mã sau.
+Bạn có thể thay thế mọi thứ có trong `routes/index.tsx` đoạn mã trên. Chúng tôi đã để lại một số `TODO` mã trong mã để nhắc nhở chúng tôi hiển thị trình xác thực. Chúng tôi sẽ hiển thị mã aiken đã biên dịch dưới dạng chuỗi được mã hóa hex. Không có nhiều lý do để làm điều này, thật tuyệt khi thấy điều đó. Tiếp theo chúng ta nên tải `plutus.json` và lấy mã `aiken` đã biên dịch. Hãy tạo một tệp có tên `utils.ts` và thêm đoạn mã sau. Trong đoạn mã trên, chúng ta đã tạo một hòn đảo mới Oneshot và hiển thị nó trong trang chính của chúng ta. Điều này cho phép chúng ta tập trung vào việc phát triển logic và giao diện cho tính năng minting và lock contract một cách dễ dàng.
+
+Dưới đây là mã để nhập readValidators và sử dụng nó trong routes/index.tsx:
 
 ```ts
 import { MintingPolicy, SpendingValidator } from "lucid/mod.ts";

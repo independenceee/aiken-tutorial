@@ -25,7 +25,7 @@ const Home = function ({}: Props) {
                         {validators.giftCard.script}
                     </pre>
                 </div>
-                <Oneshot validators={validators} />
+                <Oneshot />
             </div>
         </main>
     );

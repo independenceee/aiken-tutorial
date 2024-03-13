@@ -5,9 +5,8 @@ export type SmartcontractContextType = {
     redeemGiftCard: () => Promise<void>
     createGiftCard: () => Promise<void>
     submitTokenName: () => Promise<void>
-    setupLucid: () => Promise<void>
+    connectWallet: () => Promise<void>
     lucid: Lucid | null
-    setBlockfrostAPIKey: React.Dispatch<React.SetStateAction<string>>
     giftADA: string | undefined
     setGiftADA: React.Dispatch<React.SetStateAction<string | undefined>>
     tokenName: string

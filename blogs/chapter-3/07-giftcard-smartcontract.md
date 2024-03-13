@@ -1,6 +1,13 @@
 # Gift card - Smart contract
 
-Bạn có thể tìm thấy mã hỗ trợ hướng dẫn này trên kho lưu trữ chính của `Aiken`. Được đề cập trong hướng dẫn này viết các trình xác nhận và `Aiken` phụ thuộc lẫn nhau `.mint spend`. Trình xác nhận tham số hóa. Chúng tôi sẽ một lần nữa sử dụng `Blockfrost` làm nhà cung cấp. Vì vậy, hãy chuẩn bị sẵn khóa `API Block Frost` của bạn. Khi gặp một cú pháp hoặc khái niệm xa lạ, đừng ngần ngại tham khảo chuyến tham quan ngôn ngữ để biết thêm chi tiết và ví dụ bổ sung.
+Để tìm mã hỗ trợ cho hướng dẫn này trên kho lưu trữ chính của Aiken, bạn có thể truy cập vào trang GitHub hoặc kho lưu trữ chính của Aiken trên Internet. Dưới đây là một ví dụ về cách tìm mã hỗ trợ trên GitHub:
+
+1. Truy cập trang GitHub của dự án Aiken: `https://github.com/aiken-lang/aiken`.
+2. Sử dụng tính năng tìm kiếm trên trang GitHub và nhập các từ khóa hoặc tên của hướng dẫn bạn quan tâm. Ví dụ, bạn có thể nhập "Aiken tutorial" hoặc "Aiken guide".
+3. Duyệt qua kết quả tìm kiếm để tìm các tệp hoặc thư mục liên quan đến hướng dẫn bạn đang tìm kiếm. Thông thường, các hướng dẫn hoặc mã mẫu sẽ được lưu trữ trong các thư mục hoặc tệp có tên như "docs", "examples", hoặc "tutorials".
+4. Một khi bạn đã tìm thấy tệp hoặc thư mục chứa mã hỗ trợ cho hướng dẫn của bạn, bạn có thể xem mã và tham khảo nó để hiểu thêm về cách sử dụng Aiken cho hướng dẫn của mình.
+
+Về việc viết các trình xác nhận và phụ thuộc Aiken lẫn nhau, bạn có thể tìm hiểu thêm thông qua tài liệu và ví dụ bổ sung trên trang chính thức của Aiken hoặc trong tài liệu ngôn ngữ mà Aiken dựa trên. Nếu bạn sử dụng Blockfrost làm nhà cung cấp, hãy chắc chắn rằng bạn đã chuẩn bị sẵn khóa API của mình để có thể sử dụng trong ứng dụng của bạn. Khi bạn gặp phải một cú pháp hoặc khái niệm xa lạ, đừng ngần ngại tham khảo chuyến tham quan ngôn ngữ để biết thêm chi tiết và ví dụ bổ sung. Điều này sẽ giúp bạn hiểu rõ hơn về các khái niệm và cách sử dụng chúng trong mã của mình.
 
 ### Nội dung bài học
 
