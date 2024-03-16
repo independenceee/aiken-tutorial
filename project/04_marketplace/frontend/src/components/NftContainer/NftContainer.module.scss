@@ -1,0 +1,32 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+}
+.container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px 16px;
+}
+
+@media only screen and (max-width: 767px) {
+    .container {
+        gap: 10px 11px;
+        grid-template-columns: repeat(auto-fill, minmax(166px, 1fr));
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1279px) {
+}
+
+@media only screen and (min-width: 1280px) and (max-width: 1535px) {
+}
+
+@media only screen and (min-width: 1536px) {
+}

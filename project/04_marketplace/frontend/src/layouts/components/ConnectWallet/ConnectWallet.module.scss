@@ -1,0 +1,222 @@
+.image {
+    object-fit: cover;
+    width: 24px;
+    height: 24px;
+}
+
+.wallet__short--wrapper {
+    position: absolute;
+    width: 175px;
+    background: #f8fafd;
+    top: 70px;
+    right: 5%;
+    border-radius: var(--border-radius-4);
+}
+
+.wallet__short--container {
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    box-sizing: border-box;
+    color: var(--text-color);
+    cursor: pointer;
+    display: flex;
+    filter: brightness(1);
+    font-size: 14px;
+    font-weight: 600;
+    justify-content: flex-start;
+    line-height: 150%;
+    min-height: 64px;
+    outline: none;
+    padding: 8px 24px;
+    text-overflow: ellipsis;
+    transition-duration: 125ms;
+    transition-property: background-color, color, filter;
+
+    &:hover {
+        background: #ccc;
+    }
+}
+
+.wallet__short--item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.wallet__short--image {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+}
+
+.wallet__short--name {
+    display: flex;
+    align-items: center;
+}
+
+.wallet_download {
+    background-color: #ffffff;
+    border-radius: 4px;
+    color: #000;
+    box-shadow: 0px 60px 24px rgba(23, 23, 20, 0.01), 0px 34px 20px rgba(21, 21, 18, 0.02),
+        0px 15px 15px rgba(26, 26, 22, 0.03), 0px 4px 8px rgba(20, 20, 16, 0.04),
+        0px 0px 0px rgba(32, 32, 27, 0.04);
+
+    display: flex;
+    flex-direction: column;
+    left: 50%;
+    max-height: 85vh;
+    width: 90vw;
+    max-width: 710px;
+    overflow: hidden;
+    position: fixed;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.nowallet__content {
+    padding: 32px 56px;
+
+    p {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 17px;
+        line-height: 175%;
+        color: #000;
+        overflow-wrap: anywhere;
+        white-space: pre-wrap;
+    }
+}
+.nowallet__button {
+    align-items: center;
+    border-top: 1px solid #ccc;
+    bottom: 0;
+    display: flex;
+    gap: 16px;
+    height: auto;
+    justify-content: flex-end;
+    left: 0;
+    padding: 16px 56px;
+    position: sticky;
+    right: 0;
+
+    .button__ok {
+        display: flex;
+        align-items: center;
+        color: #000;
+        background: transparent;
+        border: 1px solid rgba(0, 0, 0, 0.16);
+        border-radius: 8px;
+        cursor: pointer;
+        padding: 4px 24px;
+        height: 48px;
+        width: auto;
+
+        &:hover {
+            background: #ebebe0;
+        }
+    }
+
+    .button__cancel {
+        display: flex;
+        align-items: center;
+        color: #fff;
+        background: #d02f2d;
+        border: 1px solid rgba(0, 0, 0, 0.16);
+        border-radius: 8px;
+        cursor: pointer;
+        padding: 4px 24px;
+        height: 48px;
+        width: auto;
+
+        &:hover {
+            background: #ae2726;
+        }
+    }
+}
+
+.wallet__long--wrapper {
+    width: 448px;
+    z-index: 50;
+    background: #fff;
+    border-radius: 4px;
+}
+
+.wallet__long--header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+}
+
+.wallet__long--title {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.wallet__long--close {
+    font-weight: bold;
+    font-size: 20px;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+
+    &:hover {
+        background: rgba(0, 0, 0, 0.06);
+    }
+}
+
+.wallet__long--list {
+    padding: 8px 24px 40px;
+    overflow-y: scroll;
+}
+
+.wallet__long--content {
+    width: 400px;
+    height: 50px;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    margin-bottom: 12px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 13px 0px;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        background: rgba(0, 0, 0, 0.2);
+    }
+}
+.wallet__long--image {
+    height: 40px;
+    width: 40px;
+    z-index: 200;
+    background: #fff;
+    padding: 2px;
+    border-radius: 4px;
+}
+.wallet__long--name {
+    margin-left: 16px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.wallet {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.wallet__infomation--wrapper {
+    position: absolute;
+    width: 270px;
+    background: #f8fafd;
+    top: 70px;
+    right: 5%;
+    border-radius: var(--border-radius-4);
+}

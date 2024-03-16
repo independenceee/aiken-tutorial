@@ -1,0 +1,15 @@
+.icon__wrapper {
+    transition: all 0.5 linear;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font-weight: 500;
+    border: 1px solid #7000ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: #7000ff;
+    cursor: pointer;
+    z-index: 30;
+}

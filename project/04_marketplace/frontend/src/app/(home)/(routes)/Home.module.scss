@@ -1,0 +1,21 @@
+.trending__wrapper {
+    margin: 20px 0;
+
+    .trending__container {
+        margin: 20px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .slider__wrapper {
+            overflow-x: hidden;
+        }
+    }
+}
+
+.news_container {
+    width: min(90rem, 90%);
+    max-width: 840px;
+    position: relative;
+    margin: 0 auto;
+}

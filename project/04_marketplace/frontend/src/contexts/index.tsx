@@ -1,18 +1,23 @@
 "use client";
 
-import React, { ReactNode, useEffect, useState } from "react";
-import { Blockfrost, Lucid } from "lucid-cardano";
-import LucidContext from "~/contexts/components/LucidContext";
+import React, { ReactNode, lazy } from "react";
 
-type Props = { children: ReactNode };
+const LucidProvider = lazy(() => import("@/contexts/providers/LucidProvider"));
+const SmartContractProvider = lazy(() => import("@/contexts/providers/SmartContractProvider"));
+const AccountProvider = lazy(() => import("@/contexts/providers/AccountProvider"));
 
-const LucidProvider = function ({ children }: Props) {
-    const [lucid, setLucid] = useState<Lucid>(null!);
+type Props = {
+    children: ReactNode;
+};
+
+const ContextProvider = function ({ children }: Props) {
     return (
-        <LucidContext.Provider value={{ lucid, setLucid }}>
-            {children}
-        </LucidContext.Provider>
+        <LucidProvider>
+            <SmartContractProvider>
+                <AccountProvider>{children}</AccountProvider>
+            </SmartContractProvider>
+        </LucidProvider>
     );
 };
 
-export default LucidProvider;
+export default ContextProvider;

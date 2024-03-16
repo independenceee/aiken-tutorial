@@ -1,34 +1,18 @@
+@import "normalize.css";
+@import "react-loading-skeleton/dist/skeleton.css";
+@import "react-toastify/dist/ReactToastify.css";
+@import "tippy.js/dist/tippy.css";
+@import "aos/dist/aos.css";
+
 :root {
-    --jet: hsl(0, 0%, 20%);
-        --white: hsl(0, 0%, 100%);
-        --black: hsl(0, 0%, 0%);
-        --onyx-1: hsl(0, 0%, 24%);
-        --onyx-2: hsl(0, 0%, 25%);
-        --gray-web: hsl(0, 0%, 48%);
-        --light-gray: hsl(0, 0%, 80%);
-        --davys-gray: hsl(0, 0%, 33%);
-        --field-drab: hsl(47, 98%, 22%);
-        --red-crayola: hsl(356, 73%, 58%);
-        --golden-puppy: hsl(47, 100%, 49%);
-        --quick-silver: hsl(0, 0%, 63%);
-        --sonic-silver: hsl(0, 0%, 44%);
-        --eerie-black-1: hsl(0, 0%, 15%);
-        --eerie-black-2: hsl(0, 0%, 7%);
-        --rich-black-fogra-39: hsl(0, 0%, 2%);
-        --ff-roboto: "Roboto", sans-serif;
-        --fs-1: 32px;
-        --fs-2: 20px;
-        --fs-3: 19px;
-        --fs-4: 18px;
-        --fs-5: 16px;
-        --fs-6: 15px;
-        --fs-7: 14px;
-        --fs-8: 13px;
-        --fs-9: 12px;
-        --fs-10: 11px;
-        --fw-500: 500;
-        --fw-700: 700;
-        --transition: 0.15s ease-in-out;
+    --font-family: "Open Sans", sans-serif;
+    --text-color: #4c4747;
+    --white-color: #ffffff;
+    --border-radius-primary: 30px;
+    --search-border-radius: 92px;
+    --search-height: 46px;
+    --search-top-spacer: 9px;
+    --search-button-width: 52px;
 }
 
 * {
@@ -37,7 +21,45 @@
     box-sizing: border-box;
 }
 
-
 html {
-    background: #000;
+    font-family: var(--font-family);
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-family);
+    line-height: 1.5;
+    text-rendering: optimizespeed;
+    color: var(--text-color);
+    overflow-y: overlay;
+
+    overflow-x: hidden;
+}
+
+a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+button,
+input,
+[tabindex] {
+    outline: none;
+    border: none;
+}
+
+// Scrollbar CSS
+html *::-webkit-scrollbar {
+    border-radius: 0;
+    width: 8px;
+}
+
+html *::-webkit-scrollbar-thumb {
+    border-radius: var(--border-radius-primary);
+    background: #c2c2c2;
+}
+
+html *::-webkit-scrollbar-track {
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
 }

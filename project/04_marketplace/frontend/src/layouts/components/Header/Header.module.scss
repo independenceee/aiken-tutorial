@@ -1,0 +1,83 @@
+.wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    z-index: 1;
+}
+
+.container {
+    width: min(90rem, 90%);
+    display: flex;
+    height: 80px;
+    margin: 0 auto;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar {
+    display: flex;
+    gap: 15px;
+}
+
+.button__wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .button__container {
+        position: relative;
+    }
+
+    .button__other {
+        background: #fff;
+        padding: 0.4rem 1rem;
+        text-decoration: none;
+        text-transform: uppercase;
+        border: 2px solid #7000ff;
+        border-radius: var(--border-radius-primary);
+        transition: 0.3s ease-in-out;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .icon__container {
+            cursor: pointer;
+            color: var(--text-color);
+            position: relative;
+            font-size: 18px;
+
+            span {
+                position: absolute;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                top: -6px;
+                right: -6px;
+                background: #7000ff;
+                border-radius: 50%;
+                color: var(--white-color);
+                height: 15px;
+                width: 15px;
+                font-size: 10px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1290px) {
+    .navbar {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 656px) {
+    .button__other {
+        display: none !important;
+    }
+
+    .connect-wallet-button {
+        display: none !important;
+    }
+}

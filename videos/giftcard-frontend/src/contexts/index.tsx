@@ -17,7 +17,9 @@ type Props = {
 const ContextProvider = function ({ children }: Props) {
     return (
         <LucidProvider>
-            <WalletProvider>{children}</WalletProvider>
+            <WalletProvider>
+                <SmartcontractProvider>{children}</SmartcontractProvider>
+            </WalletProvider>
         </LucidProvider>
     );
 };

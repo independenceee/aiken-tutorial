@@ -68,7 +68,6 @@ const SmartcontractProvider = function ({ children }: Props) {
 
             const validator = readValidator();
             const contractAddress = lucid.utils.validatorToAddress(validator);
-
             const scriptUtoxs = await lucid.utxosAt(contractAddress);
 
             const tx = await lucid

@@ -6,6 +6,7 @@ import { LucidContextType } from "~/types/contexts/LucidContextType";
 import LucidContext from "../components/LucidContext";
 import applyParams, { AppliedValidators } from "~/utils/apply-params";
 import readValidators from "~/utils/read-validator";
+import { Constr, Data, fromText } from "lucid-cardano";
 
 type Props = {
     children: ReactNode;
@@ -23,9 +24,89 @@ const SmartcontractProvider = function ({ children }: Props) {
     const [waitingLockTx, setWaitingLockTx] = useState<boolean>(false);
     const [waitingUnLockTx, setWaitingUnLockTx] = useState<boolean>(false);
 
-    const lockGiftcard = async function () {};
+    const lockGiftcard = async function () {
+        try {
+            setWaitingLockTx(true);
 
-    const unLockGiftcard = async function () {};
+            const lovelace = Number(tAda) * 1000000;
+
+            const assetName = `${parameterizedContracts!.policyId}${fromText(
+                tokenName
+            )}`;
+
+            const mintRedeemer = Data.to(new Constr(0, []));
+
+            const utxos = await lucid.wallet.getUtxos();
+
+            const utxo = utxos[0];
+
+            const tx = await lucid
+                .newTx()
+                .collectFrom([utxo])
+                .attachMintingPolicy(parameterizedContracts!.giftCard)
+                .mintAssets({ [assetName]: BigInt(1) }, mintRedeemer)
+                .payToContract(
+                    parameterizedContracts!.lockAddress,
+                    { inline: Data.void() },
+                    { lovelace: BigInt(lovelace) }
+                )
+                .complete();
+            const txSigned = await tx.sign().complete();
+            const txHash = await txSigned.submit();
+
+            const success = await lucid.awaitTx(txHash);
+
+            setTimeout(() => {
+                setWaitingLockTx(false);
+                if (success) {
+                    setLockTxHash(txHash);
+                }
+            }, 3000);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setWaitingLockTx(false);
+        }
+    };
+
+    const unLockGiftcard = async function () {
+        try {
+            setWaitingUnLockTx(true);
+
+            const utxos = await lucid.utxosAt(
+                parameterizedContracts!.lockAddress
+            );
+
+            const assetName = `${parameterizedContracts!.policyId}${fromText(
+                tokenName
+            )}`;
+
+            const burnRedeemer = Data.to(new Constr(1, []));
+
+            const tx = await lucid
+                .newTx()
+                .collectFrom(utxos, Data.void())
+                .attachMintingPolicy(parameterizedContracts!.giftCard)
+                .attachSpendingValidator(parameterizedContracts!.redeem)
+                .mintAssets({ [assetName]: BigInt(-1) }, burnRedeemer)
+                .complete();
+
+            const txSigned = await tx.sign().complete();
+            const txHash = await txSigned.submit();
+
+            const success = await lucid.awaitTx(txHash);
+
+            setWaitingUnLockTx(false);
+
+            if (success) {
+                setUnLockTxHash(txHash);
+            }
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setWaitingUnLockTx(false);
+        }
+    };
 
     const submitTokenName = async function () {
         const utxos = await lucid.wallet.getUtxos();

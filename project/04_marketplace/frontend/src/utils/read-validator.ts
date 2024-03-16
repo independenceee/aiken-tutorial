@@ -1,25 +1,17 @@
-
 import { encode } from "cbor-x";
 import { SpendingValidator, fromHex, toHex } from "lucid-cardano";
-import marketplace from "~/libs/plutus.json";
 
-const readValidator = function (): SpendingValidator {
+type Props = {
+    compliedCode: string;
+};
 
-    const marketplaceValidator = marketplace.validators.find(function (validator) {
-        return validator.title === "contract.contract"
-    })
+const readValidator = async function ({ compliedCode }: Props): Promise<SpendingValidator> {
+    const script: string = toHex(encode(fromHex(compliedCode)));
 
-    if (!marketplaceValidator) {
-        throw new Error("Marketplace validator not found");
-    }
-
-    const marketplaceScript = toHex(encode(fromHex(marketplaceValidator.compiledCode)))
-    
     return {
         type: "PlutusV2",
-        script: marketplaceScript
-    }
-}
+        script: script,
+    };
+};
 
-
-export default readValidator
+export default readValidator;

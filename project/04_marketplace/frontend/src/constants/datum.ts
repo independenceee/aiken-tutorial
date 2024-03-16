@@ -1,6 +1,6 @@
 import { Data } from "lucid-cardano";
 
-const MarketplaceDatumSchema = Data.Object({
+const DatumInitial = Data.Object({
     policyId: Data.Bytes(),
     assetName: Data.Bytes(),
     seller: Data.Bytes(),
@@ -9,5 +9,5 @@ const MarketplaceDatumSchema = Data.Object({
     royalties: Data.Integer(),
 });
 
-type MarketplaceDatum = Data.Static<typeof MarketplaceDatumSchema>;
-export const MarketplaceDatum = MarketplaceDatumSchema as unknown as MarketplaceDatum;
+export type Datum = Data.Static<typeof DatumInitial>;
+export const Datum = DatumInitial as unknown as Datum;
