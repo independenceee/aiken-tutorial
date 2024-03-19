@@ -19,11 +19,11 @@ type Props = {
     index: number;
 };
 
-const NftItem = function ({ value }: Props) {
+const NftItem = function ({ value, index }: Props) {
     const router = useRouter();
 
     return (
-        <div className={cx("wrapper")}>
+        <div className={cx("wrapper")} data-aos="zoom-in-up" data-aos-delay={`${100 * (index + 4)}`} data-aos-duration={`${1000 * (index + 4)}`}>
             <div className={cx("container")} onClick={() => router.push(`/detail/${value.policyId + value.assetName}`)}>
                 <section className={cx("image__wrapper")}>
                     {checkMediaType(value.mediaType, "image") && (

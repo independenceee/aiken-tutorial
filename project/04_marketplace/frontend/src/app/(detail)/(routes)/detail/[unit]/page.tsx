@@ -6,6 +6,7 @@ import classNames from "classnames/bind";
 import Skeleton from "react-loading-skeleton";
 import { EyeIcon, UnHeartIcon } from "@/components/Icons";
 import NftContainer from "@/components/NftContainer";
+import convertString from "@/helpers/convertString";
 import Image from "next/image";
 import images from "@/assets/images";
 import CopyItem from "@/components/CopyItem";
@@ -22,8 +23,17 @@ import SubTitle from "@/components/SubTitle";
 import Button from "@/components/Button";
 import HistoryContainer from "@/components/HistoryContainer";
 import MetadataContainer from "@/components/MetadataContainer";
+import { CartContextType } from "@/types/CartContextType";
+import CartContext from "@/contexts/components/CartContext";
 import { toast } from "react-toastify";
+import { ModalContextType } from "@/types/ModalContextType";
+import ModalContext from "@/contexts/components/ModalContext";
+import { DemarketContextType } from "@/types/DemarketContextType";
+import DemarketContext from "@/contexts/components/DemarketContext";
 import { ClipLoader } from "react-spinners";
+import { GlobalStateContextType } from "@/types/GlobalStateContextType";
+import GlobalStateContext from "@/contexts/components/GlobalStateContext";
+import { RevalidateType } from "@/types/GenericsType";
 import Link from "next/link";
 
 const cx = classNames.bind(styles);
@@ -38,15 +48,18 @@ const tabItems = [
 const DetailPage = function ({}: Props) {
     const { unit }: any = useParams();
 
-    const { walletAddress } = useContext<LucidContextType>(LucidContext);
     const [policyId] = useState<string>(unit.slice(0, 56));
     const [assetName] = useState<string>(unit.slice(56));
 
     const [isActive, setIsActive] = useState<boolean>(false);
 
+    const { addNft } = useContext<DemarketContextType>(DemarketContext);
+    const { toggleNotificationConnectWallet } = useContext<ModalContextType>(ModalContext);
+    const { revalidate, setRevalidate } = useContext<GlobalStateContextType>(GlobalStateContext);
     const { assetsFromSmartContract, loadingAssetsFromSmartContract, findAssetService, sellAssetService, buyAssetService, refundAssetService } =
         useContext<SmartContractType>(SmartContractContext);
-    const { lucidWallet } = useContext<LucidContextType>(LucidContext);
+    const { lucidWallet, walletItem } = useContext<LucidContextType>(LucidContext);
+    const { addToCart } = useContext<CartContextType>(CartContext);
 
     const [toggleTabState, setToggleTabState] = useState<number>(1);
     const [asset, setAsset] = useState<any>();
@@ -72,7 +85,16 @@ const DetailPage = function ({}: Props) {
             }
         };
         fetchInformationFromPolicyIdAndAssetName();
-    }, []);
+    }, [revalidate.account]);
+
+    const handleAddtoCart = async function () {
+        try {
+            await addToCart(asset);
+            await addNft({ policyId, assetName });
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const handleBuyNft = async function () {
         try {
@@ -86,8 +108,14 @@ const DetailPage = function ({}: Props) {
                     sellerAddress: asset.sellerAddress,
                 });
                 if (txHash) {
+                    setRevalidate(function (previous: RevalidateType) {
+                        return { ...previous, account: !revalidate.account };
+                    });
                     toast.success("Buy asset successfully.");
+                    await addNft({ policyId, assetName });
                 }
+            } else {
+                toggleNotificationConnectWallet();
             }
         } catch (error) {
             toast.error(String(error));
@@ -109,8 +137,14 @@ const DetailPage = function ({}: Props) {
                     royalties: BigInt(Number(price) * 10000),
                 });
                 if (txHash) {
+                    setRevalidate(function (previous: RevalidateType) {
+                        return { ...previous, account: !revalidate.account };
+                    });
                     toast.success("Selling asset successfully.");
+                    await addNft({ policyId, assetName });
                 }
+            } else {
+                toggleNotificationConnectWallet();
             }
         } catch (error) {
             toast.error(String(error));
@@ -130,9 +164,14 @@ const DetailPage = function ({}: Props) {
                 });
 
                 if (txHash) {
+                    setRevalidate(function (previous: RevalidateType) {
+                        return { ...previous, account: !revalidate.account };
+                    });
                     toast.success("Refund asset successfully.");
+                    await addNft({ policyId, assetName });
                 }
             } else {
+                toggleNotificationConnectWallet();
             }
         } catch (error) {
             toast.error(String(error));
@@ -142,7 +181,7 @@ const DetailPage = function ({}: Props) {
     };
 
     return (
-        <main className={cx("wrapper")}>
+        <main className={cx("wrapper")} data-aos="fade-down">
             <div className={cx("container")}>
                 {asset ? (
                     <main className={cx("content__wrapper")}>
@@ -224,7 +263,7 @@ const DetailPage = function ({}: Props) {
                                     </section>
                                 </div>
                             </section>
-                            {asset.price && asset.sellerAddress !== walletAddress && (
+                            {asset.price && asset.sellerAddress !== walletItem.walletAddress && (
                                 <section className={cx("price__wrapper")}>
                                     <header className={cx("price__header")}>₳ {Number(asset.price) / 1000000} </header>
                                     <article className={cx("price__container")}>
@@ -235,11 +274,14 @@ const DetailPage = function ({}: Props) {
                                                 <ClipLoader size={25} loading={isActive} color="#7000ff" speedMultiplier={1} />
                                             )}
                                         </Button>
+                                        <Button className={cx("search-btn")} onClick={handleAddtoCart}>
+                                            Add to cart
+                                        </Button>
                                     </article>
                                 </section>
                             )}
 
-                            {asset.price && asset.sellerAddress === walletAddress && (
+                            {asset.price && asset.sellerAddress === walletItem.walletAddress && (
                                 <section className={cx("price__wrapper")}>
                                     <header className={cx("price__header")}>₳ {Number(asset.price) / 1000000}</header>
                                     <article className={cx("price__container")}>
@@ -250,11 +292,14 @@ const DetailPage = function ({}: Props) {
                                                 <ClipLoader size={25} loading={isActive} color="#7000ff" speedMultiplier={1} />
                                             )}
                                         </Button>
+                                        <Button className={cx("search-btn")} onClick={handleAddtoCart}>
+                                            Add to cart
+                                        </Button>
                                     </article>
                                 </section>
                             )}
 
-                            {asset.currentAddress === walletAddress && !asset.price ? (
+                            {asset.currentAddress === walletItem.walletAddress && !asset.price ? (
                                 <section className={cx("price__wrapper--input")}>
                                     <article className={cx("price__container--input")}>
                                         <input

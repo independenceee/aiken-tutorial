@@ -1,6 +1,4 @@
-import * as dotenv from "dotenv";
 import axios from "axios";
-dotenv.config();
 
 const httpRequest = axios.create({
     baseURL: process.env.NEXT_APP_BASE_URL || "https://api.demarket.vn/api/v1",

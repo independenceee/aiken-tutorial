@@ -1,0 +1,14 @@
+name = "independence/00_aiken_blog"
+version = "0.0.0"
+license = "Apache-2.0"
+description = "Aiken contracts for project 'independence/00_aiken_blog'"
+
+[repository]
+user = "independence"
+project = "00_aiken_blog"
+platform = "github"
+
+[[dependencies]]
+name = "aiken-lang/stdlib"
+version = "1.7.0"
+source = "github"

@@ -12,7 +12,7 @@ type Props = {};
 const Logo = function ({}: Props) {
     return (
         <Link href={"/"} className={cx("wrapper")}>
-            Aiken tutorials
+            <Image src={images.logo} alt="" className={cx("image")} />
         </Link>
     );
 };

@@ -14,7 +14,7 @@ Như vậy, `Aiken` cố gắng cung cấp một môi trường phát triển t�
 
 ### Traces
 
-Trong Aiken, dấu vết (traces) được coi như một loại thông điệp tường trình, là các thông tin ghi lại vào thời điểm cụ thể trong quá trình thực thi của chương trình. Bạn có thể thêm dấu vết vào biểu thức cấp cao nhất trong Aiken bằng từ khóa trace. Dưới đây là một ví dụ minh họa về cách sử dụng dấu vết trong Aiken:
+Trong Aiken, dấu vết (traces) được coi như một loại thông điệp tường trình, là các thông tin ghi lại vào thời điểm cụ thể trong quá trình thực thi của chương trình. Bạn có thể thêm dấu vết vào biểu thức cấp cao nhất trong Aiken bằng từ khóa trace. Dưới đây là một ví dụ minh họa về cách sử dụng dấu vết trong Aiken. Trace được ghi lại máy ảo tại chính thời điểm đó:
 
 ```aiken
 fn is_even(n: Int) -> Bool {
@@ -28,7 +28,19 @@ fn is_odd(n: Int) -> Bool {
 }
 ```
 
-Trong ví dụ này, khi hàm is_even hoặc is_odd được gọi, một dấu vết được ghi lại với thông điệp tương ứng "is_even" hoặc "is_odd". Để thu thập dấu vết, bạn có thể chạy thử nghiệm thông qua `aiken check` hoặc mô phỏng giao dịch bằng aiken tx simulate. Trong cả hai trường hợp, các dấu vết thu được trong quá trình thực thi sẽ được hiển thị trên màn hình.
+Trong ví dụ này, khi hàm `is_even` hoặc `is_odd` được gọi, một dấu vết được ghi lại với thông điệp tương ứng "is_even" hoặc "is_odd". Để thu thập dấu vết, bạn có thể chạy thử nghiệm thông qua `aiken check` hoặc mô phỏng giao dịch bằng aiken tx simulate. Trong cả hai trường hợp, các dấu vết thu được trong quá trình thực thi sẽ được hiển thị trên màn hình.
+
+```sh
+aiken check
+    Compiling aiken-lang/stdlib 1.7.0 (D:\Workspace\aiken-tutorial\project\00_aiken_blog\build\packages\aiken-lang-stdlib)
+    Compiling independence/00_aiken_blog 0.0.0 (D:\Workspace\aiken-tutorial\project\00_aiken_blog)
+      Testing ...
+
+    ┍━ aiken_blog ━━━━━━━━━━━━━━━━━━━━━━━
+    │ PASS [mem: 3235, cpu: 1668391] init
+    │ ↳ is_event
+    ┕━━━━━━ 1 tests | 1 passed | 0 failed
+```
 
 Ban đầu có thể hơi khó nắm bắt các dấu vết vì `Plutus` và do đó là `Aiken` là một công cụ thực thi chức năng thuần túy. Do đó không có câu lệnh nào trong một chương trình được biên dịch. Chỉ có biểu thức . Dấu vết sẽ được thu thập nếu nó được máy ảo đánh giá. Có hai cách phổ biến để ghi lại dấu vết trong Aiken: khi chạy thử nghiệm qua `aiken check` hoặc khi mô phỏng giao dịch bằng `aiken tx simulate`. Trong cả hai trường hợp, dấu vết thu được trong quá trình đánh giá sẽ được in trên màn hình.
 
@@ -39,14 +51,14 @@ let n = 10
 is_even(n) || is_odd(n)
 ```
 
-Chỉ dấu vết của is_even sẽ được ghi lại, vì is_odd không được đánh giá (không cần thiết vì phía bên trái của toán tử || đã trả về True).
+Chỉ dấu vết của is_even sẽ được ghi lại, vì is_odd không được đánh giá (không cần thiết vì phía bên trái của toán tử \|| đã trả về True).
 
 ##### Lưu ý rằng dấu vết là:
 
 Lưu ý rằng dấu vết trong Aiken có những đặc điểm sau:
 
--   Mặc định sẽ bị xóa khi bạn xây dựng dự án bằng lệnh aiken build. Bạn có thể giữ chúng bằng cách sử dụng tùy chọn --keep-traces.
--   Mặc định sẽ được giữ lại khi bạn kiểm tra dự án bằng lệnh aiken check. Bạn có thể loại bỏ chúng bằng cách sử dụng tùy chọn --no-traces.
+-   Mặc định sẽ bị xóa khi bạn xây dựng dự án bằng lệnh aiken build. Bạn có thể giữ chúng bằng cách sử dụng tùy chọn `--keep-traces`.
+-   Mặc định sẽ được giữ lại khi bạn kiểm tra dự án bằng lệnh aiken check. Bạn có thể loại bỏ chúng bằng cách sử dụng tùy chọn `--no-traces`.
 
 Lý do cho điều này là việc theo dõi dấu vết làm tăng kích thước của mã được biên dịch và có thể tăng thêm chi phí tính toán không mong muốn đối với các trình xác thực sẵn sàng cho sản xuất cuối cùng. Tuy nhiên, chúng rất hữu ích cho quá trình phát triển và thử nghiệm. Do đó, các tùy chọn dòng lệnh này hướng đến những trường hợp sử dụng đó. Xin lưu ý rằng việc bật hoặc tắt dấu vết không ảnh hưởng đến ý nghĩa chương trình của bạn, nhưng nó sẽ thay đổi một cách hiệu quả giá trị băm và do đó các địa chỉ liên quan.
 
@@ -83,9 +95,42 @@ Mà có thể đã tạo ra dấu vết `"must_spend_token ? False"`.
 
 Ngẫu nhiên, `?` toán tử hoạt động như thế `trace` và do đó bị ảnh hưởng bởi các tùy chọn `--keep-traces` và `--no-traces`. Do đó, khi biên dịch để sản xuất, nó không ảnh hưởng gì đến chương trình và hoạt động như thể nó không hề có ở đó.
 
+Việc kiểm tra về toán tử ? sẽ được hiển thị như sau:
+
+```sh
+ aiken check
+    Compiling aiken-lang/stdlib 1.7.0 (D:\Workspace\aiken-tutorial\project\00_aiken_blog\build\packages\aiken-lang-stdlib)
+    Compiling independence/00_aiken_blog 0.0.0 (D:\Workspace\aiken-tutorial\project\00_aiken_blog)
+      Testing ...
+
+    ┍━ aiken_blog ━━━━━━━━━━━━━━━━━━━━━━━
+    │ FAIL [mem: 4035, cpu: 1351110] init
+    │ ↳ must_be_before ? False
+    ┕━━━━━━ 1 tests | 0 passed | 1 failed
+
+D:\Workspace\aiken-tutorial\project\00_aiken_blog\validators\aiken_blog.ak
+
+  × init failed
+  help: ┍━ left ━━━━━━━━━━┑
+        │ (con bool True) │
+        ┕━━━━━━━━━━━━━━━━━┙
+
+        and
+
+        ┍━ right ━━━━━━━━━━┑
+        │ (con bool False) │
+        ┕━━━━━━━━━━━━━━━━━━┙
+
+        should both be true.
+
+
+Summary
+    1 error, 0 warnings
+```
+
 ### CBOR diagnostic
 
-Điều này thật tuyệt vời nhưng đôi khi, bạn cần nhiều hơn thế. Đôi khi, bạn cần kiểm tra giá trị của một số đối tượng cụ thể khi chạy . Điều này khó hơn tưởng tượng vì một chương trình Aiken được biên soạn đã xóa mọi bối cảnh và mọi khái niệm về loại. Ngay cả các hàm và tên biến cũng được thay thế bằng các chỉ mục nhỏ gọn khiến việc kiểm tra các chương trình và giá trị trong thời gian chạy tương đối khó khăn. Ví dụ: đây là giao diện của một hàm được biên dịch trong UPLC:
+Điều này thật tuyệt vời nhưng đôi khi, bạn cần nhiều hơn thế. Đôi khi, bạn cần kiểm tra giá trị của một số đối tượng cụ thể khi chạy . Điều này khó hơn tưởng tượng vì một chương trình Aiken được biên soạn đã xóa mọi bối cảnh và mọi khái niệm về loại. Ngay cả các hàm và tên biến cũng được thay thế bằng các chỉ mục nhỏ gọn khiến việc kiểm tra các chương trình và giá trị trong thời gian chạy tương đối khó khăn và phức tạp. Ví dụ: đây là giao diện của một hàm được biên dịch trong UPLC:
 
 ```
 (lam i_31
@@ -106,7 +151,7 @@ Ngẫu nhiên, `?` toán tử hoạt động như thế `trace` và do đó bị
 )
 ```
 
-Note khá dễ đọc nhỉ? Nhưng vẫn có hy vọng! Thư viện chuẩn của Aiken cung cấp một phương pháp thuận tiện để kiểm tra bất kỳ giá trị nào trong thời gian chạy và thu được `String` biểu diễn của chúng. Cú pháp được sử dụng cho biểu diễn này được gọi là chẩn đoán CBOR. Hãy coi nó như một cú pháp cấp cao giống với JSON và có thể biểu thị dữ liệu nhị phân.
+Note: nó khá là khó đọc. Thư viện chuẩn của Aiken cung cấp một phương pháp thuận tiện để kiểm tra bất kỳ giá trị nào trong thời gian chạy và thu được `String` biểu diễn của chúng. Cú pháp được sử dụng cho biểu diễn này được gọi là chẩn đoán CBOR. Hãy coi nó như một cú pháp cấp cao giống với JSON và có thể biểu thị dữ liệu nhị phân.
 
 ```aiken
 aiken/cbor

@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "react-loading-skeleton/dist/skeleton.css";
 import React, { ReactNode } from "react";
 import type { Metadata } from "next";
+import Aos from "@/components/Aos";
 import { ToastContainer } from "react-toastify";
 import Layout from "@/layouts";
 import ContextProvider from "@/contexts";
@@ -20,6 +21,7 @@ type Props = {
 const RootLayout = function ({ children }: Props) {
     return (
         <html lang="en">
+            <Aos />
             <body>
                 <ContextProvider>
                     <Layout>{children}</Layout>

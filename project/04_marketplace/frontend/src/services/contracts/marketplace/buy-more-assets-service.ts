@@ -22,10 +22,7 @@ const buyMoreAssetsService = async function ({ lucid, assets }: Props): Promise<
         for (let i = 0; i < assets.length; i++) {
             for (let u = 0; u < scriptUtxos.length; u++) {
                 const temp = Data.from<Datum>(scriptUtxos[u].datum, Datum);
-                if (
-                    temp.policyId === assets[i].policyId &&
-                    temp.assetName === assets[i].assetName
-                ) {
+                if (temp.policyId === assets[i].policyId && temp.assetName === assets[i].assetName) {
                     utxos.push(scriptUtxos[u]);
                 }
             }
@@ -43,29 +40,13 @@ const buyMoreAssetsService = async function ({ lucid, assets }: Props): Promise<
                 .payToAddress(String(assets[i].sellerAddress), {
                     lovelace: utxoOuts[i].price as bigint,
                 })
-                .payToAddress(
-                    "addr_test1qqayue6h7fxemhdktj9w7cxsnxv40vm9q3f7temjr7606s3j0xykpud5ms6may9d6rf34mgwxqv75rj89zpfdftn0esq3pcfjg",
-                    { lovelace: exchange_fee as bigint },
-                )
+                .payToAddress("addr_test1qqayue6h7fxemhdktj9w7cxsnxv40vm9q3f7temjr7606s3j0xykpud5ms6may9d6rf34mgwxqv75rj89zpfdftn0esq3pcfjg", {
+                    lovelace: exchange_fee as bigint,
+                })
                 .payToAddress(String(assets[i].authorAddress), {
                     lovelace: utxoOuts[i].royalties as bigint,
                 });
         }
-
-        // utxos.forEach(async function (asset: NftItemType, index: number) {
-        //     const exchangeFee = BigInt((Number(utxoOuts[index].price) * 1) / 100);
-        //     tx = await tx
-        //         .payToAddress(asset.sellerAddress as string, {
-        //             lovelace: utxoOuts[index].price as bigint,
-        //         })
-        //         .payToAddress(
-        //             "addr_test1qqayue6h7fxemhdktj9w7cxsnxv40vm9q3f7temjr7606s3j0xykpud5ms6may9d6rf34mgwxqv75rj89zpfdftn0esq3pcfjg" as string,
-        //             { lovelace: exchangeFee as bigint },
-        //         )
-        //         .payToAddress(asset.authorAddress as string, {
-        //             lovelace: utxoOuts[index].royalties as bigint,
-        //         });
-        // });
 
         tx = await tx.collectFrom(utxos, redeemer).attachSpendingValidator(validator).complete();
         const signedTx = await tx.sign().complete();

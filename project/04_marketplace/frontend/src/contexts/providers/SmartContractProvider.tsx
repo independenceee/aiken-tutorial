@@ -16,13 +16,16 @@ import fetchInformationAsset from "@/utils/fetchInformationAsset";
 import { NftItemType } from "@/types/GenericsType";
 import LucidContext from "@/contexts/components/LucidContext";
 import { LucidContextType } from "@/types/LucidContextType";
+import { GlobalStateContextType } from "@/types/GlobalStateContextType";
+import GlobalStateContext from "@/contexts/components/GlobalStateContext";
 
 type Props = {
     children: ReactNode;
 };
 
 const SmartContractProvider = function ({ children }: Props) {
-    const { lucidNeworkPlatform } = useContext<LucidContextType>(LucidContext);
+    const { revalidate, setRevalidate } = useContext<GlobalStateContextType>(GlobalStateContext);
+    const { networkPlatform, lucidNeworkPlatform } = useContext<LucidContextType>(LucidContext);
     const [assetsFromSmartContract, setAssetsFromSmartContract] = useState<NftItemType[]>([]);
     const [loadingAssetsFromSmartContract, setLoadingAssetsFromSmartContract] = useState<boolean>(false);
 
@@ -73,7 +76,7 @@ const SmartContractProvider = function ({ children }: Props) {
         fetchAssetsFromSmartContract();
 
         // react-hooks/exhaustive-deps
-    }, [lucidNeworkPlatform]);
+    }, [networkPlatform, lucidNeworkPlatform, revalidate.account]);
 
     return (
         <SmartContractContext.Provider

@@ -36,7 +36,7 @@ const NftContainer = function ({ nfts, itemsPerPage = 12, loading }: Props) {
             <div className={cx("container")}>
                 {loading
                     ? new Array(itemsPerPage).fill(null).map(function (value: any, index: number) {
-                          return <NftItemSkeleton key={index} />;
+                          return <NftItemSkeleton key={index} index={index} />;
                       })
                     : currentItems?.map(function (value: ChangeEvent<unknown>, index: number) {
                           return <NftItem key={index} value={value} index={index} />;

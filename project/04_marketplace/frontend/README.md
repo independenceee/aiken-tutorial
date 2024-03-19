@@ -34,5 +34,10 @@ http://localhost:3000
 ```
 
 The project is running on `PORT 3000` and now you will carry out development of our project
+After the project is built successfully, execute `npm run build` to build and check the output
 
-After the project is built successfully, execute npm run build to build and check the output
+License
+The Demarket Frontend is released under the MIT. See the LICENSE file for more details.
+
+Contact
+For any questions or feedback, please contact the project maintainer at `nguyenkhanh17112003@gmail.com`.
