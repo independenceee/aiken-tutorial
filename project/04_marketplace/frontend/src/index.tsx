@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import ContextProvider from "./contexts";
 import { BrowserRouter as Router } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import "remixicon/fonts/remixicon.css";
@@ -10,8 +11,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
     <React.StrictMode>
-        <Router>
-            <App />
-        </Router>
+        <ContextProvider>
+            <Router>
+                <App />
+            </Router>
+        </ContextProvider>
     </React.StrictMode>
 );

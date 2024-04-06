@@ -1,8 +1,12 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useContext } from "react";
 import "./header.css";
 import { Container } from "reactstrap";
 
 import { NavLink, Link } from "react-router-dom";
+import {
+    WalletContext,
+    WalletContextType,
+} from "../../contexts/WalletProvider";
 
 const NAV__LINKS = [
     {
@@ -18,12 +22,13 @@ const NAV__LINKS = [
         url: "/create",
     },
     {
-        display: "Contact",
-        url: "/contact",
+        display: "Account",
+        url: "/account",
     },
 ];
 
 const Header = () => {
+    const { wallet } = useContext<WalletContextType>(WalletContext);
     const headerRef: any = useRef(null);
 
     const menuRef: any = useRef(null);
@@ -82,12 +87,26 @@ const Header = () => {
                     </div>
 
                     <div className="nav__right d-flex align-items-center gap-5 ">
-                        <button className="btn d-flex gap-2 align-items-center">
-                            <span>
-                                <i className="ri-wallet-line"></i>
-                            </span>
-                            <Link to="/wallet">Connect Wallet</Link>
-                        </button>
+                        {wallet ? (
+                            <button className="btn d-flex gap-2 align-items-center">
+                                <span>
+                                    <img
+                                        src={wallet.image}
+                                        alt=""
+                                        width={40}
+                                        height={40}
+                                    />
+                                </span>
+                                <Link to="/account">{wallet.balance} ADA</Link>
+                            </button>
+                        ) : (
+                            <button className="btn d-flex gap-2 align-items-center">
+                                <span>
+                                    <i className="ri-wallet-line"></i>
+                                </span>
+                                <Link to="/wallet">Connect Wallet</Link>
+                            </button>
+                        )}
 
                         <span className="mobile__menu">
                             <i

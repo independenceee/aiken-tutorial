@@ -1,37 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import CommonSection from "../components/ui/Common-section/CommonSection";
 import { Container, Row, Col } from "reactstrap";
 
 import "../styles/wallet.css";
-
-const wallet__data = [
-    {
-        title: "Bitcoin",
-        desc: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium accusamus repellat rerum consequatur explicabo? Reiciendis!",
-        icon: "ri-bit-coin-line",
-    },
-
-    {
-        title: "Coinbase",
-        desc: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium accusamus repellat rerum consequatur explicabo? Reiciendis!",
-        icon: "ri-coin-line",
-    },
-
-    {
-        title: "Metamask",
-        desc: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium accusamus repellat rerum consequatur explicabo? Reiciendis!",
-        icon: "ri-money-cny-circle-line",
-    },
-
-    {
-        title: "Authereum",
-        desc: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium accusamus repellat rerum consequatur explicabo? Reiciendis!",
-        icon: "ri-bit-coin-line",
-    },
-];
+import wallets from "../constants/wallets";
+import { WalletContext, WalletContextType } from "../contexts/WalletProvider";
 
 const Wallet = () => {
+    const { connect } = useContext<WalletContextType>(WalletContext);
     return (
         <>
             <CommonSection title="Connect Wallet" />
@@ -52,20 +29,32 @@ const Wallet = () => {
                             </div>
                         </Col>
 
-                        {wallet__data.map((item, index) => (
+                        {wallets.map((item, index) => (
                             <Col
                                 lg="3"
                                 md="4"
                                 sm="6"
                                 key={index}
+                                onClick={() =>
+                                    connect({
+                                        name: item.name,
+                                        api: item.api,
+                                        image: item.image,
+                                        checkApi: item.checkApi,
+                                    })
+                                }
                                 className="mb-4"
                             >
                                 <div className="wallet__item">
                                     <span>
-                                        <i className={item.icon}></i>
+                                        <img
+                                            width={40}
+                                            height={40}
+                                            src={item.image}
+                                            alt=""
+                                        />
                                     </span>
-                                    <h5>{item.title}</h5>
-                                    <p>{item.desc}</p>
+                                    <h5>{item.name}</h5>
                                 </div>
                             </Col>
                         ))}

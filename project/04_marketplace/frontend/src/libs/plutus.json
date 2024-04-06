@@ -1,0 +1,87 @@
+{
+  "preamble": {
+    "title": "demarket/contract",
+    "description": "Aiken contracts for project 'demarket/contract'",
+    "version": "2.2.0",
+    "plutusVersion": "v2",
+    "compiler": {
+      "name": "Aiken",
+      "version": "v1.0.21-alpha+unknown"
+    },
+    "license": "Apache-2.0"
+  },
+  "validators": [
+    {
+      "title": "contract.contract",
+      "datum": {
+        "title": "datum",
+        "schema": {
+          "$ref": "#/definitions/contract~1Datum"
+        }
+      },
+      "redeemer": {
+        "title": "_redeemer",
+        "schema": {
+          "$ref": "#/definitions/Void"
+        }
+      },
+      "compiledCode": "590422010000323232323232323232222325333007323232323232323232323253330123370e90010008a9998090010a51132323232323232323232323232533301f0011533301f3371e6eb8c040c074070dd71802980e80e099191919299981199b8948010c00400c4cdc4a400460026600800646601c0026eb4c048c08808452818008009129998130008a4000266e01200233002002302900133001012253330213300a001300d375c6024603e03c2660160026eb4c018c07c0785281119198008008019129998130008a5eb804c8c94ccc094c0140084cc0a4008cc0100100044cc010010004c0a8008c0a00045288a50533301e533301e533301e3375e00a980103d87a800014a2266ebc00930103d87a800014a2266ebc00530103d87a800014a02944ccc01403c029300150d8799fd8799f581c3a4e6757f24d9dddb65c8aef60d0999957b3650453e5e7721fb4fd42ffd8799fd8799fd8799f581c32798960f1b4dc35be90add0d31aed0e3019ea0e47288296a5737e60ffffffff0033300400e375a6002603403260106eb8c008c0680648c084c088c088c088c088c0880048c080c084c084c084004ccc00402cdd69803980b80b18029bae300a3017016222323300100100422533302000114c0103d87a800013232533301f533301f3300900200613300800200514a0266e952000330230024bd70099802002000981200118110009119baf300430173004301700230043017001223371200264646464a66603866e1d20020011480004dd69810980d001180d00099299980d99b87480080045300103d87a8000132323300100100222533302100114c103d87a800013232323253330223371e9110000213374a9000198131ba80014bd700998030030019bad3023003375c6042004604a00460460026eacc080c064008c064004c8cc004004008894ccc0780045300103d87a8000132323232533301f3371e9110000213374a9000198119ba60014bd700998030030019bab3020003375c603c004604400460400026eacc074c078c0580088c06c0048cdd2a40006603266e95200033019375200297ae0330194c103d87a80004bd7019b833370490011bad3001301101048320048c060c064c064c064c06400452818080039919191980080080111299980b8008a501323253330163371e00400c29444cc010010004c06c008dd7180c8009bac301630173017301730173017301730173017300f009375c6002601c01a4602a602c602c0026eb0c04c004c04c004c048004c02400cc03c004c03c008c034004c014008526136563253330073370e90000008991919191919191919191919299980b180c8010a4c2c6eb4c05c004c05c008dd6980a800980a8011bae30130013013002375c602200260220046eb8c03c004c03c008dd7180680098028020b1802801918029baa001230033754002ae6955ceaab9e5573eae815d0aba201",
+      "hash": "85cb6be50b0fd37316e543f1de027a8a8f77d65128c9d275889b2bc0"
+    }
+  ],
+  "definitions": {
+    "ByteArray": {
+      "dataType": "bytes"
+    },
+    "Int": {
+      "dataType": "integer"
+    },
+    "Void": {
+      "title": "Unit",
+      "description": "The nullary constructor.",
+      "anyOf": [
+        {
+          "dataType": "constructor",
+          "index": 0,
+          "fields": []
+        }
+      ]
+    },
+    "contract/Datum": {
+      "title": "Datum",
+      "anyOf": [
+        {
+          "title": "Datum",
+          "dataType": "constructor",
+          "index": 0,
+          "fields": [
+            {
+              "title": "policyId",
+              "$ref": "#/definitions/ByteArray"
+            },
+            {
+              "title": "assetName",
+              "$ref": "#/definitions/ByteArray"
+            },
+            {
+              "title": "seller",
+              "$ref": "#/definitions/ByteArray"
+            },
+            {
+              "title": "author",
+              "$ref": "#/definitions/ByteArray"
+            },
+            {
+              "title": "price",
+              "$ref": "#/definitions/Int"
+            },
+            {
+              "title": "royalties",
+              "$ref": "#/definitions/Int"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

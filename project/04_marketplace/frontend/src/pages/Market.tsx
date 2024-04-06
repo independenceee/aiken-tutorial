@@ -103,7 +103,7 @@ const Market = () => {
                                 className="mb-4"
                                 key={item.id}
                             >
-                                <NftCard item={item} />
+                                <NftCard item={null!} />
                             </Col>
                         ))}
                     </Row>
