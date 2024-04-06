@@ -1,43 +1,46 @@
-# Installation Instructions
+# Getting Started with Create React App
 
-## 1. First, please clone this source code
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-```sh
-git clone https://github.com/independenceee/demarket-frontend.git
-```
+## Available Scripts
 
-then Use commands to go to the directory of the current demarket frontend
+In the project directory, you can run:
 
-```sh
-cd demarket-frontend
-```
+### `npm start`
 
-This tutorial requires you to have `nodejs`. If you don't have it yet, install `nodejs`
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-```sh
-https://nodejs.org/en
-```
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-Then install the project using `npm install` to get the necessary resources for the project
+### `npm test`
 
-```sh
-npm install
-```
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-after the installation is done successfully use `npm run dev` to run the project
+### `npm run build`
 
-```sh
-$ npm run dev
-> demarket-frontend@1.0.0 dev
-> ts-node src/index.ts
-http://localhost:3000
-```
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The project is running on `PORT 3000` and now you will carry out development of our project
-After the project is built successfully, execute `npm run build` to build and check the output
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-License
-The Demarket Frontend is released under the MIT. See the LICENSE file for more details.
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-Contact
-For any questions or feedback, please contact the project maintainer at `nguyenkhanh17112003@gmail.com`.
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
