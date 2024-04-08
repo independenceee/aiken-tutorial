@@ -3,6 +3,7 @@
 import React, { ChangeEvent, ReactNode, useContext, useState } from "react";
 import SmartContractContext from "../components/SmartContractContext";
 import {
+    Constr,
     Data,
     Lovelace,
     Lucid,
@@ -10,6 +11,7 @@ import {
     TxComplete,
     TxHash,
     TxSigned,
+    UTxO,
     fromText,
 } from "lucid-cardano";
 import { HelloWorldDatum } from "~/constants/datum";
@@ -30,6 +32,7 @@ const SmartContractProvider = function ({ children }: Props) {
     const lockHelloworld = async function ({ lucid }: { lucid: Lucid }) {
         try {
             setWaitingLockTx(true);
+
             const ownerPublicKeyHash = lucid.utils.getAddressDetails(
                 await lucid.wallet.address()
             ).paymentCredential?.hash!;
@@ -44,6 +47,17 @@ const SmartContractProvider = function ({ children }: Props) {
 
             const contractAddress = lucid.utils.validatorToAddress(validators);
 
+            const scriptUtxos = await lucid.utxosAt(contractAddress);
+
+            console.log(scriptUtxos);
+            const utxos: UTxO[] = scriptUtxos.filter(
+                (utxo: any, index: number) => {
+                    console.log(utxo.datum);
+
+                    const existAsset = Data.from(utxo.datum);
+                    console.log(existAsset);
+                }
+            );
             const tx: TxComplete = await lucid
                 .newTx()
                 .payToContract(
