@@ -568,7 +568,7 @@ export default function App({ validators }: AppProps) {
 }
 ```
 
-Với mã này, giờ đây chúng ta có thể nhập một số số tiền ADA và sau đó nhấp vào nút để thực hiện giao dịch. Giao dịch sẽ đúc một tài sản mới bằng cách sử dụng mã thông báo của chúng tôi và gửi ADA đến `redeem` địa chỉ của người xác thực, khóa ADA một cách hiệu quả.
+Với mã này, giờ đây chúng ta có thể nhập một số số tiền ADA và sau đó ấn vào nút để thực hiện giao dịch. Giao dịch sẽ đúc một tài sản mới bằng cách sử dụng mã thông báo của chúng tôi và gửi ADA đến địa chỉ `redeem` của người xác thực đồng thời khóa ADA một cách hiệu quả.
 
 Bạn có thể muốn chạy tính năng này ngay bây giờ, nhưng trừ khi bạn lưu một số dữ liệu vào bộ nhớ cục bộ, bạn có thể khó khôi phục được nội dung bị khóa. Chúng tôi sẽ viết thêm mã, yêu cầu tải lại ứng dụng và bạn sẽ mất tất cả trạng thái của mình, bao gồm cả `redeem` mã được biên dịch của trình xác thực được tham số hóa duy nhất.
 

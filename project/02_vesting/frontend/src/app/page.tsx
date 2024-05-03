@@ -12,7 +12,7 @@ const Home = function () {
                         Make a lock and un lock tada contract
                     </h2>
 
-                    <h3 className="mt-4 mb-2">Hello world</h3>
+                    <h3 className="mt-4 mb-2">Vesting</h3>
                     <div className="bg-gray-200 p-2 rounded overflow-x-scroll">
                         {validator.script}
                     </div>

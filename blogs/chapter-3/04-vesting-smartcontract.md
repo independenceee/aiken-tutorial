@@ -158,14 +158,88 @@ test must_start_after_fail_when_lower_bound_is_before() {
 }
 ```
 
-Bạn có thể chạy thử nghiệm với aiken check; Aiken sẽ thu thập và chạy tất cả các bài kiểm tra có trong mô-đun của bạn, đồng thời cung cấp cho bạn một số thống kê về các đơn vị thực thi (CPU và bộ nhớ) mà bài kiểm tra yêu cầu.
+Bạn có thể chạy thử nghiệm với aiken check. Aiken sẽ thu thập và chạy tất cả các bài kiểm tra có trong mô-đun của bạn, đồng thời cung cấp cho bạn một số thống kê về các đơn vị thực thi (CPU và bộ nhớ) mà bài kiểm tra yêu cầu.
 
-### Xây dựng
+```sh
+ Downloading packages
+   Downloaded 1 package in 1.46s
+    Compiling aiken-lang/stdlib 1.7.0 (D:\Workspace\aiken-tutorial\project\02_vesting\smart_contract\build\packages\aiken-lang-stdlib)
+    Compiling independence/smart_contract 0.0.0 (D:\Workspace\aiken-tutorial\project\02_vesting\smart_contract)
+      Testing ...
 
-Bây giờ là lúc xây dựng hợp đồng trực tuyến của chúng ta! Đơn giản chỉ cần làm:
+    ┍━ contract ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │ PASS [mem: 18648, cpu: 6508525] must_start_after_succeed_when_lower_bound_is_after
+    │ PASS [mem: 18648, cpu: 6508525] must_start_after_succeed_when_lower_bound_is_equal
+    │ PASS [mem: 19249, cpu: 6727081] must_start_after_fail_when_lower_bound_is_before
+    ┕━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3 tests | 3 passed | 0 failed
+
+aiken::check::unused::type
+
+  ⚠ While trying to make sense of your code...
+  ╰─▶ I discovered an unused type: 'IntervalBound'.
+
+   ╭─[D:\Workspace\aiken-tutorial\project\02_vesting\smart_contract\validators\contract.ak:1:1]
+ 1 │ use aiken/hash.{Blake2b_224, Hash}
+ 2 │ use aiken/interval.{Finite, Interval, IntervalBound, PositiveInfinity}
+   ·                                       ─────────────
+ 3 │ use aiken/list
+   ╰────
+
+aiken::check::unused::constructor
+
+  ⚠ While trying to make sense of your code...
+  ╰─▶ I discovered an unused constructor: 'PositiveInfinity'.
+
+   ╭─[D:\Workspace\aiken-tutorial\project\02_vesting\smart_contract\validators\contract.ak:1:1]
+ 1 │ use aiken/hash.{Blake2b_224, Hash}
+ 2 │ use aiken/interval.{Finite, Interval, IntervalBound, PositiveInfinity}
+   ·                                                      ────────────────
+ 3 │ use aiken/list
+   ╰────
+  help: No big deal, but you might want to remove it to get rid of that warning.
+
+aiken::check::unused::type
+
+  ⚠ While trying to make sense of your code...
+  ╰─▶ I discovered an unused type: 'Interval'.
+
+   ╭─[D:\Workspace\aiken-tutorial\project\02_vesting\smart_contract\validators\contract.ak:1:1]
+ 1 │ use aiken/hash.{Blake2b_224, Hash}
+ 2 │ use aiken/interval.{Finite, Interval, IntervalBound, PositiveInfinity}
+   ·                             ────────
+ 3 │ use aiken/list
+   ╰────
+
+
+Summary
+    0 errors, 3 warnings
 
 ```
+
+### 5. Xây dựng ra `plutus.json` và địa chỉ của hợp đồng
+
+Để xây dựng ra hợp đồng thông minh cần sử dụng `aiken build` khi đó dự án sẽ thực hiện sinh ra file plutus.json. Đây là nguồn mã quan trong được biên dịch giúp tương tác với mạng lưới onchain
+
+```sh
 aiken build
+    Compiling aiken-lang/stdlib 1.7.0 (D:\Workspace\aiken-tutorial\project\02_vesting\smart_contract\build\packages\aiken-lang-stdlib)
+    Compiling independence/smart_contract 0.0.0 (D:\Workspace\aiken-tutorial\project\02_vesting\smart_contract)
+   Generating project's blueprint (D:\Workspace\aiken-tutorial\project\02_vesting\smart_contract\plutus.json)
+
+Summary
+    0 errors, 0 warnings
+```
+
+Sau đó muốn xem được địa chỉ của hợp đông thông minh cần sử dụng `aiken address`
+
+```sh
+ aiken address
+addr_test1wq4608wn0fcnxg6wu3mcvv00qz2yfgq3fscy42a4dwwexrcqw4csv
+
+Summary
+    0 errors, 0 warnings
 ```
 
 Điều này tạo ra bản thiết kế `CIP-0057` `Plutus` như `plutus.json` ở thư mục gốc của dự án của bạn. Kế hoạch chi tiết này mô tả hợp đồng trực tuyến của bạn và giao diện nhị phân của nó. Đặc biệt, nó chứa mã trên chuỗi được tạo sẽ được thực thi bởi sổ cái và hàm băm của (các) trình xác thực của bạn có thể được sử dụng để tạo địa chỉ.
+
+Hy vọng điều này mang lại cho bạn ý tưởng về những gì bạn có thể xây dựng trên Cardano. Ví dụ này cũng sẽ minh họa cách hầu hết mã trong dapp của bạn thậm chí không phải là trình xác thực. Khi thiết kế các ứng dụng tận dụng Cardano, tốt hơn hết bạn nên suy nghĩ về loại giao dịch nào bạn sẽ cần xây dựng và sau đó viết trình xác thực để thực thi chúng. Một tài liệu tham khảo đầy đủ về ví dụ này có thể được tìm thấy ở đây.

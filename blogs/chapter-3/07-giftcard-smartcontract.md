@@ -343,7 +343,22 @@ validator(token_name: ByteArray, policy_id: ByteArray) {
 }
 ```
 
-### 3. Xây dựng ra `plutus.json` và địa chỉ của hợp đồng
+### 3. Kiểm tra cho Hợp đồng thông minh
+
+Bạn có thể chạy thử nghiệm với aiken check. Aiken sẽ thu thập và chạy tất cả các bài kiểm tra có trong mô-đun của bạn, đồng thời cung cấp cho bạn một số thống kê về các đơn vị thực thi (CPU và bộ nhớ) mà bài kiểm tra yêu cầu.
+
+```sh
+❯ aiken check
+  Downloading packages
+   Downloaded 1 package in 1.37s
+    Compiling aiken-lang/stdlib 1.7.0 (D:\Workspace\aiken-tutorial\project\03_gift_card\smart_contract\build\packages\aiken-lang-stdlib)
+    Compiling independence/smart_contract 0.0.0 (D:\Workspace\aiken-tutorial\project\03_gift_card\smart_contract)
+
+Summary
+    0 errors, 0 warnings
+```
+
+### 4. Xây dựng ra `plutus.json` và địa chỉ của hợp đồng
 
 Chúng ta nên đảm bảo điều này được xây dựng. Bạn đã chạy `aiken check` dọc đường phải không?!?
 
@@ -359,4 +374,16 @@ Summary
     0 errors, 0 warnings
 ```
 
-Như vậy khi file plutus.json được sinh ra quá trình tạo hợp đồng thông minh của mình đã thành công.
+Sau đó muốn xem được địa chỉ của hợp đông thông minh cần sử dụng `aiken address`
+
+```sh
+ aiken address
+addr_test1wq4608wn0fcnxg6wu3mcvv00qz2yfgq3fscy42a4dwwexrcqw4csv
+
+Summary
+    0 errors, 0 warnings
+```
+
+Điều này tạo ra bản thiết kế `CIP-0057` `Plutus` như `plutus.json` ở thư mục gốc của dự án của bạn. Kế hoạch chi tiết này mô tả hợp đồng trực tuyến của bạn và giao diện nhị phân của nó. Đặc biệt, nó chứa mã trên chuỗi được tạo sẽ được thực thi bởi sổ cái và hàm băm của (các) trình xác thực của bạn có thể được sử dụng để tạo địa chỉ. Như vậy khi file plutus.json được sinh ra quá trình tạo hợp đồng thông minh của mình đã thành công.
+
+Hy vọng điều này mang lại cho bạn ý tưởng về những gì bạn có thể xây dựng trên Cardano. Ví dụ này cũng sẽ minh họa cách hầu hết mã trong dapp của bạn thậm chí không phải là trình xác thực. Khi thiết kế các ứng dụng tận dụng Cardano, tốt hơn hết bạn nên suy nghĩ về loại giao dịch nào bạn sẽ cần xây dựng và sau đó viết trình xác thực để thực thi chúng. Một tài liệu tham khảo đầy đủ về ví dụ này có thể được tìm thấy ở đây.
