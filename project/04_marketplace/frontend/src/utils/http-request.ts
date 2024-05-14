@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const httpRequest = axios.create({
-    baseURL: "https://api.demarket.vn/api/v1",
+    baseURL: process.env.NEXT_APP_BASE_URL!,
 });
 
 export const get = async function (path: string, options = {}) {

@@ -1,0 +1,76 @@
+.wrapper {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    min-width: 300px;
+    padding: 100px 16px 0;
+    background: #fff;
+    z-index: 10;
+    opacity: 0;
+    right: -100%;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3);
+    &.open {
+        right: 0;
+        opacity: 1;
+    }
+
+    &::after {
+        content: "";
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -2;
+        display: none;
+    }
+
+    &.open::after {
+        display: block;
+    }
+}
+
+.network-selector {
+    width: 100%;
+    margin-left: 0;
+}
+
+.navbar {
+    padding: 25px 0;
+}
+
+.nav-item-link {
+    display: block;
+    padding: 0 !important;
+    padding-bottom: 1.5rem !important;
+    font-size: 1.6rem;
+}
+.connect-wallet-button {
+    display: none !important;
+}
+.utilities {
+    margin-left: auto;
+    width: fit-content;
+    display: none;
+}
+
+.nav-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+}
+@media screen and (max-width: 1024px) {
+    .connect-wallet-button {
+        display: flex !important;
+        .wrapper {
+            background: none !important;
+        }
+    }
+
+    .utilities {
+        display: flex !important;
+    }
+}

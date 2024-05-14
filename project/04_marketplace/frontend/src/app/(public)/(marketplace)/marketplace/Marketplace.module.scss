@@ -1,0 +1,50 @@
+.wrapper {
+    overflow: hidden;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    width: min(144rem, 90%);
+    gap: 50px;
+    position: relative;
+    margin: 50px auto;
+}
+
+.content-left {
+    display: flex;
+    flex: 0.3;
+    width: 100%;
+    padding-bottom: 20px;
+    top: 0;
+}
+.content-left-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.content-right {
+    flex: 0.7;
+}
+
+@media screen and (max-width: 768px) {
+    .content-left {
+        display: none;
+    }
+
+    .content-right {
+        flex: 1;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .content-left {
+        display: none;
+    }
+
+    .content-right {
+        flex: 1;
+    }
+}

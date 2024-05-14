@@ -1,20 +1,10 @@
-const configs = {
-    nami: "https://chrome.google.com/webstore/detail/nami/lpfcbjknijpeeillifnkikgncikgfhdo",
-    eternl: "https://chrome.google.com/webstore/detail/eternl/kmhcihpebfmpgmihbkipmjlmmioameka",
-    flint: "https://chrome.google.com/webstore/detail/flint-wallet/hnhobjmcibchnmglfbldbfabcgaknlkj",
-    gero: "https://chrome.google.com/webstore/detail/gerowallet/bgpipimickeadkjlklgciifhnalhdjhe",
-    typhon: "https://chrome.google.com/webstore/detail/typhon-wallet/kfdniefadaanbjodldohaedphafoffoh",
-    vespr: "https://play.google.com/store/apps/details?id=art.nft_craze.gallery.main",
-    lace: "https://chromewebstore.google.com/detail/lace/gafhhkghbfjjkeiendhlofajokpaflmk",
-    yoroi: "https://chromewebstore.google.com/detail/yoroi/ffnbelfdoeiohenkjibnmadjiehjhajb",
-    nufi: "https://chromewebstore.google.com/detail/nufi/gpnihlnnodeiiaakbikldcihojploeca",
-} as const;
-
-import images from "../assets/images";
+import configs from "~/configs";
+import images from "~/assets/images";
+import { WalletType } from "~/types/GenericsType";
 
 declare const window: any;
 
-const wallets = [
+const wallets: Array<WalletType> = [
     {
         name: "Nami",
         image: images.nami,
@@ -22,11 +12,9 @@ const wallets = [
             return await window.cardano.nami.enable();
         },
         checkApi: async function () {
-            return (await window.cardano.nami).catch((e: unknown) => {
-                console.log(e);
-            });
+            return await window.cardano.nami;
         },
-        downloadApi: configs.nami,
+        downloadApi: configs.wallets.nami,
     },
     {
         name: "Eternl",
@@ -37,7 +25,7 @@ const wallets = [
         checkApi: async function () {
             return await window.cardano.eternl;
         },
-        downloadApi: configs.eternl,
+        downloadApi: configs.wallets.eternl,
     },
     {
         name: "Flint",
@@ -48,7 +36,7 @@ const wallets = [
         checkApi: async function () {
             return await window.cardano.flint;
         },
-        downloadApi: configs.flint,
+        downloadApi: configs.wallets.flint,
     },
     {
         name: "Lace",
@@ -59,7 +47,7 @@ const wallets = [
         checkApi: async function () {
             return await window.cardano.lace;
         },
-        downloadApi: configs.lace,
+        downloadApi: configs.wallets.lace,
     },
     {
         name: "Gero",
@@ -70,7 +58,7 @@ const wallets = [
         checkApi: async function () {
             return await window.cardano.gero;
         },
-        downloadApi: configs.gero,
+        downloadApi: configs.wallets.gero,
     },
     {
         name: "Typhon",
@@ -81,7 +69,7 @@ const wallets = [
         checkApi: async function () {
             return await window.cardano.typhon;
         },
-        downloadApi: configs.typhon,
+        downloadApi: configs.wallets.typhon,
     },
     {
         name: "Vespr",
@@ -92,7 +80,7 @@ const wallets = [
         checkApi: async function () {
             return await window.cardano.vespr;
         },
-        downloadApi: configs.vespr,
+        downloadApi: configs.wallets.vespr,
     },
     {
         name: "Yoroi",
@@ -103,7 +91,7 @@ const wallets = [
         checkApi: async function () {
             return await window.cardano.yoroi;
         },
-        downloadApi: configs.yoroi,
+        downloadApi: configs.wallets.yoroi,
     },
     {
         name: "Nufi",
@@ -114,7 +102,7 @@ const wallets = [
         checkApi: async function () {
             return await window.cardano.nufi;
         },
-        downloadApi: configs.nufi,
+        downloadApi: configs.wallets.nufi,
     },
 ] as const;
 

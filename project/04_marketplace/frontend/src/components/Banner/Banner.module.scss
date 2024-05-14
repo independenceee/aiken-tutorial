@@ -1,0 +1,50 @@
+.wrapper {
+    margin-top: 80px;
+    background-image: url("../../assets/images/banner.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: calc(60vh);
+    padding: 0 10%;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    padding-top: 80px;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.title {
+    color: #fff;
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.description {
+    color: #fff;
+    text-align: center;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    max-width: 600px;
+}
+
+@media (max-width: 1024px) {
+    .title {
+        font-size: 4rem;
+    }
+
+    .description {
+        font-size: 2rem;
+    }
+}

@@ -1,0 +1,13 @@
+.popper-wrapper {
+    position: relative;
+    &::before {
+        --height: 25px;
+        content: "";
+        position: absolute;
+        top: calc(var(--height) * -1 + 5px);
+        left: 0;
+        width: 100%;
+        height: var(--height);
+        background: transparent;
+    }
+}

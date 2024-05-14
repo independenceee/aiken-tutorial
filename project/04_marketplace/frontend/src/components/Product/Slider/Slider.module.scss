@@ -1,0 +1,25 @@
+.wrapper {
+    position: relative;
+    height: 200px;
+    width: 310px;
+    border-radius: 8px;
+    margin-right: 10px;
+    background: #f8fafd;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    border-radius: 8px;
+    width: 100%;
+    object-fit: cover;
+    height: 100%;
+}
+
+.skeleton {
+    background: transparent;
+    border-radius: 8px;
+    margin-right: 10px;
+}

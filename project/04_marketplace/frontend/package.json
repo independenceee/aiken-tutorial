@@ -1,50 +1,54 @@
 {
-  "name": "frontend",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.95",
-    "@types/react": "^18.2.74",
-    "@types/react-dom": "^18.2.24",
-    "axios": "^1.6.8",
-    "bootstrap": "^5.3.3",
-    "cbor-x": "^1.5.9",
-    "lucid-cardano": "^0.10.7",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.3",
-    "react-scripts": "5.0.1",
-    "reactstrap": "^9.2.2",
-    "remixicon": "^4.2.0",
-    "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+    "name": "frontend",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint"
+    },
+    "dependencies": {
+        "@emotion/react": "^11.11.4",
+        "@emotion/styled": "^11.11.5",
+        "@fortawesome/fontawesome-svg-core": "^6.4.2",
+        "@fortawesome/free-brands-svg-icons": "^6.4.2",
+        "@fortawesome/free-regular-svg-icons": "^6.4.2",
+        "@fortawesome/free-solid-svg-icons": "^6.4.2",
+        "@fortawesome/react-fontawesome": "^0.2.0",
+        "@mui/material": "^5.15.16",
+        "@tanstack/react-query": "^5.35.1",
+        "@tippyjs/react": "^4.2.6",
+        "aos": "^2.3.4",
+        "axios": "^1.6.8",
+        "cbor-x": "^1.5.9",
+        "classnames": "^2.5.1",
+        "lucid-cardano": "^0.10.7",
+        "next": "14.2.1",
+        "normalize.css": "^8.0.1",
+        "react": "^18",
+        "react-copy-to-clipboard": "^5.1.0",
+        "react-countup": "^6.5.3",
+        "react-detect-offline": "^2.4.5",
+        "react-dom": "^18",
+        "react-hook-form": "^7.51.4",
+        "react-icons": "^5.1.0",
+        "react-loading-skeleton": "^3.4.0",
+        "react-spinners": "^0.13.8",
+        "react-toastify": "^10.0.5",
+        "sweetalert2": "^11.10.8",
+        "swiper": "^11.1.1"
+    },
+    "devDependencies": {
+        "@types/aos": "^3.0.7",
+        "@types/node": "^20",
+        "@types/react": "^18",
+        "@types/react-copy-to-clipboard": "^5.0.7",
+        "@types/react-detect-offline": "^2.4.5",
+        "@types/react-dom": "^18",
+        "eslint": "^8",
+        "eslint-config-next": "14.2.1",
+        "sass": "^1.75.0",
+        "typescript": "^5"
+    }
 }
