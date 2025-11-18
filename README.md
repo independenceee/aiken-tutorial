@@ -1,15 +1,17 @@
-# 📘 **[C2VN] The Complete Aiken Course – Cardano From Zero to Expert**
+
 
 <div align="center">
 <img src="https://www.cardano2vn.io/_next/static/media/loading.db59b266.png" width="120" />
 
-**The most comprehensive, free, open-source Aiken smart contract course for Vietnamese & global developers.**
+# [C2VN] The Complete Aiken Course – Cardano From Zero to Expert
+
+**The most comprehensive, free, open-source Aiken smart contract course for developers worldwide.**
 
 [![Cardano](https://img.shields.io/badge/Cardano-Ecosystem-blue?logo=cardano)](https://cardano.org/)
 [![Aiken](https://img.shields.io/badge/Aiken-Smart%20Contract-green)](https://aiken.org/)
 [![Fund 11](https://img.shields.io/badge/Catalyst-Fund%2011-orange)](https://projectcatalyst.io/)
 [![Open Source](https://img.shields.io/badge/MIT-License-brightgreen)](https://opensource.org/licenses/MIT)
-[![Language](https://img.shields.io/badge/EN%20%2F%20VI-Supported-blue)](https://cardano2vn.io)
+[![Language](https://img.shields.io/badge/English-blue)](https://cardano2vn.io)
 
 **Proposal ID:** `#1100300` · **Budget:** `₳20,000` · **Duration:** `8 months` · **Status:** `Completed ✅`
 </div>
@@ -18,79 +20,78 @@
 
 ## 🚨 Problem Statement
 
-Aiken – ngôn ngữ smart contract **dễ tiếp cận nhất** của Cardano – vẫn gặp nhiều rào cản:
+Aiken — the most developer-friendly smart contract language on Cardano — still faces several adoption challenges:
 
-- Thiếu tài liệu thực chiến và hướng dẫn chi tiết  
-- Không có lộ trình bài bản từ **beginner → advanced → full DApp**  
-- Thiếu dự án mẫu, bài tập, template chuẩn  
-- **Gần như không có cộng đồng Aiken developer tại Việt Nam**
+- Limited official documentation and lack of real-world examples  
+- No clear learning path from **beginner → advanced → full DApp development**  
+- Scarcity of practical projects, exercises, and ready-to-use templates  
+- Very few proficient Aiken developers in Vietnam and Southeast Asia  
 
-➡ Điều này khiến việc xây dựng smart contract trên Cardano chậm và khó khăn, giảm khả năng cạnh tranh với Ethereum/Solana.
+➡ These issues slow down Cardano smart contract development and reduce competitiveness compared to ecosystems like Ethereum or Solana.
 
 ---
 
 ## 🚀 Solution: The Complete Aiken Course
 
-**A full, hands-on, 100% free, open-source smart contract course.  
-Song ngữ Anh – Việt, có video, slide, template và dự án mẫu.**
+A **fully hands-on, 100% free, open-source** smart contract course with bilingual (EN–VI) support, complete with videos, slides, exercises, and production-ready templates.
 
 ### 🎓 Core Curriculum
-| Module | Nội dung |
-|--------|----------|
-| **1. Aiken Fundamentals** | Cú pháp Aiken, type, function, pattern matching, library |
-| **2. Real-World Contracts** | GiftCard, Auction, Validators, Multisig, v.v. |
-| **3. Frontend & Off-chain** | MeshJS, Lucid, ký và submit giao dịch |
-| **4. Advanced Aiken** | Tối ưu, best practices, updates |
+| Module | Topics |
+|--------|--------|
+| **1. Aiken Fundamentals** | Syntax, types, functions, pattern matching, standard libraries |
+| **2. Real-World Smart Contracts** | GiftCard, Auction, Multisig, Validators, and more |
+| **3. Off-chain & Frontend Integration** | MeshJS, Lucid, transaction signing & submission |
+| **4. Advanced Aiken** | Optimization, best practices, updates, advanced patterns |
 
 ### 📦 Deliverables
-- Hệ thống video chuyên sâu (YouTube + LMS)  
-- Slide, tài liệu, bài tập thực hành  
-- Smart contract templates **ready-to-fork**  
-- Workshop, AMA, hỗ trợ cộng đồng  
-- Tài liệu **mở hoàn toàn – miễn phí vĩnh viễn**
+- Dozens of high-quality video tutorials (YouTube + LMS)  
+- Slides, documentation, and structured exercises  
+- Ready-to-fork smart contract templates  
+- Community workshops, AMAs, and developer mentoring  
+- All materials **free forever**
 
 ---
 
 ## 🎯 Impact (Completed)
 
-| Chỉ số | Kết quả |
-|--------|---------|
-| Học viên | **Hàng trăm dev Việt** thành thạo Aiken |
-| Tài nguyên | Hàng nghìn lượt xem & sử dụng công khai |
-| Dự án | Nhiều DApp thực tế từ học viên |
-| Cộng đồng | Thành lập **Aiken Vietnam Dev Group** |
-| Hài lòng | **>90% phản hồi tích cực** |
+| Metric | Result |
+|--------|--------|
+| Students trained | **Hundreds of Vietnamese developers** now proficient in Aiken |
+| Public materials | Thousands of views and downloads |
+| Real projects | Many Aiken-based DApps built by students |
+| Community | Established the **Aiken Vietnam Developer Group** |
+| Satisfaction | **>90% positive feedback** |
 
-### 🌱 Benefits to the Cardano Ecosystem
-- Tăng trưởng mạnh lực lượng Aiken developers  
-- Đẩy nhanh quá trình chuyển đổi từ Plutus → Aiken  
-- Góp phần mở rộng hệ sinh thái DApp Cardano  
-- Tạo nguồn tài liệu giáo dục bền vững & miễn phí
+### 🌱 Long-term Benefits for Cardano
+- Rapid growth of Aiken developer community  
+- Faster migration from Plutus → Aiken  
+- Increased DApp development capacity  
+- Sustainable open-education resources for the ecosystem  
 
 ---
 
 ## 📌 Milestones (100% Completed)
 
-| Milestone | Thời gian | Ngân sách | Tiến độ |
-|-----------|-----------|-----------|---------|
-| Research & Planning | 2 tháng | ₳3,500 | ✔ |
-| Phase 1: Fundamentals | 2 tháng | ₳6,000 | ✔ |
-| Phase 2: Real-world Contracts | 2 tháng | ₳6,000 | ✔ |
-| Quality Control | 1 tháng | ₳2,000 | ✔ |
-| Evaluation & Updates | 1 tháng | ₳2,500 | ✔ |
+| Milestone | Timeline | Budget | Progress |
+|-----------|----------|--------|----------|
+| Research & Planning | 2 months | ₳3,500 | ✔ |
+| Phase 1: Fundamentals | 2 months | ₳6,000 | ✔ |
+| Phase 2: Real-world Contracts | 2 months | ₳6,000 | ✔ |
+| Quality Assurance | 1 month | ₳2,000 | ✔ |
+| Evaluation & Updates | 1 month | ₳2,500 | ✔ |
 
-**Total:** `₳20,000` – *Successfully completed under Catalyst Fund 11*
+**Total:** `₳20,000` — *Successfully completed under Project Catalyst Fund 11*
 
 ---
 
 ## 💰 Value for Money
 
-- Chi phí thấp: ~₳50–60 cho mỗi giờ nội dung chất lượng cao  
-- Tài liệu mở, dùng lâu dài, tác động lan toả  
-- Một dev được đào tạo → nhiều smart contract → giá trị lớn  
-- Thừa hưởng kinh nghiệm từ các dự án C2VN trước: Plutus, Opshin, Hydra…
+- Cost-effective: ~₳50–60 per hour of high-quality content  
+- Free and open-source, long-term impact  
+- Each trained developer contributes multiple contracts to the ecosystem  
+- Built on experience from previous C2VN programs (Plutus, Opshin, Hydra…)
 
-> **Every ADA spent = Multiply the number of smart contract developers in Cardano.**
+> **Every ADA invested = dozens of new smart contract developers.**
 
 ---
 
@@ -105,14 +106,14 @@ Song ngữ Anh – Việt, có video, slide, template và dự án mẫu.**
 ---
 
 ## 📝 License
-This project is licensed under the **MIT License** – free to use, modify, and distribute.
+This project is licensed under the **MIT License** — free to use, modify, and distribute.
 
 ---
 
 <div align="center">
 
 ### **Aiken is now easy. Learn Smart Contracts. Build the Future. With C2VN.**  
-**Funded by Project Catalyst Fund 11 – Completed & Growing**  
+**Funded by Project Catalyst Fund 11 — Completed & Evolving**  
 🚀 *Start learning Aiken for free today!*
 
 </div>
